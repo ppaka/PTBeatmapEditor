@@ -1,0 +1,8 @@
+﻿# 디폴트 무시된 파일
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.PTBeatmapEditor.iml
