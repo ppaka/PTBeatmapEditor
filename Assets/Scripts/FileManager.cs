@@ -52,7 +52,7 @@ public class FileManager : MonoBehaviour
         using var www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
-        ldc.SetLevel(DownloadHandlerBuffer.GetContent(www));
+        ldc.GetLevelData(DownloadHandlerBuffer.GetContent(www));
     }
     
     private IEnumerator GetClip(string url)
