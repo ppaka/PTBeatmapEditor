@@ -17,6 +17,8 @@ public class LevelDataContainer : MonoBehaviour
 
     public void SetLevel(string file)
     {
+        level.Clear();
+        
         var rawData = Regex.Split(file, LineSplitRe);
         var data = new List<string>(); //임시로 데이터를 내보낼 변수를 선언한다
 

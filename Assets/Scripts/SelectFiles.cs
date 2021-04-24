@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class SelectFiles : MonoBehaviour
 {
+    public LevelDataContainer ldc;
     public AudioSource audioSource;
 
-    public Text selectClipText;
+    public Text selectClipText, selectBeatmapText;
 
     private void FixedUpdate()
     {
@@ -20,7 +21,14 @@ public class SelectFiles : MonoBehaviour
         {
             selectClipText.text = "음악 선택됨";
         }
-        
-        
+
+        if (!ldc.level.Contains("[Info]"))
+        {
+            selectBeatmapText.text = "비트맵을 선택해주세요!";
+        }
+        else
+        {
+            selectBeatmapText.text = "비트맵 선택됨";
+        }
     }
 }
