@@ -28,6 +28,23 @@ public class FileManager : MonoBehaviour
         }
     }
 
+    public void CallLoadSong()
+    {
+        if (ldc.level.levelPath == "") return;
+        
+        var extensions = new[]
+        {
+            new ExtensionFilter("음악 파일", "mp3", "wav", "ogg")
+        };
+
+        var path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
+            
+        if (path.Length > 0)
+        {
+            StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
+        }
+    }
+
     public void LoadSong([CanBeNull] string[] path)
     {
         if (path == null)
