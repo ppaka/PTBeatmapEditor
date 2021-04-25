@@ -20,10 +20,10 @@ public class FileManager : MonoBehaviour
 
         var path = StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", Application.persistentDataPath, extensions, false);
 
-        ldc.level.levelPath = path[0];
-        
         if (path.Length > 0)
         {
+            ldc.level.levelPath = path[0];
+            
             StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
         }
     }
