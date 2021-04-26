@@ -127,12 +127,37 @@ public class FileManager : MonoBehaviour
     
     private IEnumerator GetClip(string url)
     {
+        var furl = url.Replace("%20", " ");
+        var surl = furl.Replace("file:///", "");
+        
+        var splitee = ldc.level.levelPath.Split('\\');
+            
+        string[] path = new string[splitee.Length];
+            
+        for (var i = 0; i < splitee.Length - 1; i++)
+        {
+            path[i] = splitee[i] + "/";
+        }
+
+        path[path.Length - 1] = ldc.level.clipName;
+
+        try
+        {
+            File.Copy(surl, string.Join("", path), true);
+        }
+        catch
+        {
+            //
+        }
+        
         using var www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
         yield return www.SendWebRequest();
         
         audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
+        
         var split = url.Split('/');
         var clipName = split[split.Length-1].Replace("%20", " ");
+        
         audioSource.clip.name = clipName;
         ldc.GetClipName(clipName);
     }
