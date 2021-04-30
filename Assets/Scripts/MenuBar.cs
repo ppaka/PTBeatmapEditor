@@ -39,20 +39,20 @@ public class MenuBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         switch (dropdown.value)
         {
             case 1:
-                _fileManager.LoadLevel();
                 dropdown.value = -1;
+                _fileManager.LoadLevel();
                 break;
             case 2:
-                _fileManager.SaveLevel();
                 dropdown.value = -1;
+                _fileManager.SaveLevel();
                 break;
             case 3:
-                _fileManager.SaveLevelAs();
                 dropdown.value = -1;
+                _fileManager.SaveLevelAs();
                 break;
             case 4:
-                Application.Quit();
                 dropdown.value = -1;
+                Application.Quit();
                 break;
         }
     }

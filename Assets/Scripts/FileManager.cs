@@ -91,6 +91,27 @@ public class FileManager : MonoBehaviour
         writer.WriteLine(ldc.level.creater);
         writer.WriteLine(ldc.level.difficulty);
         writer.WriteLine(ldc.level.clipName);
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Timings]");
+        foreach (var eachTiming in ldc.level.timings)
+        {
+            writer.WriteLine(eachTiming);
+        }
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Events]");
+        foreach (var eachEvent in ldc.level.events)
+        {
+            writer.WriteLine(eachEvent);
+        }
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Note]");
+        foreach (var eachNote in ldc.level.note)
+        {
+            writer.WriteLine(eachNote);
+        }
         writer.Dispose();
         
         ldc.level.levelPath = path;
@@ -112,6 +133,27 @@ public class FileManager : MonoBehaviour
         writer.WriteLine(ldc.level.creater);
         writer.WriteLine(ldc.level.difficulty);
         writer.WriteLine(ldc.level.clipName);
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Timings]");
+        foreach (var eachTiming in ldc.level.timings)
+        {
+            writer.WriteLine(eachTiming);
+        }
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Events]");
+        foreach (var eachEvent in ldc.level.events)
+        {
+            writer.WriteLine(eachEvent);
+        }
+        writer.WriteLine("");
+        
+        writer.WriteLine("[Note]");
+        foreach (var eachNote in ldc.level.note)
+        {
+            writer.WriteLine(eachNote);
+        }
         writer.Dispose();
 
         ldc.level.levelPath = path;
