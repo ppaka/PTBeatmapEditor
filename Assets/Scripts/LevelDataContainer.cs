@@ -118,6 +118,21 @@ public class LevelDataContainer : MonoBehaviour
         diffValueText.text = ((int) diffSlider.value).ToString();
     }
 
+    public void ResetLevelData()
+    {
+        level.levelPath = "";
+        level.clipName = clipName.text = "";
+        level.info.Clear();
+        level.note.Clear();
+        level.events.Clear();
+        level.timings.Clear();
+        level.title = title.text = "";
+        level.artist = artist.text = "";
+        level.creater = creater.text = "";
+        level.difficulty = (int) (diffSlider.value = 1);
+        diffValueText.text = ((int) diffSlider.value).ToString();
+    }
+
     public void GetClipName(string nameStr)
     {
         clipName.text = nameStr;

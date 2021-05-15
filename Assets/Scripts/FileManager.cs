@@ -125,7 +125,10 @@ public class FileManager : MonoBehaviour
         var path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기",
             Application.persistentDataPath + "/", "level",
             "ptlevel");
-
+        
+        if(path.Equals(string.Empty))
+            return;
+        
         var writer = File.CreateText(path);
         writer.WriteLine("[Info]");
         writer.WriteLine(ldc.level.title);
