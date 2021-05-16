@@ -24,9 +24,9 @@ public class Waveform : MonoBehaviour
             s = 0;
         }
 
-        for (int i = 0; i < size; i++)
+        for (var i = 0; i < size; i++)
         {
-            waveform[i] /= (max * sat);
+            waveform[i] /= max * sat;
             if (waveform[i] > 1f)
                 waveform[i] = 1f;
         }
@@ -40,7 +40,7 @@ public class Waveform : MonoBehaviour
         var samples = new float[audio.samples * audio.channels];
         var waveform = new float[width];
         audio.GetData(samples, 0);
-        var packSize = (samples.Length / width) + 1;
+        var packSize = samples.Length / width + 1;
         var s = 0;
 
         for (var i = 0; i < samples.Length; i += packSize)
@@ -59,12 +59,13 @@ public class Waveform : MonoBehaviour
 
         for (var x = 0; x < waveform.Length; x++)
         {
-            for (var y = 0; y <= waveform[x] * ((float)height * .75f); y++)
+            for (var y = 0; y <= waveform[x] * (height * .75f); y++)
             {
-                tex.SetPixel(x, (height / 2) + y, col);
-                tex.SetPixel(x, (height / 2) - y, col);
+                tex.SetPixel(x, height / 2 + y, col);
+                tex.SetPixel(x, height / 2 - y, col);
             }
         }
+
         tex.Apply();
 
         return tex;
