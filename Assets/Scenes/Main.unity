@@ -4156,7 +4156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 0
   height: 150
-  waveformColor: {r: 1, g: 1, b: 1, a: 0}
+  waveformColor: {r: 1, g: 0.706124, b: 0.1462264, a: 0}
   sat: 0.5
   img: {fileID: 833059017}
 --- !u!1 &1642285955
