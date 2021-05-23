@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class MenuBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuBar : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     private CanvasGroup _menuGroup;
     public GameObject[] toolMenus;
@@ -15,24 +15,24 @@ public class MenuBar : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         _menuGroup = GetComponent<CanvasGroup>();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        _menuGroup.DOKill();
-
-        _menuGroup.DOFade(0.9f, 0.5f).SetEase(Ease.OutQuad);
-        _menuGroup.interactable = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _menuGroup.DOKill();
-
-        _menuGroup.DOFade(0, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-        {
-            HideToolMenus();
-        });
-        _menuGroup.interactable = false;
-    }
+    // public void OnPointerEnter(PointerEventData eventData)
+    // {
+    //     _menuGroup.DOKill();
+    //
+    //     _menuGroup.DOFade(0.9f, 0.5f).SetEase(Ease.OutQuad);
+    //     _menuGroup.interactable = true;
+    // }
+    //
+    // public void OnPointerExit(PointerEventData eventData)
+    // {
+    //     _menuGroup.DOKill();
+    //
+    //     _menuGroup.DOFade(0, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+    //     {
+    //         HideToolMenus();
+    //     });
+    //     _menuGroup.interactable = false;
+    // }
 
     public void ShowToolMenu(GameObject obj)
     {

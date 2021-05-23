@@ -10,6 +10,7 @@ public class FileManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public LevelDataContainer ldc;
+    public WaveformControl waveformControl;
 
     public void LoadLevel()
     {
@@ -194,7 +195,7 @@ public class FileManager : MonoBehaviour
         {
             //
         }
-        
+
         using var www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
         yield return www.SendWebRequest();
         
@@ -202,6 +203,8 @@ public class FileManager : MonoBehaviour
         
         var split = url.Split('/');
         var clipName = split[split.Length-1].Replace("%20", " ");
+
+        waveformControl.AudioLoadComplete();
         
         audioSource.clip.name = clipName;
         ldc.GetClipName(clipName);

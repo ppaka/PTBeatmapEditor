@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,11 @@ public class WaveformControl : MonoBehaviour
     public Image img;
     private AudioSource _audio;
 
+    public Action AudioLoadComplete;
+
     private void Start()
     {
+        AudioLoadComplete += UpdateWaveform;
         _audio = FindObjectOfType<AudioSource>();
     }
 
