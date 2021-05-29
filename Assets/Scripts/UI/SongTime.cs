@@ -15,17 +15,17 @@ public class SongTime : MonoBehaviour
 
     private void Start()
     {
-        _nowTime = (float)(Math.Truncate(audioSource.time * 1)/1);
+        _nowTime = (float) (Math.Truncate(audioSource.time * 1) / 1);
     }
 
     private void Update()
     {
         _nowTime = audioSource.time;
 
-        _mSec = (int)((_nowTime - (int)_nowTime) * 100);
-        _sec = (int)(_nowTime % 60);
-        _min = (int)(_nowTime / 60 % 60);
-        _hour = (int)(_nowTime / 60 / 60 % 60);
+        _mSec = (int) ((_nowTime - (int) _nowTime) * 100);
+        _sec = (int) (_nowTime % 60);
+        _min = (int) (_nowTime / 60 % 60);
+        _hour = (int) (_nowTime / 60 / 60 % 60);
 
         text.text = $"{_hour:00}:{_min:00}:{_sec:00};{_mSec:00}";
     }

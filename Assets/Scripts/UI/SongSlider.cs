@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -11,18 +10,12 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void OnEnable()
     {
-        global::LoadEvents.AudioLoadComplete += () =>
-        {
-            LoadEvents();
-        };
+        global::LoadEvents.AudioLoadComplete += LoadEvents;
     }
 
     private void OnDisable()
     {
-        global::LoadEvents.AudioLoadComplete -= () =>
-        {
-            LoadEvents();
-        };
+        global::LoadEvents.AudioLoadComplete -= LoadEvents;
     }
 
     private void LoadEvents()

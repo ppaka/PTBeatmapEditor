@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 public enum DataType
 {
@@ -20,19 +19,22 @@ public static class FileReader
         var rawData = Regex.Split(file, LineSplitRe);
 
         var index = 0;
-        
+
         if (type == DataType.Info)
         {
             index = Array.IndexOf(rawData, "[Info]");
         }
+
         if (type == DataType.Timings)
         {
             index = Array.IndexOf(rawData, "[Timings]");
         }
+
         if (type == DataType.Events)
         {
             index = Array.IndexOf(rawData, "[Events]");
         }
+
         if (type == DataType.Note)
         {
             index = Array.IndexOf(rawData, "[Note]");
@@ -49,7 +51,7 @@ public static class FileReader
                 {
                     return data;
                 }
-                
+
                 data.Add(rawData[index + i + 1]);
             }
             catch

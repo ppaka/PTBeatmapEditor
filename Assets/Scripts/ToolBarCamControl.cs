@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 public class ToolBarCamControl : MonoBehaviour
 {
     public Camera mainCam;
-    private bool _isOn = false;
+    private bool _isOn;
 
     private void Update()
     {
