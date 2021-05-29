@@ -14,11 +14,9 @@ public class WaveformControl : MonoBehaviour
     public Image img;
     private AudioSource _audio;
 
-    public Action AudioLoadComplete;
-
     private void Start()
     {
-        AudioLoadComplete += UpdateWaveform;
+        LoadEvents.AudioLoadComplete += UpdateWaveform;
         _audio = FindObjectOfType<AudioSource>();
     }
 

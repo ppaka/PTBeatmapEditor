@@ -204,7 +204,7 @@ public class FileManager : MonoBehaviour
         var split = url.Split('/');
         var clipName = split[split.Length-1].Replace("%20", " ");
 
-        waveformControl.AudioLoadComplete();
+        LoadEvents.AudioLoadComplete();
         
         audioSource.clip.name = clipName;
         ldc.GetClipName(clipName);
