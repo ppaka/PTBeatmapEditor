@@ -9,6 +9,7 @@ public class MenuBar : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandle
 {
     private CanvasGroup _menuGroup;
     public GameObject[] toolMenus;
+    public Toggle filesToggle;
 
     private void Start()
     {
@@ -41,6 +42,7 @@ public class MenuBar : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandle
 
     public void HideToolMenus()
     {
+        filesToggle.isOn = false;
         foreach (var i in toolMenus)
         {
             i.SetActive(false);

@@ -3338,6 +3338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolMenus:
   - {fileID: 1880196050}
+  filesToggle: {fileID: 1889539942}
 --- !u!1 &900259633
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,7 +5556,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 837886784}
   ldc: {fileID: 1895197986}
-  waveformControl: {fileID: 1642085552}
 --- !u!114 &1642085552
 MonoBehaviour:
   m_ObjectHideFlags: 0
