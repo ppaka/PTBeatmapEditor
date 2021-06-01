@@ -13,6 +13,8 @@ public class SongTime : MonoBehaviour
     private int _min;
     private int _hour;
 
+    public bool changed;
+
     private void Start()
     {
         _nowTime = (float) (Math.Truncate(audioSource.time * 1) / 1);
@@ -20,7 +22,13 @@ public class SongTime : MonoBehaviour
 
     private void Update()
     {
-        _nowTime = audioSource.time;
+        if (changed) return;
+        UpdateTime(audioSource.time);
+    }
+
+    public void UpdateTime(float songTime)
+    {
+        audioSource.time = _nowTime = songTime;
 
         _mSec = (int) ((_nowTime - (int) _nowTime) * 100);
         _sec = (int) (_nowTime % 60);

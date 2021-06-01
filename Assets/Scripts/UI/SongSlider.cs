@@ -1,37 +1,45 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public AudioSource audioSource;
     public Slider slider;
+    public SongTime songTime;
     private bool _dragging;
+    private AudioClip _clip;
 
     private void OnEnable()
     {
-        global::LoadEvents.AudioLoadComplete += LoadEvents;
+        global::LoadEvents.audioLoadComplete += LoadEvents;
     }
 
     private void OnDisable()
     {
-        global::LoadEvents.AudioLoadComplete -= LoadEvents;
+        global::LoadEvents.audioLoadComplete -= LoadEvents;
     }
 
     private void LoadEvents()
     {
         slider.interactable = true;
+        _clip = audioSource.clip;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        songTime.changed = true;
         _dragging = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        var clip = audioSource.clip;
-        audioSource.time = Mathf.Clamp(slider.value * clip.length, 0f, clip.length);
+        if (!slider.interactable) return;
+        var value = Mathf.Clamp(slider.value * _clip.length, 0f, _clip.length);
+        songTime.UpdateTime(value);
+        
+        songTime.changed = false;
         _dragging = false;
     }
 
@@ -45,5 +53,14 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             case false when !audioSource.isPlaying && audioSource.time != 0:
                 break;
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!slider.interactable) return;
+        songTime.changed = true;
+        _dragging = true;
+        var value = Mathf.Clamp(slider.value * _clip.length, 0, _clip.length);
+        songTime.UpdateTime(value);
     }
 }
