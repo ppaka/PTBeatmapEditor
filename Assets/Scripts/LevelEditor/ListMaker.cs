@@ -8,7 +8,8 @@ public class ListMaker : MonoBehaviour
 {
     public GameObject itemPrefab, noteListParent, eventListParent;
     public LevelDataContainer ldc;
-    
+    public InputField time, duration;
+    public Dropdown noteType, ease;
 
     private void Awake()
     {
@@ -33,5 +34,10 @@ public class ListMaker : MonoBehaviour
             var cache = Instantiate(itemPrefab, eventListParent.transform);
             cache.GetComponentInChildren<Text>().text = data;
         }
+    }
+
+    public void SelectData()
+    {
+        
     }
 }
