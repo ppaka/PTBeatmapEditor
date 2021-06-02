@@ -26,9 +26,14 @@ public class SongTime : MonoBehaviour
         UpdateTime(audioSource.time);
     }
 
-    public void UpdateTime(float songTime)
+    public void UpdateTime(float songTime, bool changeAudioSourceTime = true)
     {
-        audioSource.time = _nowTime = songTime;
+        if (changeAudioSourceTime)
+            audioSource.time = _nowTime = songTime;
+        else
+        {
+            _nowTime = songTime;
+        }
 
         _mSec = (int) ((_nowTime - (int) _nowTime) * 100);
         _sec = (int) (_nowTime % 60);

@@ -10,6 +10,7 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     public SongTime songTime;
     private bool _dragging;
     private AudioClip _clip;
+    public bool doScrubbing;
 
     private void OnEnable()
     {
@@ -61,6 +62,6 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         songTime.changed = true;
         _dragging = true;
         var value = Mathf.Clamp(slider.value * _clip.length, 0, _clip.length);
-        songTime.UpdateTime(value);
+        songTime.UpdateTime(value, doScrubbing);
     }
 }
