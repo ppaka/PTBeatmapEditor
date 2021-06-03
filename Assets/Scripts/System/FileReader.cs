@@ -7,7 +7,9 @@ public enum DataType
     Info,
     Timings,
     Events,
-    Note
+    Note,
+    Objects,
+    Init
 }
 
 public static class FileReader
@@ -19,25 +21,30 @@ public static class FileReader
         var rawData = Regex.Split(file, LineSplitRe);
 
         var index = 0;
-
+        
         if (type == DataType.Info)
         {
             index = Array.IndexOf(rawData, "[Info]");
         }
-
-        if (type == DataType.Timings)
+        else if (type == DataType.Timings)
         {
             index = Array.IndexOf(rawData, "[Timings]");
         }
-
-        if (type == DataType.Events)
+        else if (type == DataType.Events)
         {
             index = Array.IndexOf(rawData, "[Events]");
         }
-
-        if (type == DataType.Note)
+        else if (type == DataType.Note)
         {
             index = Array.IndexOf(rawData, "[Note]");
+        }
+        else if (type == DataType.Objects)
+        {
+            index = Array.IndexOf(rawData, "[Objects]");
+        }
+        else if (type == DataType.Init)
+        {
+            index = Array.IndexOf(rawData, "[Init]");
         }
 
         var data = new List<string>(); //임시로 데이터를 내보낼 변수를 선언한다
@@ -48,9 +55,7 @@ public static class FileReader
             try
             {
                 if (rawData[index + i + 1] == "")
-                {
                     return data;
-                }
 
                 data.Add(rawData[index + i + 1]);
             }
