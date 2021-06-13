@@ -1,12 +1,10 @@
-using System.Text;
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using SFB;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
-using SFB;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler
@@ -32,9 +30,11 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler
     //
     // Standalone platforms & editor
     //
-    public void OnPointerDown(PointerEventData eventData) { }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+    }
 
-    void Start()
+    private void Start()
     {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
@@ -43,17 +43,14 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler
     private void OnClick()
     {
         var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", ".png", false);
-        if (paths.Length > 0)
-        {
-            StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
-        }
+        if (paths.Length > 0) StartCoroutine(OutputRoutine(new Uri(paths[0]).AbsoluteUri));
     }
 #endif
 
     private IEnumerator OutputRoutine(string url)
     {
-        UnityWebRequest loader = UnityWebRequestTexture.GetTexture(url);
+        var loader = UnityWebRequestTexture.GetTexture(url);
         yield return loader.SendWebRequest();
-        output.texture = ((DownloadHandlerTexture)loader.downloadHandler).texture;
+        output.texture = ((DownloadHandlerTexture) loader.downloadHandler).texture;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using SFB;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,7 +23,7 @@ public class FileManager : MonoBehaviour
 
         if (path.Length > 0)
         {
-            ldc.level.levelPath = path[0];
+            ldc.levelPath = path[0];
 
             StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
         }
@@ -30,7 +31,7 @@ public class FileManager : MonoBehaviour
 
     public void CallLoadSong()
     {
-        if (ldc.level.levelPath == "") return;
+        if (ldc.levelPath == "") return;
 
         var extensions = new[]
         {
@@ -39,10 +40,7 @@ public class FileManager : MonoBehaviour
 
         var path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
 
-        if (path.Length > 0)
-        {
-            StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
-        }
+        if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
     }
 
     public void LoadSong([CanBeNull] string[] path)
@@ -56,116 +54,45 @@ public class FileManager : MonoBehaviour
 
             path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
 
-            if (path.Length > 0)
-            {
-                StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
-            }
+            if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
         }
         else
         {
-            if (path.Length > 0)
-            {
-                StartCoroutine(GetClip(new Uri(string.Join("", path)).AbsoluteUri));
-            }
+            if (path.Length > 0) StartCoroutine(GetClip(new Uri(string.Join("", path)).AbsoluteUri));
         }
     }
 
     public void SaveLevel()
     {
-        if (ldc.level.title == string.Empty || ldc.level.artist == string.Empty || ldc.level.creater == string.Empty)
+        if (ldc.level.settings.title == string.Empty || ldc.level.settings.artist == string.Empty ||
+            ldc.level.settings.author == string.Empty)
             return;
 
-        var path = ldc.level.levelPath;
+        var path = ldc.levelPath;
 
-        if (!File.Exists(ldc.level.levelPath))
-        {
+        if (!File.Exists(ldc.levelPath))
             path = StandaloneFileBrowser.SaveFilePanel("레벨 저장하기",
                 Application.persistentDataPath + "/", "level",
                 "ptlevel");
-        }
 
-        var writer = File.CreateText(path);
-        writer.WriteLine("[Info]");
-        writer.WriteLine(ldc.level.title);
-        writer.WriteLine(ldc.level.artist);
-        writer.WriteLine(ldc.level.creater);
-        writer.WriteLine(ldc.level.difficulty);
-        writer.WriteLine(ldc.level.clipName);
-        writer.WriteLine("");
-
-        writer.WriteLine("[Timings]");
-        foreach (var eachTiming in ldc.level.timings)
-        {
-            writer.WriteLine(eachTiming);
-        }
-
-        writer.WriteLine("");
-
-        writer.WriteLine("[Events]");
-        foreach (var eachEvent in ldc.level.events)
-        {
-            writer.WriteLine(eachEvent);
-        }
-
-        writer.WriteLine("");
-
-        writer.WriteLine("[Note]");
-        foreach (var eachNote in ldc.level.note)
-        {
-            writer.WriteLine(eachNote);
-        }
-
-        writer.Dispose();
-
-        ldc.level.levelPath = path;
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level));
+        ldc.levelPath = path;
     }
 
     public void SaveLevelAs()
     {
-        if (ldc.level.title == string.Empty || ldc.level.artist == string.Empty || ldc.level.creater == string.Empty)
+        if (ldc.level.settings.title.Equals("") || ldc.level.settings.artist.Equals("") ||
+            ldc.level.settings.author.Equals(""))
             return;
 
         var path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기",
             Application.persistentDataPath + "/", "level",
             "ptlevel");
 
-        if (path.Equals(string.Empty))
-            return;
+        if (path.Equals(string.Empty)) return;
 
-        var writer = File.CreateText(path);
-        writer.WriteLine("[Info]");
-        writer.WriteLine(ldc.level.title);
-        writer.WriteLine(ldc.level.artist);
-        writer.WriteLine(ldc.level.creater);
-        writer.WriteLine(ldc.level.difficulty);
-        writer.WriteLine(ldc.level.clipName);
-        writer.WriteLine("");
-
-        writer.WriteLine("[Timings]");
-        foreach (var eachTiming in ldc.level.timings)
-        {
-            writer.WriteLine(eachTiming);
-        }
-
-        writer.WriteLine("");
-
-        writer.WriteLine("[Events]");
-        foreach (var eachEvent in ldc.level.events)
-        {
-            writer.WriteLine(eachEvent);
-        }
-
-        writer.WriteLine("");
-
-        writer.WriteLine("[Note]");
-        foreach (var eachNote in ldc.level.note)
-        {
-            writer.WriteLine(eachNote);
-        }
-
-        writer.Dispose();
-
-        ldc.level.levelPath = path;
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level));
+        ldc.levelPath = path;
     }
 
     private IEnumerator GetLevelData(string url)
@@ -174,29 +101,25 @@ public class FileManager : MonoBehaviour
         yield return www.SendWebRequest();
 
         ldc.GetLevelData(DownloadHandlerBuffer.GetContent(www));
-        
+
         LoadEvents.levelLoadComplete();
     }
 
     private IEnumerator GetClip(string url)
     {
-        var furl = url.Replace("%20", " ");
-        var surl = furl.Replace("file:///", "");
+        var replaced = url.Replace("%20", " ").Replace("file:///", "");
 
-        var splitee = ldc.level.levelPath.Split('\\');
+        var splitPath = ldc.levelPath.Split('\\');
 
-        string[] path = new string[splitee.Length];
+        var path = new string[splitPath.Length];
 
-        for (var i = 0; i < splitee.Length - 1; i++)
-        {
-            path[i] = splitee[i] + "/";
-        }
+        for (var i = 0; i < splitPath.Length - 1; i++) path[i] = splitPath[i] + "/";
 
-        path[path.Length - 1] = ldc.level.clipName;
+        path[path.Length - 1] = ldc.level.settings.songFilename;
 
         try
         {
-            File.Copy(surl, string.Join("", path), true);
+            File.Copy(replaced, string.Join("", path), true);
         }
         catch
         {

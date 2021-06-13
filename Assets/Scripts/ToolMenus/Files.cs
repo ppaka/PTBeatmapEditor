@@ -1,13 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Files : MonoBehaviour
 {
-    private FileManager _fileManager;
-    private MenuBar _menuBar;
-    private LevelDataContainer _ldc;
-    
     public CanvasGroup settingsCg;
+    private FileManager _fileManager;
+    private LevelDataContainer _ldc;
+    private MenuBar _menuBar;
 
     private void Start()
     {

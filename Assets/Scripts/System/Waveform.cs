@@ -50,20 +50,14 @@ public class Waveform : MonoBehaviour
         }
 
         for (var x = 0; x < width; x++)
-        {
-            for (var y = 0; y < height; y++)
-            {
-                tex.SetPixel(x, y, Color.black);
-            }
-        }
+        for (var y = 0; y < height; y++)
+            tex.SetPixel(x, y, Color.black);
 
         for (var x = 0; x < waveform.Length; x++)
+        for (var y = 0; y <= waveform[x] * (height * .75f); y++)
         {
-            for (var y = 0; y <= waveform[x] * (height * .75f); y++)
-            {
-                tex.SetPixel(x, height / 2 + y, col);
-                tex.SetPixel(x, height / 2 - y, col);
-            }
+            tex.SetPixel(x, height / 2 + y, col);
+            tex.SetPixel(x, height / 2 - y, col);
         }
 
         tex.Apply();

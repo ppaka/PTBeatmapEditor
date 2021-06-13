@@ -1,19 +1,19 @@
 using System;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class SongTime : MonoBehaviour
 {
     public AudioSource audioSource;
     public TMP_Text text;
-    private float _nowTime;
-
-    private int _mSec;
-    private int _sec;
-    private int _min;
-    private int _hour;
 
     public bool changed;
+    private int _hour;
+    private int _min;
+
+    private int _mSec;
+    private float _nowTime;
+    private int _sec;
 
     private void Start()
     {
@@ -31,9 +31,7 @@ public class SongTime : MonoBehaviour
         if (changeAudioSourceTime)
             audioSource.time = _nowTime = songTime;
         else
-        {
             _nowTime = songTime;
-        }
 
         _mSec = (int) ((_nowTime - (int) _nowTime) * 100);
         _sec = (int) (_nowTime % 60);

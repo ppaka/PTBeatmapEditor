@@ -1,48 +1,15 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public AudioSource audioSource;
     public Slider slider;
     public SongTime songTime;
-    private bool _dragging;
-    private AudioClip _clip;
     public bool doScrubbing;
-
-    private void OnEnable()
-    {
-        global::LoadEvents.audioLoadComplete += LoadEvents;
-    }
-
-    private void OnDisable()
-    {
-        global::LoadEvents.audioLoadComplete -= LoadEvents;
-    }
-
-    private void LoadEvents()
-    {
-        slider.interactable = true;
-        _clip = audioSource.clip;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        songTime.changed = true;
-        _dragging = true;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (!slider.interactable) return;
-        var value = Mathf.Clamp(slider.value * _clip.length, 0f, _clip.length);
-        songTime.UpdateTime(value);
-        
-        songTime.changed = false;
-        _dragging = false;
-    }
+    private AudioClip _clip;
+    private bool _dragging;
 
     private void Update()
     {
@@ -56,6 +23,16 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         }
     }
 
+    private void OnEnable()
+    {
+        global::LoadEvents.audioLoadComplete += LoadEvents;
+    }
+
+    private void OnDisable()
+    {
+        global::LoadEvents.audioLoadComplete -= LoadEvents;
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         if (!slider.interactable) return;
@@ -63,5 +40,27 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _dragging = true;
         var value = Mathf.Clamp(slider.value * _clip.length, 0, _clip.length);
         songTime.UpdateTime(value, doScrubbing);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        songTime.changed = true;
+        _dragging = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!slider.interactable) return;
+        var value = Mathf.Clamp(slider.value * _clip.length, 0f, _clip.length);
+        songTime.UpdateTime(value);
+
+        songTime.changed = false;
+        _dragging = false;
+    }
+
+    private void LoadEvents()
+    {
+        slider.interactable = true;
+        _clip = audioSource.clip;
     }
 }

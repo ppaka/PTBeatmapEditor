@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using DG.Tweening;
 
-public class MenuBar : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
+public class MenuBar : MonoBehaviour //, IPointerEnterHandler, IPointerExitHandler
 {
-    private CanvasGroup _menuGroup;
     public GameObject[] toolMenus;
     public Toggle filesToggle;
+    private CanvasGroup _menuGroup;
 
     private void Start()
     {
@@ -43,9 +39,6 @@ public class MenuBar : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandle
     public void HideToolMenus()
     {
         filesToggle.isOn = false;
-        foreach (var i in toolMenus)
-        {
-            i.SetActive(false);
-        }
+        foreach (var i in toolMenus) i.SetActive(false);
     }
 }

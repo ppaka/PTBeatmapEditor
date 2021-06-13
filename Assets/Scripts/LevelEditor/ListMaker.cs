@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,21 +20,20 @@ public class ListMaker : MonoBehaviour
 
     private void MakeLists()
     {
-        foreach (var data in ldc.level.note)
+        foreach (var data in ldc.level.notes)
         {
             var cache = Instantiate(itemPrefab, noteListParent.transform);
-            cache.GetComponentInChildren<Text>().text = data;
+            cache.GetComponentInChildren<Text>().text = data.ToString();
         }
-        
+
         foreach (var data in ldc.level.events)
         {
             var cache = Instantiate(itemPrefab, eventListParent.transform);
-            cache.GetComponentInChildren<Text>().text = data;
+            cache.GetComponentInChildren<Text>().text = data.ToString();
         }
     }
 
     public void SelectData()
     {
-        
     }
 }

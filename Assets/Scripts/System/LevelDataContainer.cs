@@ -1,89 +1,45 @@
 using System;
-using System.Text;
+using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelDataContainer : MonoBehaviour
 {
-    public FileManager fileManager;
-
     public InputField title, artist, creater, clipName;
     public Slider diffSlider;
     public Text diffValueText;
 
-    public Level level;
+    public string levelPath;
+
+    public LevelData level;
+    public FileManager fileManager;
 
     public void GetLevelData(string file)
     {
         try
         {
-            var info = FileReader.ReadLevelData(file, DataType.Info);
-            level.info = info;
-            title.text = level.title = info[0];
-            artist.text = level.artist = info[1];
-            creater.text = level.creater = info[2];
-            diffValueText.text = (diffSlider.value = level.difficulty = int.Parse(info[3])).ToString();
-            clipName.text = level.clipName = info[4];
+            level = JsonConvert.DeserializeObject<LevelData>(file);
+            title.text = level.settings.title;
+            artist.text = level.settings.artist;
+            creater.text = level.settings.author;
+            diffValueText.text = (diffSlider.value = level.settings.difficulty).ToString();
+            clipName.text = level.settings.songFilename;
 
-            var note = FileReader.ReadLevelData(file, DataType.Note);
+            level.events = level.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
+            level.notes = level.notes.OrderBy(x => x.time.ToString(), new StringAsNumericComparer())
+                // ReSharper disable once SpecifyACultureInStringConversionExplicitly
+                .ThenBy(x => x.duration.ToString(), new StringAsNumericComparer()).ToList();
+            level.noteEvents = level.noteEvents.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
+                .ToList();
 
-            var lastNot = note[note.Count - 1].Split(',');
-            var lnLength = lastNot[0].Length;
+            var split = levelPath.Split('\\');
 
-            foreach (var data in note)
-            {
-                var sData = data.Split(',');
-                var str = "";
+            var path = new string[split.Length];
 
-                var stringBuilder = new StringBuilder();
+            for (var i = 0; i < split.Length - 1; i++) path[i] = split[i] + "/";
 
-                for (var i = 1; i < sData.Length; i++)
-                {
-                    stringBuilder.Append($",{sData[i]}");
-                }
-
-                str = stringBuilder.ToString();
-
-                level.note.Add(int.Parse(sData[0]).ToString($"D{lnLength}") + str);
-            }
-
-            var events = FileReader.ReadLevelData(file, DataType.Events);
-            var lastEvt = events[events.Count - 1].Split(',');
-            var evLength = lastEvt[0].Length;
-
-            foreach (var data in events)
-            {
-                var sData = data.Split(',');
-                var str = "";
-
-                var stringBuilder = new StringBuilder();
-
-                for (var i = 1; i < sData.Length; i++)
-                {
-                    stringBuilder.Append($",{sData[i]}");
-                }
-
-                str = stringBuilder.ToString();
-
-                level.events.Add(int.Parse(sData[0]).ToString($"D{evLength}") + str);
-            }
-            
-            level.timings = FileReader.ReadLevelData(file, DataType.Timings);
-
-            level.note.Sort();
-            level.events.Sort();
-            level.timings.Sort();
-
-            var split = level.levelPath.Split('\\');
-
-            string[] path = new string[split.Length];
-
-            for (var i = 0; i < split.Length - 1; i++)
-            {
-                path[i] = split[i] + "/";
-            }
-
-            path[path.Length - 1] = level.clipName;
+            path[path.Length - 1] = level.settings.songFilename;
 
             fileManager.LoadSong(path);
         }
@@ -95,31 +51,32 @@ public class LevelDataContainer : MonoBehaviour
 
     public void SetLevelData()
     {
-        level.title = title.text;
-        level.artist = artist.text;
-        level.creater = creater.text;
-        level.difficulty = (int) diffSlider.value;
+        level.settings.title = title.text;
+        level.settings.artist = artist.text;
+        level.settings.author = creater.text;
+        level.settings.difficulty = (uint) diffSlider.value;
         diffValueText.text = ((int) diffSlider.value).ToString();
     }
 
     public void ResetLevelData()
     {
-        level.levelPath = "";
-        level.clipName = clipName.text = "";
-        level.info.Clear();
-        level.note.Clear();
+        levelPath = "";
+        level.settings.songFilename = clipName.text = "";
+        level.settings = new Settings();
+        level.notes.Clear();
         level.events.Clear();
-        level.timings.Clear();
-        level.title = title.text = "";
-        level.artist = artist.text = "";
-        level.creater = creater.text = "";
-        level.difficulty = (int) (diffSlider.value = 1);
+        level.noteEvents.Clear();
+        level.objects.Clear();
+        level.settings.title = title.text = "";
+        level.settings.artist = artist.text = "";
+        level.settings.author = creater.text = "";
+        level.settings.difficulty = (uint) (diffSlider.value = 1);
         diffValueText.text = ((int) diffSlider.value).ToString();
     }
 
     public void GetClipName(string nameStr)
     {
         clipName.text = nameStr;
-        level.clipName = nameStr;
+        level.settings.songFilename = nameStr;
     }
 }

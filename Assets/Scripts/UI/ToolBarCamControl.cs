@@ -9,7 +9,6 @@ public class ToolBarCamControl : MonoBehaviour
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl))
-        {
             if (Input.GetKeyDown(KeyCode.T))
             {
                 if (_isOn == false)
@@ -23,6 +22,5 @@ public class ToolBarCamControl : MonoBehaviour
                     _isOn = false;
                 }
             }
-        }
     }
 }

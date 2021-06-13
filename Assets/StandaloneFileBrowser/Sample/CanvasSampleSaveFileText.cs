@@ -1,17 +1,16 @@
 using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using SFB;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
+public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler
+{
     public Text output;
 
     // Sample text data
-    private string _data = "Example text created by StandaloneFileBrowser";
+    private readonly string _data = "Example text created by StandaloneFileBrowser";
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
@@ -34,19 +33,21 @@ public class CanvasSampleSaveFileText : MonoBehaviour, IPointerDownHandler {
     //
     // Standalone platforms & editor
     //
-    public void OnPointerDown(PointerEventData eventData) { }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+    }
 
     // Listen OnClick event in standlone builds
-    void Start() {
+    private void Start()
+    {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
 
-    public void OnClick() {
+    public void OnClick()
+    {
         var path = StandaloneFileBrowser.SaveFilePanel("Title", "", "sample", "txt");
-        if (!string.IsNullOrEmpty(path)) {
-            File.WriteAllText(path, _data);
-        }
+        if (!string.IsNullOrEmpty(path)) File.WriteAllText(path, _data);
     }
 #endif
 }
