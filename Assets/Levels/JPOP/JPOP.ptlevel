@@ -1,511 +1,526 @@
-[Info]
-JPOP
-FesliyanStudios
-_TheChicken
-4
-JPOP.ogg
-
-[Timings]
-0000,4550
-
-[Objects]
-background, jpop_bg.png
-
-[Events]
--000500,accuracyEffect,1|1|1,1
-033900,accuracyEffect,2|2|2,1
-066000,move2d,gameBar,local,0/200,1,oQ
-068000,move2d,gameBar,local,0/-200,1,oQ
-070000,move2d,gameBar,local,0/200,1,oQ
-072000,move2d,gameBar,local,0/-200,1,oQ
-074000,move2d,gameBar,local,0/200,1,oQ
-076000,move2d,gameBar,local,0/-200,1,oQ
-078000,move2d,gameBar,local,0/200,1,oQ
-080000,move2d,gameBar,local,0/-200,1,oQ
-082000,move2d,gameBar,local,0/200,1,oQ
-082000,setParticles,mainParticle,on
-084000,move2d,gameBar,local,0/-200,1,oQ
-086000,move2d,gameBar,local,0/200,1,oQ
-088000,move2d,gameBar,local,0/-200,1,oQ
-090000,move2d,gameBar,local,0/200,1,oQ
-092000,move2d,gameBar,local,0/-200,1,oQ
-094000,move2d,gameBar,local,0/200,1,oQ
-096000,move2d,gameBar,local,0/-200,1,oQ
-098000,move2d,gameBar,local,0/200,1,oQ
-098000,setLightColor,globalLight,FFC5C5,1,L
-099000,setLightColor,globalLight,E5C4FF,1,L
-100000,move2d,gameBar,local,0/-200,1,oQ
-100000,setLightColor,globalLight,C4FFFF,1,L
-101000,setLightColor,globalLight,E1FFC4,1,L
-102000,move2d,gameBar,local,0/200,1,oQ
-102000,setLightColor,globalLight,FFC5C5,1,L
-103000,setLightColor,globalLight,E5C4FF,1,L
-104000,move2d,gameBar,local,0/-200,1,oQ
-104000,setLightColor,globalLight,C4FFFF,1,L
-105000,setLightColor,globalLight,E1FFC4,1,L
-106000,move2d,gameBar,local,0/200,1,oQ
-106000,setLightColor,globalLight,FFC5C5,1,L
-107000,setLightColor,globalLight,E5C4FF,1,L
-108000,move2d,gameBar,local,0/-200,1,oQ
-108000,setLightColor,globalLight,C4FFFF,1,L
-109000,setLightColor,globalLight,E1FFC4,1,L
-110000,move2d,gameBar,local,0/200,1,oQ
-110000,setLightColor,globalLight,FFC5C5,1,L
-111000,setLightColor,globalLight,E5C4FF,1,L
-112000,move2d,gameBar,local,0/-200,1,oQ
-112000,setLightColor,globalLight,C4FFFF,1,L
-112000,setParticles,mainParticle,off
-113000,setLightColor,globalLight,E1FFC4,1,L
-114000,move2d,gameBar,local,0/200,1,oQ
-114000,setLightColor,globalLight,FFC5C5,1,L
-116000,move2d,gameBar,local,0/-200,1,oQ
-116000,setLightColor,globalLight,E5C4FF,1,L
-118000,move2d,gameBar,local,0/200,1,oQ
-118000,setLightColor,globalLight,C4FFFF,1,L
-120000,move2d,gameBar,local,0/-200,1,oQ
-120000,setLightColor,globalLight,FFFFFF,1,L
-120300,accuracyEffect,1|1|1,1
-130000,scale2d,background,local,1.2/1.2,8,L
-134000,scale2d,background,local,1.8/1.8,12,L
-145050,scale2d,background,local,1/1,0.5,iB
-146000,accuracyEffect,2|2|2,1
-146000,move2d,gameBar,local,0/200,1,oQ
-146000,setLightColor,globalLight,FFC5C5,1,L
-148000,move2d,gameBar,local,0/-200,1,oQ
-148000,setLightColor,globalLight,E5C4FF,1,L
-150000,move2d,gameBar,local,0/200,1,oQ
-150000,setLightColor,globalLight,C4FFFF,1,L
-152000,move2d,gameBar,local,0/-200,1,oQ
-152000,setLightColor,globalLight,E1FFC4,1,L
-154000,move2d,gameBar,local,0/200,1,oQ
-154000,setLightColor,globalLight,FFC5C5,1,L
-156000,move2d,gameBar,local,0/-200,1,oQ
-156000,setLightColor,globalLight,E5C4FF,1,L
-158000,move2d,gameBar,local,0/200,1,oQ
-158000,setLightColor,globalLight,C4FFFF,1,L
-160000,move2d,gameBar,local,0/-200,1,oQ
-160000,setLightColor,globalLight,E1FFC4,1,L
-162000,move2d,gameBar,local,0/200,1,oQ
-162000,setLightColor,globalLight,FFC5C5,1,L
-162000,setParticles,mainParticle,on
-163000,setLightColor,globalLight,E5C4FF,1,L
-164000,move2d,gameBar,local,0/-200,1,oQ
-164000,setLightColor,globalLight,C4FFFF,1,L
-165000,setLightColor,globalLight,E1FFC4,1,L
-166000,move2d,gameBar,local,0/200,1,oQ
-166000,setLightColor,globalLight,FFC5C5,1,L
-167000,setLightColor,globalLight,E5C4FF,1,L
-168000,move2d,gameBar,local,0/-200,1,oQ
-168000,setLightColor,globalLight,C4FFFF,1,L
-169000,setLightColor,globalLight,E1FFC4,1,L
-170000,move2d,gameBar,local,0/200,1,oQ
-170000,setLightColor,globalLight,FFC5C5,1,L
-171000,setLightColor,globalLight,E5C4FF,1,L
-172000,move2d,gameBar,local,0/-200,1,oQ
-172000,setLightColor,globalLight,C4FFFF,1,L
-173000,setLightColor,globalLight,E1FFC4,1,L
-174000,move2d,gameBar,local,0/200,1,oQ
-174000,setLightColor,globalLight,FFC5C5,1,L
-175000,setLightColor,globalLight,E5C4FF,1,L
-176000,move2d,gameBar,local,0/-200,1,oQ
-176000,setLightColor,globalLight,C4FFFF,1,L
-177000,setLightColor,globalLight,E1FFC4,1,L
-178000,accuracyEffect,2|2|2,1.25
-178000,setLightColor,globalLight,FFFFFF,1,L
-180000,setParticles,mainParticle,off
-
-[Note]
-000125,2,long,000875
-002000,2,swipe
-002750,2,normal
-003500,2,normal
-004000,2,swipe
-004750,2,normal
-005500,2,normal
-006000,2,normal
-006750,2,normal
-007500,2,normal
-008000,2,normal
-008750,2,normal
-009500,2,normal
-010000,2,normal
-011062,2,normal
-011312,2,normal
-011562,2,normal
-011812,2,normal
-012750,2,normal
-013812,2,normal
-014062,2,normal
-014375,2,normal
-014812,2,normal
-015312,2,normal
-015812,2,normal
-016500,2,normal
-016812,2,normal
-017312,2,normal
-017562,2,normal
-017812,2,normal
-018062,2,normal
-019062,2,normal
-019312,2,normal
-019562,2,normal
-019812,2,normal
-020812,2,normal
-021812,2,normal
-022062,2,normal
-022375,2,normal
-022812,2,normal
-023312,2,normal
-023812,2,normal
-024562,2,normal
-024812,2,normal
-025312,2,normal
-025562,2,normal
-025812,2,normal
-026062,2,normal
-027062,2,normal
-027312,2,normal
-027562,2,normal
-027812,2,normal
-028812,2,normal
-029812,2,normal
-030062,2,normal
-030375,2,normal
-030812,2,normal
-031312,2,normal
-031812,2,normal
-032562,2,normal
-032812,2,normal
-033312,2,normal
-033562,2,normal
-033812,2,normal
-034062,2,normal
-035062,2,normal
-035312,2,normal
-035562,2,normal
-035812,2,normal
-036562,2,normal
-037812,2,normal
-038062,2,normal
-038375,2,normal
-038812,2,normal
-039312,2,normal
-039812,2,normal
-040500,2,normal
-040812,2,normal
-041312,2,normal
-041562,2,normal
-041812,2,normal
-042062,2,normal
-043062,2,normal
-043312,2,normal
-043562,2,normal
-043812,2,normal
-044562,2,normal
-045812,2,normal
-046062,2,normal
-046375,2,normal
-046812,2,normal
-047312,2,normal
-047812,2,normal
-048500,2,normal
-048812,2,normal
-049312,2,normal
-049562,2,normal
-049812,2,normal
-050062,2,normal
-051062,2,normal
-051312,2,normal
-051562,2,normal
-051812,2,normal
-052500,2,normal
-053812,2,normal
-054062,2,normal
-054375,2,normal
-054812,2,normal
-055312,2,normal
-055812,2,normal
-056500,2,normal
-056812,2,normal
-057312,2,normal
-057562,2,normal
-057812,2,normal
-058062,2,normal
-059062,2,normal
-059312,2,normal
-059562,2,normal
-059812,2,normal
-060500,2,normal
-061812,2,normal
-062062,2,normal
-062375,2,normal
-062812,2,normal
-063312,2,normal
-063812,2,normal
-064562,2,normal
-064812,2,normal
-065312,2,normal
-065562,2,normal
-065812,2,normal
-066062,2,normal
-067062,2,normal
-067312,2,normal
-067562,2,normal
-067812,2,normal
-068562,2,normal
-069812,2,normal
-070062,2,normal
-070375,2,normal
-070812,2,normal
-071312,2,normal
-071812,2,normal
-072562,2,normal
-072812,2,normal
-073312,2,normal
-073562,2,normal
-073812,2,normal
-074062,2,normal
-075062,2,normal
-075312,2,normal
-075562,2,normal
-075812,2,normal
-076562,2,normal
-077812,2,normal
-078062,2,normal
-078375,2,normal
-078812,2,normal
-079312,2,normal
-079812,2,normal
-080500,2,normal
-080812,2,normal
-081312,2,normal
-081562,2,normal
-081812,2,normal
-082062,2,normal
-083062,2,normal
-083312,2,normal
-083562,2,normal
-083812,2,normal
-084562,2,normal
-085812,2,normal
-086062,2,normal
-086375,2,normal
-086812,2,normal
-087312,2,normal
-087812,2,normal
-088562,2,normal
-088812,2,normal
-089312,2,normal
-089562,2,normal
-089812,2,normal
-090062,2,normal
-091062,2,normal
-091312,2,normal
-091562,2,normal
-091812,2,normal
-092562,2,normal
-093812,2,normal
-094062,2,normal
-094375,2,normal
-094812,2,normal
-095312,2,normal
-095812,2,normal
-096500,2,normal
-096812,2,normal
-097312,2,normal
-097562,2,normal
-097812,2,normal
-098062,2,normal
-099062,2,normal
-099312,2,normal
-099562,2,normal
-099812,2,normal
-100562,2,normal
-101812,2,normal
-102062,2,normal
-102375,2,normal
-102812,2,normal
-103312,2,normal
-103812,2,normal
-104500,2,normal
-104812,2,normal
-105312,2,normal
-105562,2,normal
-105812,2,normal
-106062,2,normal
-107062,2,normal
-107312,2,normal
-107562,2,normal
-107812,2,normal
-108562,2,normal
-109812,2,normal
-110062,2,normal
-110375,2,normal
-110812,2,normal
-111312,2,normal
-111812,2,normal
-112562,2,normal
-112812,2,normal
-113312,2,normal
-113562,2,normal
-113812,2,normal
-114062,2,normal
-115062,2,normal
-115312,2,normal
-115562,2,normal
-115812,2,normal
-116500,2,normal
-117812,2,normal
-118062,2,normal
-118375,2,normal
-118812,2,normal
-119312,2,normal
-119812,2,normal
-120500,2,normal
-120750,2,normal
-121312,2,normal
-121562,2,normal
-121812,2,normal
-122062,2,normal
-123062,2,normal
-123312,2,normal
-123562,2,normal
-123812,2,normal
-124500,2,normal
-125812,2,normal
-126062,2,normal
-126375,2,normal
-126812,2,normal
-127312,2,normal
-127812,2,normal
-128500,2,normal
-128812,2,normal
-129312,2,normal
-129562,2,normal
-129812,2,normal
-130062,2,normal
-131062,2,normal
-131312,2,normal
-131562,2,normal
-131812,2,normal
-132562,2,normal
-133812,2,normal
-134062,2,normal
-134375,2,normal
-134812,2,normal
-135312,2,normal
-135812,2,normal
-136500,2,normal
-136750,2,normal
-137312,2,normal
-137562,2,normal
-137812,2,normal
-138062,2,normal
-139062,2,normal
-139312,2,normal
-139562,2,normal
-139812,2,normal
-140562,2,normal
-141812,2,normal
-142062,2,normal
-142375,2,normal
-142812,2,normal
-143312,2,normal
-143812,2,normal
-144562,2,normal
-144812,2,normal
-145312,2,normal
-145562,2,normal
-146000,2,normal
-147062,2,normal
-147312,2,normal
-147562,2,normal
-147812,2,normal
-148562,2,normal
-149812,2,normal
-150062,2,normal
-150375,2,normal
-150812,2,normal
-151312,2,normal
-151812,2,normal
-152562,2,normal
-152812,2,normal
-153312,2,normal
-153562,2,normal
-153812,2,normal
-154062,2,normal
-155062,2,normal
-155312,2,normal
-155562,2,normal
-155812,2,normal
-156562,2,normal
-157812,2,normal
-158062,2,normal
-158375,2,normal
-158812,2,normal
-159312,2,normal
-159812,2,normal
-160562,2,normal
-160812,2,normal
-161312,2,normal
-161562,2,normal
-161812,2,normal
-162062,2,normal
-163062,2,normal
-163312,2,normal
-163562,2,normal
-163812,2,normal
-164562,2,normal
-165812,2,normal
-166062,2,normal
-166312,2,normal
-166437,2,normal
-166812,2,normal
-167312,2,normal
-167812,2,normal
-168562,2,normal
-168812,2,normal
-169312,2,normal
-169562,2,normal
-169812,2,normal
-170062,2,normal
-171062,2,normal
-171312,2,normal
-171562,2,normal
-171812,2,normal
-172562,2,normal
-173812,2,normal
-174062,2,normal
-174375,2,normal
-174812,2,normal
-175312,2,normal
-175812,2,normal
-176562,2,normal
-176812,2,normal
-177312,2,normal
-177562,2,normal
-177812,2,normal
-178062,2,normal
-179062,2,normal
-179312,2,normal
-179562,2,normal
-179812,2,normal
-180500,2,normal
-181812,2,normal
-182062,2,normal
-182375,2,normal
-182812,2,normal
-183312,2,normal
-183812,2,normal
-184562,2,normal
-184812,2,normal
-185312,2,normal
-185562,2,normal
-185812,2,normal
-186062,2,normal
-187062,2,normal
-187312,2,normal
-187562,2,normal
-187812,2,normal
-189812,2,normal
-190062,2,normal
+{
+  "settings": {
+    "version": 1,
+    "title": "JPOP",
+    "artist": "FesliyanStudios",
+    "author": "_TheChicken",
+    "difficulty": 3,
+    "songFilename": "JPOP.ogg",
+    "volume": 100,
+    "pitch": 100,
+    "songStartDelay": 0,
+    "songPreviewStart": 0,
+    "songPreviewLength": 0,
+    "noteOffset": 4550,
+    "eventOffset": 4550,
+    "bgFilename": "jpop_bg.png",
+    "bgType": "Simple",
+    "bgColor": "FFFFFF",
+    "bgPixelPerUnitMultiplier": 1.0
+  },
+  "objects": [
+    {"type": "particle", "tag": "pixelSnow1", "particleType": "pixelSnow"},
+    {"type": "particle", "tag": "star1", "particleType": "star"}
+  ],
+  "events": [
+    {"time": 66000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 68000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 70000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 72000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 74000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 76000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 78000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 80000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 82000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 82000, "type": "setParticle", "target": "pixelSnow1", "turnOn": true, "speed": 0.25},
+    {"time": 84000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 86000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 88000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 90000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 92000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 94000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 96000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 98000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 98000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 99000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 100000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 100000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 101000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 102000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 102000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 103000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 104000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 104000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 105000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 106000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 106000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 107000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 108000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 109000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 110000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 110000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 111000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 112000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 112000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 112000, "type": "setParticle", "target": "pixelSnow1", "turnOn": false},
+    {"time": 113000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 114000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 114000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 116000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 116000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 118000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 118000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 120000, "type": "setLightColor", "target": "globalLight", "color": "FFFFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 120000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 130000, "type": "scale2d", "target": "background", "tweenType": "local", "scale": [1.2, 1.2], "duration": 8.0, "ease": "L", "tweenId": "backgroundScaling"},
+    {"time": 134000, "type": "scale2d", "target": "background", "tweenType": "local", "scale": [1.8, 1.8], "duration": 12.0, "ease": "L", "tweenId": "backgroundScaling"},
+    {"time": 145050, "type": "scale2d", "target": "background", "tweenType": "local", "scale": [1, 1], "duration": 0.5, "ease": "iB", "tweenId": "backgroundScaling"},
+    {"time": 146000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 146000, "type": "setParticle", "target": "pixelSnow1", "turnOn": true, "speed": 0.25},
+    {"time": 148000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 150000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 152000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 154000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 156000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 158000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 160000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 162000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 162000, "type": "setParticle", "target": "star1", "turnOn": true, "speed": 0.5},
+    {"time": 162000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 163000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 164000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 164000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 165000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 166000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 166000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 167000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 168000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 168000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 169000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 170000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 170000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 171000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 172000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 172000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 173000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 174000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, 200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 174000, "type": "setLightColor", "target": "globalLight", "color": "FFC5C5", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 175000, "type": "setLightColor", "target": "globalLight", "color": "E5C4FF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 176000, "type": "move2d", "target": "gameBar", "tweenType": "local", "position": [0.0, -200.0], "duration": 1.0, "ease": "oQ", "tweenId": ""},
+    {"time": 176000, "type": "setLightColor", "target": "globalLight", "color": "C4FFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 177000, "type": "setLightColor", "target": "globalLight", "color": "E1FFC4", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 178000, "type": "setLightColor", "target": "globalLight", "color": "FFFFFF", "duration": 1.0, "ease": "L", "tweenId": "GL"},
+    {"time": 180000, "type": "setParticle", "target": "star1", "turnOn": false},
+    {"time": 180000, "type": "setParticle", "target": "pixelSnow1", "turnOn": false}
+  ],
+  "noteEvents": [
+    {"noteNum": 64, "accuracy": "perfect", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 64, "accuracy": "good", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 64, "accuracy": "miss", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 252, "accuracy": "perfect", "type": "accuracyEffect", "perfectEffect": 1, "goodEffect": 1, "missEffect": 1, "duration": 1.0},
+    {"noteNum": 252, "accuracy": "good", "type": "accuracyEffect", "perfectEffect": 1, "goodEffect": 1, "missEffect": 1, "duration": 1.0},
+    {"noteNum": 252, "accuracy": "miss", "type": "accuracyEffect", "perfectEffect": 1, "goodEffect": 1, "missEffect": 1, "duration": 1.0},
+    {"noteNum": 301, "accuracy": "perfect", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 301, "accuracy": "good", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 301, "accuracy": "miss", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.0},
+    {"noteNum": 371, "accuracy": "perfect", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.25},
+    {"noteNum": 371, "accuracy": "good", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.25},
+    {"noteNum": 371, "accuracy": "miss", "type": "accuracyEffect", "perfectEffect": 2, "goodEffect": 2, "missEffect": 2, "duration": 1.25}
+  ],
+  "notes": [
+    {"time": 125,"duration": 2.0,"type": "chain","endTime" : 875},
+    {"time": 2000,"duration": 2.0,"type": "flick"},
+    {"time": 2750,"duration": 2.0,"type": "normal"},
+    {"time": 3500,"duration": 2.0,"type": "normal"},
+    {"time": 4000,"duration": 2.0,"type": "flick"},
+    {"time": 4750,"duration": 2.0,"type": "normal"},
+    {"time": 5500,"duration": 2.0,"type": "normal"},
+    {"time": 6000,"duration": 2.0,"type": "normal"},
+    {"time": 6750,"duration": 2.0,"type": "normal"},
+    {"time": 7500,"duration": 2.0,"type": "normal"},
+    {"time": 8000,"duration": 2.0,"type": "normal"},
+    {"time": 8750,"duration": 2.0,"type": "normal"},
+    {"time": 9500,"duration": 2.0,"type": "normal"},
+    {"time": 10000,"duration": 2.0,"type": "normal"},
+    {"time": 11062,"duration": 2.0,"type": "normal"},
+    {"time": 11312,"duration": 2.0,"type": "normal"},
+    {"time": 11562,"duration": 2.0,"type": "normal"},
+    {"time": 11812,"duration": 2.0,"type": "normal"},
+    {"time": 12750,"duration": 2.0,"type": "normal"},
+    {"time": 13812,"duration": 2.0,"type": "normal"},
+    {"time": 14062,"duration": 2.0,"type": "normal"},
+    {"time": 14375,"duration": 2.0,"type": "normal"},
+    {"time": 14812,"duration": 2.0,"type": "normal"},
+    {"time": 15312,"duration": 2.0,"type": "normal"},
+    {"time": 15812,"duration": 2.0,"type": "normal"},
+    {"time": 16500,"duration": 2.0,"type": "normal"},
+    {"time": 16812,"duration": 2.0,"type": "normal"},
+    {"time": 17312,"duration": 2.0,"type": "normal"},
+    {"time": 17562,"duration": 2.0,"type": "normal"},
+    {"time": 17812,"duration": 2.0,"type": "normal"},
+    {"time": 18062,"duration": 2.0,"type": "normal"},
+    {"time": 19062,"duration": 2.0,"type": "normal"},
+    {"time": 19312,"duration": 2.0,"type": "normal"},
+    {"time": 19562,"duration": 2.0,"type": "normal"},
+    {"time": 19812,"duration": 2.0,"type": "normal"},
+    {"time": 20812,"duration": 2.0,"type": "normal"},
+    {"time": 21812,"duration": 2.0,"type": "normal"},
+    {"time": 22062,"duration": 2.0,"type": "normal"},
+    {"time": 22375,"duration": 2.0,"type": "normal"},
+    {"time": 22812,"duration": 2.0,"type": "normal"},
+    {"time": 23312,"duration": 2.0,"type": "normal"},
+    {"time": 23812,"duration": 2.0,"type": "normal"},
+    {"time": 24562,"duration": 2.0,"type": "normal"},
+    {"time": 24812,"duration": 2.0,"type": "normal"},
+    {"time": 25312,"duration": 2.0,"type": "normal"},
+    {"time": 25562,"duration": 2.0,"type": "normal"},
+    {"time": 25812,"duration": 2.0,"type": "normal"},
+    {"time": 26062,"duration": 2.0,"type": "normal"},
+    {"time": 27062,"duration": 2.0,"type": "normal"},
+    {"time": 27312,"duration": 2.0,"type": "normal"},
+    {"time": 27562,"duration": 2.0,"type": "normal"},
+    {"time": 27812,"duration": 2.0,"type": "normal"},
+    {"time": 28812,"duration": 2.0,"type": "normal"},
+    {"time": 29812,"duration": 2.0,"type": "normal"},
+    {"time": 30062,"duration": 2.0,"type": "normal"},
+    {"time": 30375,"duration": 2.0,"type": "normal"},
+    {"time": 30812,"duration": 2.0,"type": "normal"},
+    {"time": 31312,"duration": 2.0,"type": "normal"},
+    {"time": 31812,"duration": 2.0,"type": "normal"},
+    {"time": 32562,"duration": 2.0,"type": "normal"},
+    {"time": 32812,"duration": 2.0,"type": "normal"},
+    {"time": 33312,"duration": 2.0,"type": "normal"},
+    {"time": 33562,"duration": 2.0,"type": "normal"},
+    {"time": 33812,"duration": 2.0,"type": "normal"},
+    {"time": 34062,"duration": 2.0,"type": "normal"},
+    {"time": 35062,"duration": 2.0,"type": "normal"},
+    {"time": 35312,"duration": 2.0,"type": "normal"},
+    {"time": 35562,"duration": 2.0,"type": "normal"},
+    {"time": 35812,"duration": 2.0,"type": "normal"},
+    {"time": 36562,"duration": 2.0,"type": "normal"},
+    {"time": 37812,"duration": 2.0,"type": "normal"},
+    {"time": 38062,"duration": 2.0,"type": "normal"},
+    {"time": 38375,"duration": 2.0,"type": "normal"},
+    {"time": 38812,"duration": 2.0,"type": "normal"},
+    {"time": 39312,"duration": 2.0,"type": "normal"},
+    {"time": 39812,"duration": 2.0,"type": "normal"},
+    {"time": 40500,"duration": 2.0,"type": "normal"},
+    {"time": 40812,"duration": 2.0,"type": "normal"},
+    {"time": 41312,"duration": 2.0,"type": "normal"},
+    {"time": 41562,"duration": 2.0,"type": "normal"},
+    {"time": 41812,"duration": 2.0,"type": "normal"},
+    {"time": 42062,"duration": 2.0,"type": "normal"},
+    {"time": 43062,"duration": 2.0,"type": "normal"},
+    {"time": 43312,"duration": 2.0,"type": "normal"},
+    {"time": 43562,"duration": 2.0,"type": "normal"},
+    {"time": 43812,"duration": 2.0,"type": "normal"},
+    {"time": 44562,"duration": 2.0,"type": "normal"},
+    {"time": 45812,"duration": 2.0,"type": "normal"},
+    {"time": 46062,"duration": 2.0,"type": "normal"},
+    {"time": 46375,"duration": 2.0,"type": "normal"},
+    {"time": 46812,"duration": 2.0,"type": "normal"},
+    {"time": 47312,"duration": 2.0,"type": "normal"},
+    {"time": 47812,"duration": 2.0,"type": "normal"},
+    {"time": 48500,"duration": 2.0,"type": "normal"},
+    {"time": 48812,"duration": 2.0,"type": "normal"},
+    {"time": 49312,"duration": 2.0,"type": "normal"},
+    {"time": 49562,"duration": 2.0,"type": "normal"},
+    {"time": 49812,"duration": 2.0,"type": "normal"},
+    {"time": 50062,"duration": 2.0,"type": "normal"},
+    {"time": 51062,"duration": 2.0,"type": "normal"},
+    {"time": 51312,"duration": 2.0,"type": "normal"},
+    {"time": 51562,"duration": 2.0,"type": "normal"},
+    {"time": 51812,"duration": 2.0,"type": "normal"},
+    {"time": 52500,"duration": 2.0,"type": "normal"},
+    {"time": 53812,"duration": 2.0,"type": "normal"},
+    {"time": 54062,"duration": 2.0,"type": "normal"},
+    {"time": 54375,"duration": 2.0,"type": "normal"},
+    {"time": 54812,"duration": 2.0,"type": "normal"},
+    {"time": 55312,"duration": 2.0,"type": "normal"},
+    {"time": 55812,"duration": 2.0,"type": "normal"},
+    {"time": 56500,"duration": 2.0,"type": "normal"},
+    {"time": 56812,"duration": 2.0,"type": "normal"},
+    {"time": 57312,"duration": 2.0,"type": "normal"},
+    {"time": 57562,"duration": 2.0,"type": "normal"},
+    {"time": 57812,"duration": 2.0,"type": "normal"},
+    {"time": 58062,"duration": 2.0,"type": "normal"},
+    {"time": 59062,"duration": 2.0,"type": "normal"},
+    {"time": 59312,"duration": 2.0,"type": "normal"},
+    {"time": 59562,"duration": 2.0,"type": "normal"},
+    {"time": 59812,"duration": 2.0,"type": "normal"},
+    {"time": 60500,"duration": 2.0,"type": "normal"},
+    {"time": 61812,"duration": 2.0,"type": "normal"},
+    {"time": 62062,"duration": 2.0,"type": "normal"},
+    {"time": 62375,"duration": 2.0,"type": "normal"},
+    {"time": 62812,"duration": 2.0,"type": "normal"},
+    {"time": 63312,"duration": 2.0,"type": "normal"},
+    {"time": 63812,"duration": 2.0,"type": "normal"},
+    {"time": 64562,"duration": 2.0,"type": "normal"},
+    {"time": 64812,"duration": 2.0,"type": "normal"},
+    {"time": 65312,"duration": 2.0,"type": "normal"},
+    {"time": 65562,"duration": 2.0,"type": "normal"},
+    {"time": 65812,"duration": 2.0,"type": "normal"},
+    {"time": 66062,"duration": 2.0,"type": "normal"},
+    {"time": 67062,"duration": 2.0,"type": "normal"},
+    {"time": 67312,"duration": 2.0,"type": "normal"},
+    {"time": 67562,"duration": 2.0,"type": "normal"},
+    {"time": 67812,"duration": 2.0,"type": "normal"},
+    {"time": 68562,"duration": 2.0,"type": "normal"},
+    {"time": 69812,"duration": 2.0,"type": "normal"},
+    {"time": 70062,"duration": 2.0,"type": "normal"},
+    {"time": 70375,"duration": 2.0,"type": "normal"},
+    {"time": 70812,"duration": 2.0,"type": "normal"},
+    {"time": 71312,"duration": 2.0,"type": "normal"},
+    {"time": 71812,"duration": 2.0,"type": "normal"},
+    {"time": 72562,"duration": 2.0,"type": "normal"},
+    {"time": 72812,"duration": 2.0,"type": "normal"},
+    {"time": 73312,"duration": 2.0,"type": "normal"},
+    {"time": 73562,"duration": 2.0,"type": "normal"},
+    {"time": 73812,"duration": 2.0,"type": "normal"},
+    {"time": 74062,"duration": 2.0,"type": "normal"},
+    {"time": 75062,"duration": 2.0,"type": "normal"},
+    {"time": 75312,"duration": 2.0,"type": "normal"},
+    {"time": 75562,"duration": 2.0,"type": "normal"},
+    {"time": 75812,"duration": 2.0,"type": "normal"},
+    {"time": 76562,"duration": 2.0,"type": "normal"},
+    {"time": 77812,"duration": 2.0,"type": "normal"},
+    {"time": 78062,"duration": 2.0,"type": "normal"},
+    {"time": 78375,"duration": 2.0,"type": "normal"},
+    {"time": 78812,"duration": 2.0,"type": "normal"},
+    {"time": 79312,"duration": 2.0,"type": "normal"},
+    {"time": 79812,"duration": 2.0,"type": "normal"},
+    {"time": 80500,"duration": 2.0,"type": "normal"},
+    {"time": 80812,"duration": 2.0,"type": "normal"},
+    {"time": 81312,"duration": 2.0,"type": "normal"},
+    {"time": 81562,"duration": 2.0,"type": "normal"},
+    {"time": 81812,"duration": 2.0,"type": "normal"},
+    {"time": 82062,"duration": 2.0,"type": "normal"},
+    {"time": 83062,"duration": 2.0,"type": "normal"},
+    {"time": 83312,"duration": 2.0,"type": "normal"},
+    {"time": 83562,"duration": 2.0,"type": "normal"},
+    {"time": 83812,"duration": 2.0,"type": "normal"},
+    {"time": 84562,"duration": 2.0,"type": "normal"},
+    {"time": 85812,"duration": 2.0,"type": "normal"},
+    {"time": 86062,"duration": 2.0,"type": "normal"},
+    {"time": 86375,"duration": 2.0,"type": "normal"},
+    {"time": 86812,"duration": 2.0,"type": "normal"},
+    {"time": 87312,"duration": 2.0,"type": "normal"},
+    {"time": 87812,"duration": 2.0,"type": "normal"},
+    {"time": 88562,"duration": 2.0,"type": "normal"},
+    {"time": 88812,"duration": 2.0,"type": "normal"},
+    {"time": 89312,"duration": 2.0,"type": "normal"},
+    {"time": 89562,"duration": 2.0,"type": "normal"},
+    {"time": 89812,"duration": 2.0,"type": "normal"},
+    {"time": 90062,"duration": 2.0,"type": "normal"},
+    {"time": 91062,"duration": 2.0,"type": "normal"},
+    {"time": 91312,"duration": 2.0,"type": "normal"},
+    {"time": 91562,"duration": 2.0,"type": "normal"},
+    {"time": 91812,"duration": 2.0,"type": "normal"},
+    {"time": 92562,"duration": 2.0,"type": "normal"},
+    {"time": 93812,"duration": 2.0,"type": "normal"},
+    {"time": 94062,"duration": 2.0,"type": "normal"},
+    {"time": 94375,"duration": 2.0,"type": "normal"},
+    {"time": 94812,"duration": 2.0,"type": "normal"},
+    {"time": 95312,"duration": 2.0,"type": "normal"},
+    {"time": 95812,"duration": 2.0,"type": "normal"},
+    {"time": 96500,"duration": 2.0,"type": "normal"},
+    {"time": 96812,"duration": 2.0,"type": "normal"},
+    {"time": 97312,"duration": 2.0,"type": "normal"},
+    {"time": 97562,"duration": 2.0,"type": "normal"},
+    {"time": 97812,"duration": 2.0,"type": "normal"},
+    {"time": 98062,"duration": 2.0,"type": "normal"},
+    {"time": 99062,"duration": 2.0,"type": "normal"},
+    {"time": 99312,"duration": 2.0,"type": "normal"},
+    {"time": 99562,"duration": 2.0,"type": "normal"},
+    {"time": 99812,"duration": 2.0,"type": "normal"},
+    {"time": 100562,"duration": 2.0,"type": "normal"},
+    {"time": 101812,"duration": 2.0,"type": "normal"},
+    {"time": 102062,"duration": 2.0,"type": "normal"},
+    {"time": 102375,"duration": 2.0,"type": "normal"},
+    {"time": 102812,"duration": 2.0,"type": "normal"},
+    {"time": 103312,"duration": 2.0,"type": "normal"},
+    {"time": 103812,"duration": 2.0,"type": "normal"},
+    {"time": 104500,"duration": 2.0,"type": "normal"},
+    {"time": 104812,"duration": 2.0,"type": "normal"},
+    {"time": 105312,"duration": 2.0,"type": "normal"},
+    {"time": 105562,"duration": 2.0,"type": "normal"},
+    {"time": 105812,"duration": 2.0,"type": "normal"},
+    {"time": 106062,"duration": 2.0,"type": "normal"},
+    {"time": 107062,"duration": 2.0,"type": "normal"},
+    {"time": 107312,"duration": 2.0,"type": "normal"},
+    {"time": 107562,"duration": 2.0,"type": "normal"},
+    {"time": 107812,"duration": 2.0,"type": "normal"},
+    {"time": 108562,"duration": 2.0,"type": "normal"},
+    {"time": 109812,"duration": 2.0,"type": "normal"},
+    {"time": 110062,"duration": 2.0,"type": "normal"},
+    {"time": 110375,"duration": 2.0,"type": "normal"},
+    {"time": 110812,"duration": 2.0,"type": "normal"},
+    {"time": 111312,"duration": 2.0,"type": "normal"},
+    {"time": 111812,"duration": 2.0,"type": "normal"},
+    {"time": 112562,"duration": 2.0,"type": "normal"},
+    {"time": 112812,"duration": 2.0,"type": "normal"},
+    {"time": 113312,"duration": 2.0,"type": "normal"},
+    {"time": 113562,"duration": 2.0,"type": "normal"},
+    {"time": 113812,"duration": 2.0,"type": "normal"},
+    {"time": 114062,"duration": 2.0,"type": "normal"},
+    {"time": 115062,"duration": 2.0,"type": "normal"},
+    {"time": 115312,"duration": 2.0,"type": "normal"},
+    {"time": 115562,"duration": 2.0,"type": "normal"},
+    {"time": 115812,"duration": 2.0,"type": "normal"},
+    {"time": 116500,"duration": 2.0,"type": "normal"},
+    {"time": 117812,"duration": 2.0,"type": "normal"},
+    {"time": 118062,"duration": 2.0,"type": "normal"},
+    {"time": 118375,"duration": 2.0,"type": "normal"},
+    {"time": 118812,"duration": 2.0,"type": "normal"},
+    {"time": 119312,"duration": 2.0,"type": "normal"},
+    {"time": 119812,"duration": 2.0,"type": "normal"},
+    {"time": 120500,"duration": 2.0,"type": "normal"},
+    {"time": 120750,"duration": 2.0,"type": "normal"},
+    {"time": 121312,"duration": 2.0,"type": "normal"},
+    {"time": 121562,"duration": 2.0,"type": "normal"},
+    {"time": 121812,"duration": 2.0,"type": "normal"},
+    {"time": 122062,"duration": 2.0,"type": "normal"},
+    {"time": 123062,"duration": 2.0,"type": "normal"},
+    {"time": 123312,"duration": 2.0,"type": "normal"},
+    {"time": 123562,"duration": 2.0,"type": "normal"},
+    {"time": 123812,"duration": 2.0,"type": "normal"},
+    {"time": 124500,"duration": 2.0,"type": "normal"},
+    {"time": 125812,"duration": 2.0,"type": "normal"},
+    {"time": 126062,"duration": 2.0,"type": "normal"},
+    {"time": 126375,"duration": 2.0,"type": "normal"},
+    {"time": 126812,"duration": 2.0,"type": "normal"},
+    {"time": 127312,"duration": 2.0,"type": "normal"},
+    {"time": 127812,"duration": 2.0,"type": "normal"},
+    {"time": 128500,"duration": 2.0,"type": "normal"},
+    {"time": 128812,"duration": 2.0,"type": "normal"},
+    {"time": 129312,"duration": 2.0,"type": "normal"},
+    {"time": 129562,"duration": 2.0,"type": "normal"},
+    {"time": 129812,"duration": 2.0,"type": "normal"},
+    {"time": 130062,"duration": 2.0,"type": "normal"},
+    {"time": 131062,"duration": 2.0,"type": "normal"},
+    {"time": 131312,"duration": 2.0,"type": "normal"},
+    {"time": 131562,"duration": 2.0,"type": "normal"},
+    {"time": 131812,"duration": 2.0,"type": "normal"},
+    {"time": 132562,"duration": 2.0,"type": "normal"},
+    {"time": 133812,"duration": 2.0,"type": "normal"},
+    {"time": 134062,"duration": 2.0,"type": "normal"},
+    {"time": 134375,"duration": 2.0,"type": "normal"},
+    {"time": 134812,"duration": 2.0,"type": "normal"},
+    {"time": 135312,"duration": 2.0,"type": "normal"},
+    {"time": 135812,"duration": 2.0,"type": "normal"},
+    {"time": 136500,"duration": 2.0,"type": "normal"},
+    {"time": 136750,"duration": 2.0,"type": "normal"},
+    {"time": 137312,"duration": 2.0,"type": "normal"},
+    {"time": 137562,"duration": 2.0,"type": "normal"},
+    {"time": 137812,"duration": 2.0,"type": "normal"},
+    {"time": 138062,"duration": 2.0,"type": "normal"},
+    {"time": 139062,"duration": 2.0,"type": "normal"},
+    {"time": 139312,"duration": 2.0,"type": "normal"},
+    {"time": 139562,"duration": 2.0,"type": "normal"},
+    {"time": 139812,"duration": 2.0,"type": "normal"},
+    {"time": 140562,"duration": 2.0,"type": "normal"},
+    {"time": 141812,"duration": 2.0,"type": "normal"},
+    {"time": 142062,"duration": 2.0,"type": "normal"},
+    {"time": 142375,"duration": 2.0,"type": "normal"},
+    {"time": 142812,"duration": 2.0,"type": "normal"},
+    {"time": 143312,"duration": 2.0,"type": "normal"},
+    {"time": 143812,"duration": 2.0,"type": "normal"},
+    {"time": 144562,"duration": 2.0,"type": "normal"},
+    {"time": 144812,"duration": 2.0,"type": "normal"},
+    {"time": 145312,"duration": 2.0,"type": "normal"},
+    {"time": 145562,"duration": 2.0,"type": "normal"},
+    {"time": 146000,"duration": 2.0,"type": "normal"},
+    {"time": 147062,"duration": 2.0,"type": "normal"},
+    {"time": 147312,"duration": 2.0,"type": "normal"},
+    {"time": 147562,"duration": 2.0,"type": "normal"},
+    {"time": 147812,"duration": 2.0,"type": "normal"},
+    {"time": 148562,"duration": 2.0,"type": "normal"},
+    {"time": 149812,"duration": 2.0,"type": "normal"},
+    {"time": 150062,"duration": 2.0,"type": "normal"},
+    {"time": 150375,"duration": 2.0,"type": "normal"},
+    {"time": 150812,"duration": 2.0,"type": "normal"},
+    {"time": 151312,"duration": 2.0,"type": "normal"},
+    {"time": 151812,"duration": 2.0,"type": "normal"},
+    {"time": 152562,"duration": 2.0,"type": "normal"},
+    {"time": 152812,"duration": 2.0,"type": "normal"},
+    {"time": 153312,"duration": 2.0,"type": "normal"},
+    {"time": 153562,"duration": 2.0,"type": "normal"},
+    {"time": 153812,"duration": 2.0,"type": "normal"},
+    {"time": 154062,"duration": 2.0,"type": "normal"},
+    {"time": 155062,"duration": 2.0,"type": "normal"},
+    {"time": 155312,"duration": 2.0,"type": "normal"},
+    {"time": 155562,"duration": 2.0,"type": "normal"},
+    {"time": 155812,"duration": 2.0,"type": "normal"},
+    {"time": 156562,"duration": 2.0,"type": "normal"},
+    {"time": 157812,"duration": 2.0,"type": "normal"},
+    {"time": 158062,"duration": 2.0,"type": "normal"},
+    {"time": 158375,"duration": 2.0,"type": "normal"},
+    {"time": 158812,"duration": 2.0,"type": "normal"},
+    {"time": 159312,"duration": 2.0,"type": "normal"},
+    {"time": 159812,"duration": 2.0,"type": "normal"},
+    {"time": 160562,"duration": 2.0,"type": "normal"},
+    {"time": 160812,"duration": 2.0,"type": "normal"},
+    {"time": 161312,"duration": 2.0,"type": "normal"},
+    {"time": 161562,"duration": 2.0,"type": "normal"},
+    {"time": 161812,"duration": 2.0,"type": "normal"},
+    {"time": 162062,"duration": 2.0,"type": "normal"},
+    {"time": 163062,"duration": 2.0,"type": "normal"},
+    {"time": 163312,"duration": 2.0,"type": "normal"},
+    {"time": 163562,"duration": 2.0,"type": "normal"},
+    {"time": 163812,"duration": 2.0,"type": "normal"},
+    {"time": 164562,"duration": 2.0,"type": "normal"},
+    {"time": 165812,"duration": 2.0,"type": "normal"},
+    {"time": 166062,"duration": 2.0,"type": "normal"},
+    {"time": 166312,"duration": 2.0,"type": "normal"},
+    {"time": 166437,"duration": 2.0,"type": "normal"},
+    {"time": 166812,"duration": 2.0,"type": "normal"},
+    {"time": 167312,"duration": 2.0,"type": "normal"},
+    {"time": 167812,"duration": 2.0,"type": "normal"},
+    {"time": 168562,"duration": 2.0,"type": "normal"},
+    {"time": 168812,"duration": 2.0,"type": "normal"},
+    {"time": 169312,"duration": 2.0,"type": "normal"},
+    {"time": 169562,"duration": 2.0,"type": "normal"},
+    {"time": 169812,"duration": 2.0,"type": "normal"},
+    {"time": 170062,"duration": 2.0,"type": "normal"},
+    {"time": 171062,"duration": 2.0,"type": "normal"},
+    {"time": 171312,"duration": 2.0,"type": "normal"},
+    {"time": 171562,"duration": 2.0,"type": "normal"},
+    {"time": 171812,"duration": 2.0,"type": "normal"},
+    {"time": 172562,"duration": 2.0,"type": "normal"},
+    {"time": 173812,"duration": 2.0,"type": "normal"},
+    {"time": 174062,"duration": 2.0,"type": "normal"},
+    {"time": 174375,"duration": 2.0,"type": "normal"},
+    {"time": 174812,"duration": 2.0,"type": "normal"},
+    {"time": 175312,"duration": 2.0,"type": "normal"},
+    {"time": 175812,"duration": 2.0,"type": "normal"},
+    {"time": 176562,"duration": 2.0,"type": "normal"},
+    {"time": 176812,"duration": 2.0,"type": "normal"},
+    {"time": 177312,"duration": 2.0,"type": "normal"},
+    {"time": 177562,"duration": 2.0,"type": "normal"},
+    {"time": 177812,"duration": 2.0,"type": "normal"},
+    {"time": 178062,"duration": 2.0,"type": "normal"},
+    {"time": 179062,"duration": 2.0,"type": "normal"},
+    {"time": 179312,"duration": 2.0,"type": "normal"},
+    {"time": 179562,"duration": 2.0,"type": "normal"},
+    {"time": 179812,"duration": 2.0,"type": "normal"},
+    {"time": 180500,"duration": 2.0,"type": "normal"},
+    {"time": 181812,"duration": 2.0,"type": "normal"},
+    {"time": 182062,"duration": 2.0,"type": "normal"},
+    {"time": 182375,"duration": 2.0,"type": "normal"},
+    {"time": 182812,"duration": 2.0,"type": "normal"},
+    {"time": 183312,"duration": 2.0,"type": "normal"},
+    {"time": 183812,"duration": 2.0,"type": "normal"},
+    {"time": 184562,"duration": 2.0,"type": "normal"},
+    {"time": 184812,"duration": 2.0,"type": "normal"},
+    {"time": 185312,"duration": 2.0,"type": "normal"},
+    {"time": 185562,"duration": 2.0,"type": "normal"},
+    {"time": 185812,"duration": 2.0,"type": "normal"},
+    {"time": 186062,"duration": 2.0,"type": "normal"},
+    {"time": 187062,"duration": 2.0,"type": "normal"},
+    {"time": 187312,"duration": 2.0,"type": "normal"},
+    {"time": 187562,"duration": 2.0,"type": "normal"},
+    {"time": 187812,"duration": 2.0,"type": "normal"},
+    {"time": 189812,"duration": 2.0,"type": "normal"},
+    {"time": 190062,"duration": 2.0,"type": "normal"}
+  ]
+}
