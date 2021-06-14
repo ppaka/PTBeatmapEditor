@@ -34,7 +34,7 @@ public class Waveform : MonoBehaviour
         return waveform;
     }
 
-    public static Texture2D PaintWaveformSpectrum(AudioClip audio, float saturation, int width, int height, Color col)
+    public static Texture2D PaintWaveformSpectrum(AudioClip audio, int width, int height)
     {
         var tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
         var samples = new float[audio.samples * audio.channels];
@@ -51,15 +51,16 @@ public class Waveform : MonoBehaviour
 
         for (var x = 0; x < width; x++)
         for (var y = 0; y < height; y++)
-            tex.SetPixel(x, y, Color.black);
+            tex.SetPixel(x, y, Color.clear);
 
         for (var x = 0; x < waveform.Length; x++)
         for (var y = 0; y <= waveform[x] * (height * .75f); y++)
         {
-            tex.SetPixel(x, height / 2 + y, col);
-            tex.SetPixel(x, height / 2 - y, col);
+            tex.SetPixel(x, height / 2 + y, Color.white);
+            tex.SetPixel(x, height / 2 - y, Color.white);
         }
 
+        tex.filterMode = FilterMode.Trilinear;
         tex.Apply();
 
         return tex;

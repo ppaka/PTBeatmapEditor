@@ -92,6 +92,7 @@ public class Settings
     public string bgType = "";
     public string bgColor = "";
     public float bgPixelPerUnitMultiplier = 1;
+    public float bgDimMultiplier = 0.5f;
     public int perfectAccuracyEffect = 1;
     public int goodAccuracyEffect = 1;
     public int missAccuracyEffect = 1;

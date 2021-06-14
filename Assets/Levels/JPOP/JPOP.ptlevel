@@ -16,7 +16,12 @@
     "bgFilename": "jpop_bg.png",
     "bgType": "Simple",
     "bgColor": "FFFFFF",
-    "bgPixelPerUnitMultiplier": 1.0
+    "bgPixelPerUnitMultiplier": 1.0,
+    "bgDimMultiplier": 0.6156863,
+    "perfectAccuracyEffect": 1,
+    "goodAccuracyEffect": 1,
+    "missAccuracyEffect": 1,
+    "accuracyEffectDuration": 1
   },
   "objects": [
     {"type": "particle", "tag": "pixelSnow1", "particleType": "pixelSnow"},

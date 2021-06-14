@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +12,10 @@ public class LevelDataContainer : MonoBehaviour
     public Slider diffSlider;
     public Text diffValueText;
 
-    public string levelPath;
+    public Image bgImage, bgDim;
+
+    public string levelPath, resourcePath;
+    public string[] songPath;
 
     public LevelData level;
     public FileManager fileManager;
@@ -37,16 +42,42 @@ public class LevelDataContainer : MonoBehaviour
 
             var path = new string[split.Length];
 
-            for (var i = 0; i < split.Length - 1; i++) path[i] = split[i] + "/";
-
+            for (var i = 0; i < split.Length; i++) path[i] = split[i] + "\\";
             path[path.Length - 1] = level.settings.songFilename;
+            songPath = path;
 
-            fileManager.LoadSong(path);
+            var levelLocation = levelPath.Split('\\');
+            var sb = new StringBuilder();
+            for (var i = 0; i < levelLocation.Length - 1; i++) sb.Append(levelLocation[i] + "\\");
+            resourcePath = sb.ToString();
+            SetBg();
+            
+            fileManager.LoadSong(songPath);
         }
         catch (Exception e)
         {
             Debug.LogError(e);
         }
+    }
+
+    public void SetBg()
+    {
+        bgImage.type = level.settings.bgType switch
+        {
+            "Simple" => Image.Type.Simple,
+            "Filled" => Image.Type.Filled,
+            "Tiled" => Image.Type.Tiled,
+            _ => bgImage.type
+        };
+        var tex = new Texture2D(0, 0);
+        tex.LoadImage(File.ReadAllBytes(resourcePath+level.settings.bgFilename));
+        bgImage.sprite = Sprite.Create(tex, new Rect(0,0,tex.width,tex.height), new Vector2(0.5f,0.5f));
+        bgImage.sprite.texture.filterMode = FilterMode.Point;
+        
+        ColorUtility.TryParseHtmlString("#" + level.settings.bgColor, out var color);
+        bgImage.color = color;
+        bgImage.pixelsPerUnitMultiplier = level.settings.bgPixelPerUnitMultiplier;
+        bgDim.color = new Color(0, 0, 0, level.settings.bgDimMultiplier);
     }
 
     public void SetLevelData()
