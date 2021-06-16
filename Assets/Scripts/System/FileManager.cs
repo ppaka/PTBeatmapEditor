@@ -74,8 +74,14 @@ public class FileManager : MonoBehaviour
             path = StandaloneFileBrowser.SaveFilePanel("레벨 저장하기",
                 Application.persistentDataPath + "/", "level",
                 "ptlevel");
+        
+        var settings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level));
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level, settings));
         ldc.levelPath = path;
     }
 
@@ -91,7 +97,13 @@ public class FileManager : MonoBehaviour
 
         if (path.Equals(string.Empty)) return;
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level));
+        var settings = new JsonSerializerSettings()
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Formatting.Indented
+        };
+
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level, settings));
         ldc.levelPath = path;
     }
 

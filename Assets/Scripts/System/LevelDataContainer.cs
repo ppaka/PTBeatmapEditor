@@ -33,7 +33,6 @@ public class LevelDataContainer : MonoBehaviour
 
             level.events = level.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
             level.notes = level.notes.OrderBy(x => x.time.ToString(), new StringAsNumericComparer())
-                // ReSharper disable once SpecifyACultureInStringConversionExplicitly
                 .ThenBy(x => x.duration.ToString(), new StringAsNumericComparer()).ToList();
             level.noteEvents = level.noteEvents.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
                 .ToList();
