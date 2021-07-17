@@ -39,6 +39,7 @@ public class Events
 [Serializable]
 public class Notes
 {
+    public uint noteNum;
     public int time;
     public float duration;
     public string type;
