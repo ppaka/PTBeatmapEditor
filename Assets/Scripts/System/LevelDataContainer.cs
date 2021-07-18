@@ -17,24 +17,24 @@ public class LevelDataContainer : MonoBehaviour
     public string levelPath, resourcePath;
     public string[] songPath;
 
-    public LevelData level;
+    public LevelData levelData;
     public FileManager fileManager;
 
     public void GetLevelData(string file)
     {
         try
         {
-            level = JsonConvert.DeserializeObject<LevelData>(file);
-            title.text = level.settings.title;
-            artist.text = level.settings.artist;
-            creater.text = level.settings.author;
-            diffValueText.text = (diffSlider.value = level.settings.difficulty).ToString();
-            clipName.text = level.settings.songFilename;
+            levelData = JsonConvert.DeserializeObject<LevelData>(file);
+            title.text = levelData.settings.title;
+            artist.text = levelData.settings.artist;
+            creater.text = levelData.settings.author;
+            diffValueText.text = (diffSlider.value = levelData.settings.difficulty).ToString();
+            clipName.text = levelData.settings.songFilename;
 
-            level.events = level.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
-            level.notes = level.notes.OrderBy(x => x.time.ToString(), new StringAsNumericComparer())
-                .ThenBy(x => x.duration.ToString(), new StringAsNumericComparer()).ToList();
-            level.noteEvents = level.noteEvents.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
+            levelData.events = levelData.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
+            levelData.notes = levelData.notes.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
+                .ThenBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
+            levelData.noteEvents = levelData.noteEvents.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
                 .ToList();
 
             var split = levelPath.Split('\\');
@@ -42,7 +42,7 @@ public class LevelDataContainer : MonoBehaviour
             var path = new string[split.Length];
 
             for (var i = 0; i < split.Length; i++) path[i] = split[i] + "\\";
-            path[path.Length - 1] = level.settings.songFilename;
+            path[path.Length - 1] = levelData.settings.songFilename;
             songPath = path;
 
             var levelLocation = levelPath.Split('\\');
@@ -61,7 +61,7 @@ public class LevelDataContainer : MonoBehaviour
 
     public void SetBg()
     {
-        bgImage.type = level.settings.bgType switch
+        bgImage.type = levelData.settings.bgType switch
         {
             "Simple" => Image.Type.Simple,
             "Filled" => Image.Type.Filled,
@@ -69,44 +69,44 @@ public class LevelDataContainer : MonoBehaviour
             _ => bgImage.type
         };
         var tex = new Texture2D(0, 0);
-        tex.LoadImage(File.ReadAllBytes(resourcePath+level.settings.bgFilename));
+        tex.LoadImage(File.ReadAllBytes(resourcePath+levelData.settings.bgFilename));
         bgImage.sprite = Sprite.Create(tex, new Rect(0,0,tex.width,tex.height), new Vector2(0.5f,0.5f));
         bgImage.sprite.texture.filterMode = FilterMode.Point;
         
-        ColorUtility.TryParseHtmlString("#" + level.settings.bgColor, out var color);
+        ColorUtility.TryParseHtmlString("#" + levelData.settings.bgColor, out var color);
         bgImage.color = color;
-        bgImage.pixelsPerUnitMultiplier = level.settings.bgPixelPerUnitMultiplier;
-        bgDim.color = new Color(0, 0, 0, level.settings.bgDimMultiplier);
+        bgImage.pixelsPerUnitMultiplier = levelData.settings.bgPixelPerUnitMultiplier;
+        bgDim.color = new Color(0, 0, 0, levelData.settings.bgDimMultiplier);
     }
 
     public void SetLevelData()
     {
-        level.settings.title = title.text;
-        level.settings.artist = artist.text;
-        level.settings.author = creater.text;
-        level.settings.difficulty = (uint) diffSlider.value;
+        levelData.settings.title = title.text;
+        levelData.settings.artist = artist.text;
+        levelData.settings.author = creater.text;
+        levelData.settings.difficulty = (uint) diffSlider.value;
         diffValueText.text = ((int) diffSlider.value).ToString();
     }
 
     public void ResetLevelData()
     {
         levelPath = "";
-        level.settings.songFilename = clipName.text = "";
-        level.settings = new Settings();
-        level.notes.Clear();
-        level.events.Clear();
-        level.noteEvents.Clear();
-        level.objects.Clear();
-        level.settings.title = title.text = "";
-        level.settings.artist = artist.text = "";
-        level.settings.author = creater.text = "";
-        level.settings.difficulty = (uint) (diffSlider.value = 1);
+        levelData.settings.songFilename = clipName.text = "";
+        levelData.settings = new Settings();
+        levelData.notes.Clear();
+        levelData.events.Clear();
+        levelData.noteEvents.Clear();
+        levelData.objects.Clear();
+        levelData.settings.title = title.text = "";
+        levelData.settings.artist = artist.text = "";
+        levelData.settings.author = creater.text = "";
+        levelData.settings.difficulty = (uint) (diffSlider.value = 1);
         diffValueText.text = ((int) diffSlider.value).ToString();
     }
 
     public void GetClipName(string nameStr)
     {
         clipName.text = nameStr;
-        level.settings.songFilename = nameStr;
+        levelData.settings.songFilename = nameStr;
     }
 }

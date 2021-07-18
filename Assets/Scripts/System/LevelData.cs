@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class LevelData
 {
     public Settings settings;
     public List<Objects> objects = new List<Objects>();
+    public List<Curves> curves = new List<Curves>();
     public List<Events> events = new List<Events>();
     public List<NoteEvents> noteEvents = new List<NoteEvents>();
     public List<Notes> notes = new List<Notes>();
@@ -21,7 +23,8 @@ public class Events
     public int? goodEffect;
     public int? missEffect;
 
-    public string tweenType;
+    public string setValueType;
+    public string transformMode;
     public float[] position;
 
     public float[] scale;
@@ -29,10 +32,17 @@ public class Events
     public bool? turnOn;
     public float? speed;
 
+    public string killType;
+
+    public float? strength;
+    public int? vibrato;
+    public bool? fadeout;
+
     public string target;
     public string color;
     public float? duration;
     public string ease;
+    public string customCurveTag;
     public string tweenId;
 }
 
@@ -43,6 +53,8 @@ public class Notes
     public int time;
     public float duration;
     public string type;
+    public string ease;
+    public string customCurveTag;
 
     public int? endTime;
 }
@@ -58,7 +70,6 @@ public class NoteEvents
     public int? goodEffect;
     public int? missEffect;
 
-    public string moveType;
     public float[] position;
 
     public float[] scale;
@@ -70,7 +81,17 @@ public class NoteEvents
     public string color;
     public float? duration;
     public string ease;
+    public string customCurveTag;
     public string tweenId;
+
+    public string setValueType;
+    public string transformMode;
+
+    public string killType;
+
+    public float? strength;
+    public int? vibrato;
+    public bool? fadeout;
 }
 
 [Serializable]
@@ -119,4 +140,11 @@ public class Objects
 
     public string imageType;
     public float? pixelPerUnitMultiplier;
+}
+
+[Serializable]
+public class Curves
+{
+    public string tag;
+    public AnimationCurve data;
 }

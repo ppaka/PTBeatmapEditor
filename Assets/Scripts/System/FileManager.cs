@@ -11,14 +11,15 @@ public class FileManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public LevelDataContainer ldc;
+    
+    ExtensionFilter[] extensions = new[]
+    {
+        new ExtensionFilter("레벨 파일", "ptlevel"),
+        new ExtensionFilter("Json 파일", "json")
+    };
 
     public void LoadLevel()
     {
-        var extensions = new[]
-        {
-            new ExtensionFilter("레벨 파일", "ptlevel")
-        };
-
         var path = StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", Application.persistentDataPath, extensions, false);
 
         if (path.Length > 0)
@@ -35,7 +36,7 @@ public class FileManager : MonoBehaviour
 
         var extensions = new[]
         {
-            new ExtensionFilter("음악 파일", "mp3", "wav", "ogg")
+            new ExtensionFilter("음악 파일", "ogg")
         };
 
         var path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
@@ -49,7 +50,7 @@ public class FileManager : MonoBehaviour
         {
             var extensions = new[]
             {
-                new ExtensionFilter("음악 파일", "mp3", "wav", "ogg")
+                new ExtensionFilter("음악 파일", "ogg")
             };
 
             path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
@@ -64,8 +65,8 @@ public class FileManager : MonoBehaviour
 
     public void SaveLevel()
     {
-        if (ldc.level.settings.title == string.Empty || ldc.level.settings.artist == string.Empty ||
-            ldc.level.settings.author == string.Empty)
+        if (ldc.levelData.settings.title == string.Empty || ldc.levelData.settings.artist == string.Empty ||
+            ldc.levelData.settings.author == string.Empty)
             return;
 
         var path = ldc.levelPath;
@@ -81,19 +82,19 @@ public class FileManager : MonoBehaviour
             Formatting = Formatting.Indented
         };
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level, settings));
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
         ldc.levelPath = path;
     }
 
     public void SaveLevelAs()
     {
-        if (ldc.level.settings.title.Equals("") || ldc.level.settings.artist.Equals("") ||
-            ldc.level.settings.author.Equals(""))
+        if (ldc.levelData.settings.title.Equals("") || ldc.levelData.settings.artist.Equals("") ||
+            ldc.levelData.settings.author.Equals(""))
             return;
 
         var path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기",
             Application.persistentDataPath + "/", "level",
-            "ptlevel");
+            extensions);
 
         if (path.Equals(string.Empty)) return;
 
@@ -103,7 +104,7 @@ public class FileManager : MonoBehaviour
             Formatting = Formatting.Indented
         };
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.level, settings));
+        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
         ldc.levelPath = path;
     }
 
@@ -127,7 +128,7 @@ public class FileManager : MonoBehaviour
 
         for (var i = 0; i < splitPath.Length - 1; i++) path[i] = splitPath[i] + "/";
 
-        path[path.Length - 1] = ldc.level.settings.songFilename;
+        path[path.Length - 1] = ldc.levelData.settings.songFilename;
 
         try
         {
