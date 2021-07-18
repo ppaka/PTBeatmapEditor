@@ -7,7 +7,6 @@ public class ScreenManager : MonoBehaviour
     private static bool _landscapeModeOnly = true;
     private static float _wantedAspectRatio;
     private static Camera _cam;
-    private static Camera _backgroundCam;
 
     private void Awake()
     {
@@ -49,10 +48,10 @@ public class ScreenManager : MonoBehaviour
         if ((int) (currentAspectRatio * 100) / 100.0f == (int) (_wantedAspectRatio * 100) / 100.0f)
         {
             _cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-            if (_backgroundCam)
+            /*if (_backgroundCam)
             {
                 Destroy(_backgroundCam.gameObject);
-            }
+            }*/
 
             return;
         }
@@ -61,7 +60,12 @@ public class ScreenManager : MonoBehaviour
         if (currentAspectRatio > _wantedAspectRatio)
         {
             var inset = 1.0f - _wantedAspectRatio / currentAspectRatio;
-            _cam.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);
+            Debug.Log("wanted: " + _wantedAspectRatio);
+            Debug.Log("current: " + currentAspectRatio);
+            Debug.Log("inset: " + inset);
+            // _cam.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);
+            // _cam.rect = new Rect(inset / 2, 0.0f, (1.0f - inset) * 0.8f, 1.0f * 0.8f);
+            _cam.rect = new Rect(inset / 2 * 0.8f, 0, (1.0f - inset) * 0.8f, 0.8f);
         }
         // 레터박스
         else
@@ -70,7 +74,7 @@ public class ScreenManager : MonoBehaviour
             _cam.rect = new Rect(0.0f, inset / 2, 1.0f, 1.0f - inset);
         }
 
-        if (_backgroundCam) return;
+        /*if (_backgroundCam) return;
         // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
         _backgroundCam = new GameObject("BackgroundCam", typeof(Camera)).GetComponent<Camera>();
         _backgroundCam.transform.Translate(new Vector3(0, 0, -10));
@@ -80,7 +84,7 @@ public class ScreenManager : MonoBehaviour
         _backgroundCam.clearFlags = CameraClearFlags.SolidColor;
         _backgroundCam.backgroundColor = _cam.backgroundColor;
         var layer = new string[] {"UI"};
-        _backgroundCam.cullingMask = LayerMask.GetMask(layer);
+        _backgroundCam.cullingMask = LayerMask.GetMask(layer);*/
     }
 
     public static int ScreenHeight => (int) (Screen.height * _cam.rect.height);
@@ -121,16 +125,16 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (_backgroundCam != null)
         {
             SetColor();
         }
-    }
+    }*/
 
-    private static void SetColor()
+    /*private static void SetColor()
     {
         _backgroundCam.backgroundColor = _cam.backgroundColor;
-    }
+    }*/
 }
