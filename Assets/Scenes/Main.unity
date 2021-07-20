@@ -6802,6 +6802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1642085550}
+  - component: {fileID: 1642085556}
   - component: {fileID: 1642085551}
   - component: {fileID: 1642085549}
   - component: {fileID: 1642085552}
@@ -6914,6 +6915,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 837886784}
   songSlider: {fileID: 1837671371}
+--- !u!114 &1642085556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642085548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8486deafceadacf488206d4d490b05d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1642285955
 GameObject:
   m_ObjectHideFlags: 0
