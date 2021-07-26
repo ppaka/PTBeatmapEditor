@@ -18,7 +18,7 @@ public class DiscordController : MonoBehaviour
         var activity = new Activity
         {
             State = "개발 중",
-            Details = "개발 중",
+            Details = "비트맵 에디터",
             Assets = assets
         };
         activityManager.UpdateActivity(activity, (res) =>
