@@ -13,7 +13,7 @@ public class DiscordController : MonoBehaviour
     private void Start()
     {
         assets.LargeImage = "icontest";
-        discord = new Discord.Discord(865849585778950175, (System.UInt64) CreateFlags.Default);
+        discord = new Discord.Discord(865849585778950175, (System.UInt64) CreateFlags.NoRequireDiscord);
         activityManager = discord.GetActivityManager();
         var activity = new Activity
         {
@@ -32,11 +32,12 @@ public class DiscordController : MonoBehaviour
 
     private void Update()
     {
-        discord.RunCallbacks();
+        if (!discord.Equals(null))
+            discord.RunCallbacks();
     }
 
-    private void OnApplicationQuit()
+    /*private void OnApplicationQuit()
     {
         activityManager.ClearActivity((result => Debug.Log(result)));
-    }
+    }*/
 }
