@@ -23,13 +23,13 @@ public class ListMaker : MonoBehaviour
         foreach (var data in ldc.levelData.notes)
         {
             var cache = Instantiate(itemPrefab, noteListParent.transform);
-            cache.GetComponentInChildren<Text>().text = data.ToString();
+            //cache.GetComponentInChildren<Text>().text = data.ToString();
         }
 
         foreach (var data in ldc.levelData.events)
         {
             var cache = Instantiate(itemPrefab, eventListParent.transform);
-            cache.GetComponentInChildren<Text>().text = data.ToString();
+            //cache.GetComponentInChildren<Text>().text = data.ToString();
         }
     }
 

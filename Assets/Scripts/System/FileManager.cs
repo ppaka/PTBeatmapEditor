@@ -26,7 +26,8 @@ public class FileManager : MonoBehaviour
         {
             ldc.levelPath = path[0];
 
-            StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
+            //StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
+            StartCoroutine(GetLevelData(path[0]));
         }
     }
 
@@ -74,7 +75,7 @@ public class FileManager : MonoBehaviour
         if (!File.Exists(ldc.levelPath))
             path = StandaloneFileBrowser.SaveFilePanel("레벨 저장하기",
                 Application.persistentDataPath + "/", "level",
-                "ptlevel");
+                extensions);
         
         var settings = new JsonSerializerSettings()
         {
@@ -110,12 +111,16 @@ public class FileManager : MonoBehaviour
 
     private IEnumerator GetLevelData(string url)
     {
-        using var www = UnityWebRequest.Get(url);
-        yield return www.SendWebRequest();
+        if (File.Exists(url))
+        {
+            var reader = new StreamReader(url);
 
-        ldc.GetLevelData(DownloadHandlerBuffer.GetContent(www));
-
-        LoadEvents.levelLoadComplete();
+            var textValue = reader.ReadToEnd();
+            reader.Close();
+            ldc.GetLevelData(textValue);
+            LoadEvents.levelLoadComplete();
+            yield break;
+        }
     }
 
     private IEnumerator GetClip(string url)

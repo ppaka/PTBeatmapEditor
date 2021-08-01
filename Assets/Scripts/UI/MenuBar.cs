@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuBar : MonoBehaviour //, IPointerEnterHandler, IPointerExitHandler
+public class MenuBar : MonoBehaviour
 {
     public GameObject[] toolMenus;
     public Toggle filesToggle;
@@ -11,25 +11,6 @@ public class MenuBar : MonoBehaviour //, IPointerEnterHandler, IPointerExitHandl
     {
         _menuGroup = GetComponent<CanvasGroup>();
     }
-
-    // public void OnPointerEnter(PointerEventData eventData)
-    // {
-    //     _menuGroup.DOKill();
-    //
-    //     _menuGroup.DOFade(0.9f, 0.5f).SetEase(Ease.OutQuad);
-    //     _menuGroup.interactable = true;
-    // }
-    //
-    // public void OnPointerExit(PointerEventData eventData)
-    // {
-    //     _menuGroup.DOKill();
-    //
-    //     _menuGroup.DOFade(0, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
-    //     {
-    //         HideToolMenus();
-    //     });
-    //     _menuGroup.interactable = false;
-    // }
 
     public void ShowToolMenu(GameObject obj)
     {
