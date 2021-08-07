@@ -1,9 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemData : MonoBehaviour
 {
-    public NoteData noteData;
+    public enum ItemType
+    {
+        Note,
+        Event,
+        NoteEvent
+    }
+
+    public ItemType itemType;
+
+    public int index;
+
+    public TMP_Text text;
+
+    public void SelectThis() => ListMaker.instance.selectAction?.Invoke(this);
 }

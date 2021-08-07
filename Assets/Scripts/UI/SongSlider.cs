@@ -11,6 +11,8 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     private AudioClip _clip;
     private bool _dragging;
 
+    public Metronome metronome;
+
     private void Update()
     {
         switch (_dragging)
@@ -56,6 +58,8 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
         songTime.changed = false;
         _dragging = false;
+
+        metronome.MovePosition();
     }
 
     private void LoadEvents()

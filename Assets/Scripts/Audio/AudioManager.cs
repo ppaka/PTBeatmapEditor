@@ -5,20 +5,29 @@ public class AudioManager : MonoBehaviour
     public AudioSource audioSource;
     public SongSlider songSlider;
 
-    public void Awake()
+    public void OnEnable()
     {
-        LoadEvents.audioLoadComplete += () =>
-        {
-            audioSource.Play();
-            AudioStop();
-        };
+        LoadEvents.audioLoadComplete += ResetAudio;
+        LoadEvents.audioLoadComplete += AnalyzeBpm;
     }
 
     public void OnDisable()
     {
-        LoadEvents.audioLoadComplete -= AudioStop;
+        LoadEvents.audioLoadComplete -= ResetAudio;
+        LoadEvents.audioLoadComplete -= AnalyzeBpm;
     }
 
+    public void AnalyzeBpm()
+    {
+        Debug.Log(UniBpmAnalyzer.AnalyzeBpm(audioSource.clip));
+    }
+
+    private void ResetAudio()
+    {
+        audioSource.Play();
+        AudioStop();
+    }
+    
     public void AudioStop()
     {
         audioSource.Pause();

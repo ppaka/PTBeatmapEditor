@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class LevelDataContainer : MonoBehaviour
 {
+    public static LevelDataContainer Instance;
+    
     public InputField title, artist, creater, clipName;
     public Slider diffSlider;
     public Text diffValueText;
@@ -19,6 +21,11 @@ public class LevelDataContainer : MonoBehaviour
 
     public LevelData levelData;
     public FileManager fileManager;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void GetLevelData(string file)
     {
