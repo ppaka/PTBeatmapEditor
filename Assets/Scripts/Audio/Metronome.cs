@@ -3,89 +3,100 @@ using UnityEngine;
 
 public class Metronome : MonoBehaviour
 {
-	[Header("Objects")] 
-	[SerializeField] private AudioSource audioSource;
+	[Header("Objects")] [SerializeField] AudioSource audioSource;
+	[SerializeField] AudioManager manager;
+	[SerializeField] AudioSource ticSource;
 
-	private AudioSource ticSource;
-	
-	private Vector3Int rotateAngle;
+	public double musicBpm = 120, stdBpm = 60.0;
+	public double musicBeat = 4, stdBeat = 4;
+	public bool isMute = true, isSongPositionMove;
 
-	private double offset;
-	private double bpm;
+	double _offset;
 
-	private int split;
+	double oneBeatTime, barPerSec, beatPerSample, bitPerSample, bitPerSec, nextSample, offsetForSample;
 
-	private double oneBeatTime;
-	private double nextSample;
-	private double offsetForSample;
+	Vector3Int rotateAngle;
+
+	void Update()
+	{
+		if (isSongPositionMove || isMute || audioSource.clip == null || !audioSource.isPlaying) return;
+
+		// Debug.Log(audioSource.timeSamples);
+		// ((float) audioSource.timeSamples / (float) audioSource.clip.frequency).Log();
+		if (audioSource.timeSamples >= nextSample)
+			StartCoroutine(TicSfx());
+	}
 
 	public void StartMet()
 	{
+		isMute = true;
+		
+		if (audioSource.clip == null)
+		{
+			Debug.Log("클립이 비어있습니다.");
+			return;
+		}
+
 		rotateAngle = Vector3Int.zero;
 		rotateAngle.z = 90;
 
-		ticSource = gameObject.GetComponent<AudioSource>();
+		_offset = LevelDataContainer.Instance.levelData.settings.noteOffset * 0.001f;
 
-		offset = LevelDataContainer.Instance.levelData.settings.noteOffset * 0.001f;
-		bpm = 120;
+		if (musicBpm <= 0) musicBpm = manager.AnalyzeBpm();
+		if (stdBpm <= 0) stdBpm = 60.0;
+		if (musicBeat <= 0) musicBeat = 4;
+		if (stdBeat <= 0) stdBeat = 4;
 
-		offsetForSample = offset * audioSource.clip.frequency;
-		oneBeatTime = (60.0 / bpm);
+		if (oneBeatTime != (stdBpm / musicBpm) * (musicBeat / stdBeat))
+		{
+			isSongPositionMove = true;
+		}
 
+		offsetForSample = _offset * audioSource.clip.frequency;
+		oneBeatTime = (stdBpm / musicBpm) * (musicBeat / stdBeat);
+
+		//audioSource.clip.frequency.Log();
+		//audioSource.clip.samples.Log();
+		
+		beatPerSample = oneBeatTime * audioSource.clip.frequency;
 		nextSample = offsetForSample;
+		
+		MovePosition();
 
-		audioSource.clip.frequency.Log();
-		audioSource.clip.samples.Log();
+		isMute = false;
+		
+		//Debug.Log(nextSample);
+		//Debug.Log(oneBeatTime * audioSource.clip.frequency);
 
 		// (audioSource.clip.samples / audioSource.clip.frequency).Log();
 	}
 
-	private bool isMute;
-	
 	public void MovePosition()
 	{
-		double newSample = offsetForSample;
+		if (!isSongPositionMove)
+			isSongPositionMove = true;
+		
+		// double newSample = oneBeatTime * audioSource.clip.frequency + offsetForSample;
 
-		if (newSample <= audioSource.timeSamples)
-		{
-			isMute = true;
-		}
+		double newSample = offsetForSample;
 		
 		while (newSample <= audioSource.timeSamples)
 		{
-			newSample += oneBeatTime * audioSource.clip.frequency;
+			if (newSample > audioSource.timeSamples) break;
+			newSample += beatPerSample;
 		}
-		
-		isMute = false;
+
+		isSongPositionMove = false;
 
 		nextSample = newSample;
 	}
 
-	private void Update()
-	{
-		if (!audioSource.isPlaying) return;
-		
-		// ((float) audioSource.timeSamples / (float) audioSource.clip.frequency).Log();
-		if (audioSource.timeSamples >= nextSample)
-		{
-			if (!isMute)
-				StartCoroutine(TicSFX());
-		}
-	}
-
-	private IEnumerator TicSFX()
+	IEnumerator TicSfx()
 	{
 		ticSource.Play();
-		nextSample += oneBeatTime * audioSource.clip.frequency;
-		gameObject.transform.Rotate(rotateAngle);
+		beatPerSample = oneBeatTime * audioSource.clip.frequency;
+		nextSample += beatPerSample;
+		// gameObject.transform.Rotate(rotateAngle);
 		yield return null;
-	}
-}
-
-public static class ExtensionMethods
-{
-	public static void Log(this object value)
-	{
-		Debug.Log(value.ToString());
 	}
 }

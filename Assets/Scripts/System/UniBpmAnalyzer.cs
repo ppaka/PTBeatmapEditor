@@ -80,6 +80,41 @@ public class UniBpmAnalyzer
 
         return bpm;
     }
+    
+    /// <summary>
+    /// Analyze BPM from an audio clip and Doesn't Logging
+    /// </summary>
+    /// <param name="clip">target audio clip</param>
+    /// <returns>bpm</returns>
+    public static int AnalyzeBpmWithoutLogging(AudioClip clip)
+    {
+        for (int i = 0; i < bpmMatchDatas.Length; i++)
+        {
+            bpmMatchDatas[i].match = 0f;
+        }
+        if (clip == null)
+        {
+            return -1;
+        }
+
+        int frequency = clip.frequency;
+
+        int channels = clip.channels;
+
+        int splitFrameSize = Mathf.FloorToInt(((float)frequency / (float)BASE_FREQUENCY) * ((float)channels / (float)BASE_CHANNELS) * (float)BASE_SPLIT_SAMPLE_SIZE);
+
+        // Get all sample data from audioclip
+        var allSamples = new float[clip.samples * channels];
+        clip.GetData(allSamples, 0);
+
+        // Create volume array from all sample data
+        var volumeArr = CreateVolumeArray(allSamples, frequency, channels, splitFrameSize);
+
+        // Search bpm from volume array
+        int bpm = SearchBpm(volumeArr, frequency, splitFrameSize);
+
+        return bpm;
+    }
 
     /// <summary>
     /// Create volume array from all sample data

@@ -8,18 +8,16 @@ public class AudioManager : MonoBehaviour
     public void OnEnable()
     {
         LoadEvents.audioLoadComplete += ResetAudio;
-        LoadEvents.audioLoadComplete += AnalyzeBpm;
     }
 
     public void OnDisable()
     {
         LoadEvents.audioLoadComplete -= ResetAudio;
-        LoadEvents.audioLoadComplete -= AnalyzeBpm;
     }
 
-    public void AnalyzeBpm()
+    public float AnalyzeBpm()
     {
-        Debug.Log(UniBpmAnalyzer.AnalyzeBpm(audioSource.clip));
+        return UniBpmAnalyzer.AnalyzeBpmWithoutLogging(audioSource.clip);
     }
 
     private void ResetAudio()

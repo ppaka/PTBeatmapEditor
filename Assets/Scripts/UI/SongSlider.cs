@@ -42,6 +42,8 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         _dragging = true;
         var value = Mathf.Clamp(slider.value * _clip.length, 0, _clip.length);
         songTime.UpdateTime(value, doScrubbing);
+        
+        if (doScrubbing) metronome.isSongPositionMove = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -59,7 +61,8 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
         songTime.changed = false;
         _dragging = false;
 
-        metronome.MovePosition();
+        metronome.isSongPositionMove = true;
+        metronome.StartMet();
     }
 
     private void LoadEvents()
