@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ToolBarCamControl : MonoBehaviour
 {
 	public Camera mainCam;
-	public CanvasScaler scaler;
+	public ScalingCanvas scaler;
 	public CanvasGroup canvasGroup;
 
 	Coroutine _coroutine;
@@ -41,7 +41,7 @@ public class ToolBarCamControl : MonoBehaviour
 			canvasGroup.DOFade(1f, 0.2f).SetEase(Ease.Linear);
 			canvasGroup.blocksRaycasts = true;
 			canvasGroup.interactable = true;
-			scaler.scaleFactor = 0.94f;
+			scaler.HandleScaleWithScreenSize();
 		}
 		else
 		{
@@ -58,7 +58,7 @@ public class ToolBarCamControl : MonoBehaviour
 			canvasGroup.DOFade(1f, 0.2f).SetEase(Ease.Linear);
 			canvasGroup.blocksRaycasts = true;
 			canvasGroup.interactable = true;
-			scaler.scaleFactor = 1;
+			scaler.HandleScaleWithScreenSize();
 		}
 	}
 }
