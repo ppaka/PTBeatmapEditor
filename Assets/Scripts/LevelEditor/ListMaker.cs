@@ -11,65 +11,57 @@ public class ListMaker : MonoBehaviour
 	public InputField time, duration;
 	public Dropdown noteType, ease;
 
-	private void Awake()
+	public Action<ItemData> selectAction;
+
+	void Awake()
 	{
 		instance = this;
 		LoadEvents.levelLoadComplete += MakeLists;
 		selectAction += SelectData;
 	}
 
-	private void OnDisable()
+	void OnDisable()
 	{
 		LoadEvents.levelLoadComplete -= MakeLists;
 	}
 
-	private void MakeLists()
+	void MakeLists()
 	{
-		foreach (var data in ldc.levelData.notes)
+		foreach (Notes data in ldc.levelData.notes)
 		{
-			var cache = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
+			ItemData cache = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
 			cache.itemType = ItemData.ItemType.Note;
 			cache.index = ldc.levelData.notes.FindIndex(note => note == data);
 			if (data.type == "Chain")
 			{
 				if (data.ease == "custom")
-				{
 					cache.text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.customCurveTag +
 					                  "|" + data.type + "|" + data.endTime;
-				}
 				else
-				{
 					cache.text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.ease + "|" +
 					                  data.type + "|" + data.endTime;
-				}
 			}
 			else
 			{
 				if (data.ease == "custom")
-				{
 					cache.text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.customCurveTag +
 					                  "|" + data.type;
-				}
 				else
-				{
 					cache.text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.ease + "|" +
 					                  data.type;
-				}
 			}
 		}
 
-		foreach (var data in ldc.levelData.events)
+		foreach (Events data in ldc.levelData.events)
 		{
-			var cache = Instantiate(itemPrefab, eventListParent.transform).GetComponent<ItemData>();
+			ItemData cache = Instantiate(itemPrefab, eventListParent.transform).GetComponent<ItemData>();
 			cache.itemType = ItemData.ItemType.Event;
 			cache.index = ldc.levelData.events.FindIndex(events => events == data);
 			cache.text.text = data.time + "|" + data.duration + "|" + data.type + "|" + data.ease;
 		}
 	}
 
-	public Action<ItemData> selectAction;
-
-	private void SelectData(ItemData iData)
+	void SelectData(ItemData iData)
 	{
 		if (iData.itemType == ItemData.ItemType.Note)
 			Debug.Log(ldc.levelData.notes[iData.index].time);
@@ -81,7 +73,6 @@ public class ListMaker : MonoBehaviour
 
 	public void AddData(ItemData.ItemType type)
 	{
-		
 	}
 
 	public void DeleteData(ItemData iData)

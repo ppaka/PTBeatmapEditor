@@ -9,152 +9,152 @@ using UnityEngine.Networking;
 
 public class FileManager : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public LevelDataContainer ldc;
-    
-    ExtensionFilter[] extensions = new[]
-    {
-        new ExtensionFilter("레벨 파일", "ptlevel"),
-        new ExtensionFilter("Json 파일", "json")
-    };
+	public AudioSource audioSource;
+	public LevelDataContainer ldc;
 
-    public void LoadLevel()
-    {
-        var path = StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", Application.persistentDataPath, extensions, false);
+	readonly ExtensionFilter[] extensions =
+	{
+		new ExtensionFilter("레벨 파일", "ptlevel"),
+		new ExtensionFilter("Json 파일", "json")
+	};
 
-        if (path.Length > 0)
-        {
-            ldc.levelPath = path[0];
+	public void LoadLevel()
+	{
+		string[] path =
+			StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", Application.persistentDataPath, extensions, false);
 
-            //StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
-            StartCoroutine(GetLevelData(path[0]));
-        }
-    }
+		if (path.Length > 0)
+		{
+			ldc.levelPath = path[0];
 
-    public void CallLoadSong()
-    {
-        if (ldc.levelPath == "") return;
+			//StartCoroutine(GetLevelData(new Uri(path[0]).AbsoluteUri));
+			StartCoroutine(GetLevelData(path[0]));
+		}
+	}
 
-        var extensions = new[]
-        {
-            new ExtensionFilter("음악 파일", "ogg")
-        };
+	public void CallLoadSong()
+	{
+		if (ldc.levelPath == "") return;
 
-        var path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
+		var extensions = new[]
+		{
+			new ExtensionFilter("음악 파일", "ogg")
+		};
 
-        if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
-    }
+		string[] path =
+			StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
 
-    public void LoadSong([CanBeNull] string[] path)
-    {
-        if (path == null)
-        {
-            var extensions = new[]
-            {
-                new ExtensionFilter("음악 파일", "ogg")
-            };
+		if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
+	}
 
-            path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
+	public void LoadSong([CanBeNull] string[] path)
+	{
+		if (path == null)
+		{
+			var extensions = new[]
+			{
+				new ExtensionFilter("음악 파일", "ogg")
+			};
 
-            if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
-        }
-        else
-        {
-            if (path.Length > 0) StartCoroutine(GetClip(new Uri(string.Join("", path)).AbsoluteUri));
-        }
-    }
+			path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
 
-    public void SaveLevel()
-    {
-        if (ldc.levelData.settings.title == string.Empty || ldc.levelData.settings.artist == string.Empty ||
-            ldc.levelData.settings.author == string.Empty)
-            return;
+			if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
+		}
+		else
+		{
+			if (path.Length > 0) StartCoroutine(GetClip(new Uri(string.Join("", path)).AbsoluteUri));
+		}
+	}
 
-        var path = ldc.levelPath;
+	public void SaveLevel()
+	{
+		if (ldc.levelData.settings.title == string.Empty || ldc.levelData.settings.artist == string.Empty ||
+		    ldc.levelData.settings.author == string.Empty)
+			return;
 
-        if (!File.Exists(ldc.levelPath))
-            path = StandaloneFileBrowser.SaveFilePanel("레벨 저장하기",
-                Application.persistentDataPath + "/", "level",
-                extensions);
-        
-        var settings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            Formatting = Formatting.Indented
-        };
+		string path = ldc.levelPath;
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
-        ldc.levelPath = path;
-    }
+		if (!File.Exists(ldc.levelPath))
+			path = StandaloneFileBrowser.SaveFilePanel("레벨 저장하기", Application.persistentDataPath + "/", "level",
+				extensions);
 
-    public void SaveLevelAs()
-    {
-        if (ldc.levelData.settings.title.Equals("") || ldc.levelData.settings.artist.Equals("") ||
-            ldc.levelData.settings.author.Equals(""))
-            return;
+		JsonSerializerSettings settings = new JsonSerializerSettings
+		{
+			NullValueHandling = NullValueHandling.Ignore,
+			Formatting = Formatting.Indented
+		};
 
-        var path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기",
-            Application.persistentDataPath + "/", "level",
-            extensions);
+		File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
+		ldc.levelPath = path;
+	}
 
-        if (path.Equals(string.Empty)) return;
+	public void SaveLevelAs()
+	{
+		if (ldc.levelData.settings.title.Equals("") || ldc.levelData.settings.artist.Equals("") ||
+		    ldc.levelData.settings.author.Equals(""))
+			return;
 
-        var settings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            Formatting = Formatting.Indented
-        };
+		string path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기", Application.persistentDataPath + "/",
+			"level", extensions);
 
-        File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
-        ldc.levelPath = path;
-    }
+		if (path.Equals(string.Empty)) return;
 
-    private IEnumerator GetLevelData(string url)
-    {
-        if (File.Exists(url))
-        {
-            var reader = new StreamReader(url);
+		JsonSerializerSettings settings = new JsonSerializerSettings
+		{
+			NullValueHandling = NullValueHandling.Ignore,
+			Formatting = Formatting.Indented
+		};
 
-            var textValue = reader.ReadToEnd();
-            reader.Close();
-            ldc.GetLevelData(textValue);
-            LoadEvents.levelLoadComplete();
-            yield break;
-        }
-    }
+		File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
+		ldc.levelPath = path;
+	}
 
-    private IEnumerator GetClip(string url)
-    {
-        var replaced = url.Replace("%20", " ").Replace("file:///", "");
+	IEnumerator GetLevelData(string url)
+	{
+		if (File.Exists(url))
+		{
+			StreamReader reader = new StreamReader(url);
 
-        var splitPath = ldc.levelPath.Split('\\');
+			string textValue = reader.ReadToEnd();
+			reader.Close();
+			ldc.GetLevelData(textValue);
+			LoadEvents.levelLoadComplete();
+			yield break;
+		}
+	}
 
-        var path = new string[splitPath.Length];
+	IEnumerator GetClip(string url)
+	{
+		string replaced = url.Replace("%20", " ").Replace("file:///", "");
 
-        for (var i = 0; i < splitPath.Length - 1; i++) path[i] = splitPath[i] + "/";
+		string[] splitPath = ldc.levelPath.Split('\\');
 
-        path[path.Length - 1] = ldc.levelData.settings.songFilename;
+		string[] path = new string[splitPath.Length];
 
-        try
-        {
-            File.Copy(replaced, string.Join("", path), true);
-        }
-        catch
-        {
-            //
-        }
+		for (int i = 0; i < splitPath.Length - 1; i++) path[i] = splitPath[i] + "/";
 
-        using var www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
-        yield return www.SendWebRequest();
+		path[path.Length - 1] = ldc.levelData.settings.songFilename;
 
-        audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
+		try
+		{
+			File.Copy(replaced, string.Join("", path), true);
+		}
+		catch
+		{
+			//
+		}
 
-        var split = url.Split('/');
-        var clipName = split[split.Length - 1].Replace("%20", " ");
+		using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
+		yield return www.SendWebRequest();
 
-        LoadEvents.audioLoadComplete();
+		audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
 
-        audioSource.clip.name = clipName;
-        ldc.GetClipName(clipName);
-    }
+		string[] split = url.Split('/');
+		string clipName = split[split.Length - 1].Replace("%20", " ");
+
+		LoadEvents.audioLoadComplete();
+
+		audioSource.clip.name = clipName;
+		ldc.GetClipName(clipName);
+	}
 }

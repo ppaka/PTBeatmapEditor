@@ -2,6 +2,6 @@
 
 public static class LoadEvents
 {
-    public static Action audioLoadComplete;
-    public static Action levelLoadComplete;
+	public static Action audioLoadComplete;
+	public static Action levelLoadComplete;
 }

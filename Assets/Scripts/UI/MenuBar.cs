@@ -3,23 +3,23 @@ using UnityEngine.UI;
 
 public class MenuBar : MonoBehaviour
 {
-    public GameObject[] toolMenus;
-    public Toggle filesToggle;
-    private CanvasGroup _menuGroup;
+	public GameObject[] toolMenus;
+	public Toggle filesToggle;
+	CanvasGroup _menuGroup;
 
-    private void Start()
-    {
-        _menuGroup = GetComponent<CanvasGroup>();
-    }
+	void Start()
+	{
+		_menuGroup = GetComponent<CanvasGroup>();
+	}
 
-    public void ShowToolMenu(GameObject obj)
-    {
-        obj.SetActive(!obj.activeSelf);
-    }
+	public void ShowToolMenu(GameObject obj)
+	{
+		obj.SetActive(!obj.activeSelf);
+	}
 
-    public void HideToolMenus()
-    {
-        filesToggle.isOn = false;
-        foreach (var i in toolMenus) i.SetActive(false);
-    }
+	public void HideToolMenus()
+	{
+		filesToggle.isOn = false;
+		foreach (GameObject i in toolMenus) i.SetActive(false);
+	}
 }

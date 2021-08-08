@@ -2,67 +2,67 @@ using UnityEngine;
 
 public class Waveform : MonoBehaviour
 {
-    public static float[] GetWaveform(AudioClip audio, int size, float sat)
-    {
-        var samples = new float[audio.channels * audio.samples];
-        var waveform = new float[size];
-        audio.GetData(samples, 0);
-        var packSize = audio.samples * audio.channels / size;
-        var max = 0f;
-        var c = 0;
-        var s = 0;
+	public static float[] GetWaveform(AudioClip audio, int size, float sat)
+	{
+		float[] samples = new float[audio.channels * audio.samples];
+		float[] waveform = new float[size];
+		audio.GetData(samples, 0);
+		int packSize = audio.samples * audio.channels / size;
+		float max = 0f;
+		int c = 0;
+		int s = 0;
 
-        for (var i = 0; i < audio.channels * audio.samples; i++)
-        {
-            waveform[c] += Mathf.Abs(samples[i]);
-            s++;
+		for (int i = 0; i < audio.channels * audio.samples; i++)
+		{
+			waveform[c] += Mathf.Abs(samples[i]);
+			s++;
 
-            if (s <= packSize) continue;
-            if (max < waveform[c])
-                max = waveform[c];
-            c++;
-            s = 0;
-        }
+			if (s <= packSize) continue;
+			if (max < waveform[c])
+				max = waveform[c];
+			c++;
+			s = 0;
+		}
 
-        for (var i = 0; i < size; i++)
-        {
-            waveform[i] /= max * sat;
-            if (waveform[i] > 1f)
-                waveform[i] = 1f;
-        }
+		for (int i = 0; i < size; i++)
+		{
+			waveform[i] /= max * sat;
+			if (waveform[i] > 1f)
+				waveform[i] = 1f;
+		}
 
-        return waveform;
-    }
+		return waveform;
+	}
 
-    public static Texture2D PaintWaveformSpectrum(AudioClip audio, int width, int height)
-    {
-        var tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        var samples = new float[audio.samples * audio.channels];
-        var waveform = new float[width];
-        audio.GetData(samples, 0);
-        var packSize = samples.Length / width + 1;
-        var s = 0;
+	public static Texture2D PaintWaveformSpectrum(AudioClip audio, int width, int height)
+	{
+		Texture2D tex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+		float[] samples = new float[audio.samples * audio.channels];
+		float[] waveform = new float[width];
+		audio.GetData(samples, 0);
+		int packSize = samples.Length / width + 1;
+		int s = 0;
 
-        for (var i = 0; i < samples.Length; i += packSize)
-        {
-            waveform[s] = Mathf.Abs(samples[i]);
-            s++;
-        }
+		for (int i = 0; i < samples.Length; i += packSize)
+		{
+			waveform[s] = Mathf.Abs(samples[i]);
+			s++;
+		}
 
-        for (var x = 0; x < width; x++)
-        for (var y = 0; y < height; y++)
-            tex.SetPixel(x, y, Color.clear);
+		for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
+			tex.SetPixel(x, y, Color.clear);
 
-        for (var x = 0; x < waveform.Length; x++)
-        for (var y = 0; y <= waveform[x] * (height * .75f); y++)
-        {
-            tex.SetPixel(x, height / 2 + y, Color.white);
-            tex.SetPixel(x, height / 2 - y, Color.white);
-        }
+		for (int x = 0; x < waveform.Length; x++)
+		for (int y = 0; y <= waveform[x] * (height * .75f); y++)
+		{
+			tex.SetPixel(x, height / 2 + y, Color.white);
+			tex.SetPixel(x, height / 2 - y, Color.white);
+		}
 
-        tex.filterMode = FilterMode.Trilinear;
-        tex.Apply();
+		tex.filterMode = FilterMode.Trilinear;
+		tex.Apply();
 
-        return tex;
-    }
+		return tex;
+	}
 }

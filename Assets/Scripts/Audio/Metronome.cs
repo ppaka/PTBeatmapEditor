@@ -30,7 +30,7 @@ public class Metronome : MonoBehaviour
 	public void StartMet()
 	{
 		isMute = true;
-		
+
 		if (audioSource.clip == null)
 		{
 			Debug.Log("클립이 비어있습니다.");
@@ -47,24 +47,21 @@ public class Metronome : MonoBehaviour
 		if (musicBeat <= 0) musicBeat = 4;
 		if (stdBeat <= 0) stdBeat = 4;
 
-		if (oneBeatTime != (stdBpm / musicBpm) * (musicBeat / stdBeat))
-		{
-			isSongPositionMove = true;
-		}
+		if (oneBeatTime != stdBpm / musicBpm * (musicBeat / stdBeat)) isSongPositionMove = true;
 
 		offsetForSample = _offset * audioSource.clip.frequency;
-		oneBeatTime = (stdBpm / musicBpm) * (musicBeat / stdBeat);
+		oneBeatTime = stdBpm / musicBpm * (musicBeat / stdBeat);
 
 		//audioSource.clip.frequency.Log();
 		//audioSource.clip.samples.Log();
-		
+
 		beatPerSample = oneBeatTime * audioSource.clip.frequency;
 		nextSample = offsetForSample;
-		
+
 		MovePosition();
 
 		isMute = false;
-		
+
 		//Debug.Log(nextSample);
 		//Debug.Log(oneBeatTime * audioSource.clip.frequency);
 
@@ -75,11 +72,11 @@ public class Metronome : MonoBehaviour
 	{
 		if (!isSongPositionMove)
 			isSongPositionMove = true;
-		
+
 		// double newSample = oneBeatTime * audioSource.clip.frequency + offsetForSample;
 
 		double newSample = offsetForSample;
-		
+
 		while (newSample <= audioSource.timeSamples)
 		{
 			if (newSample > audioSource.timeSamples) break;
