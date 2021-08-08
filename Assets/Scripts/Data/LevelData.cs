@@ -8,9 +8,18 @@ public class LevelData
 	public Settings settings;
 	public List<Objects> objects = new List<Objects>();
 	public List<Curves> curves = new List<Curves>();
+	public List<Timings> timings = new List<Timings>();
 	public List<Events> events = new List<Events>();
 	public List<NoteEvents> noteEvents = new List<NoteEvents>();
 	public List<Notes> notes = new List<Notes>();
+}
+
+[Serializable]
+public class Timings
+{
+	public int? time;
+	public double? bpm;
+	public string beat;
 }
 
 [Serializable]
