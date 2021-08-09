@@ -7,7 +7,7 @@ public class WaveformControl : MonoBehaviour
 	[SerializeField] int height = 150;
 	[SerializeField] Color waveformColor;
 	[SerializeField] Image img;
-	public AudioSource audioSource;
+	[SerializeField] AudioSource audioSource;
 
 	void Start()
 	{
@@ -22,6 +22,7 @@ public class WaveformControl : MonoBehaviour
 			Texture2D texture = Waveform.PaintWaveformSpectrum(audioSource.clip, width, height);
 			img.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height),
 				new Vector2(0.5f, 0.5f));
+			img.sprite.texture.wrapMode = TextureWrapMode.Clamp;
 			img.color = waveformColor;
 		}
 	}

@@ -31,6 +31,8 @@ public class LevelDataContainer : MonoBehaviour
 	{
 		try
 		{
+			GC.Collect();
+			levelData = new LevelData();
 			levelData = JsonConvert.DeserializeObject<LevelData>(file);
 			title.text = levelData.settings.title;
 			artist.text = levelData.settings.artist;
@@ -98,16 +100,12 @@ public class LevelDataContainer : MonoBehaviour
 	public void ResetLevelData()
 	{
 		levelPath = "";
-		levelData.settings.songFilename = clipName.text = "";
-		levelData.settings = new Settings();
-		levelData.notes.Clear();
-		levelData.events.Clear();
-		levelData.noteEvents.Clear();
-		levelData.objects.Clear();
-		levelData.settings.title = title.text = "";
-		levelData.settings.artist = artist.text = "";
-		levelData.settings.author = creater.text = "";
-		levelData.settings.difficulty = (uint) (diffSlider.value = 1);
+		levelData = new LevelData();
+		clipName.text = "";
+		title.text = "";
+		artist.text = "";
+		creater.text = "";
+		diffSlider.value = 1;
 		diffValueText.text = ((int) diffSlider.value).ToString();
 	}
 

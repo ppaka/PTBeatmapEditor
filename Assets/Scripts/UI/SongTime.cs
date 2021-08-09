@@ -17,7 +17,8 @@ public class SongTime : MonoBehaviour
 
 	void Start()
 	{
-		_nowTime = (float) (Math.Truncate(audioSource.time * 1) / 1);
+		//_nowTime = (float) (Math.Truncate(audioSource.time * 1) / 1);
+		_nowTime = audioSource.time;
 	}
 
 	void Update()
