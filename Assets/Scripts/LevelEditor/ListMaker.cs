@@ -62,8 +62,12 @@ public class ListMaker : MonoBehaviour
 
 	void SelectData(ItemData iData)
 	{
+		selectedData = iData;
+		
 		if (iData.itemType == ItemData.ItemType.Note)
-			Debug.Log(ldc.levelData.notes[iData.index].time);
+		{
+			Debug.Log( iData.index+":" + ldc.levelData.notes[iData.index].time);
+		}
 		else if (iData.itemType == ItemData.ItemType.Event)
 			Debug.Log(ldc.levelData.events[iData.index].time);
 		else if (iData.itemType == ItemData.ItemType.NoteEvent)
