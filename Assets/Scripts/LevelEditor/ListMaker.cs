@@ -14,6 +14,8 @@ public class ListMaker : MonoBehaviour
 
 	public Action<ItemData> selectAction;
 
+	public ItemData selectedData;
+
 	public List<ItemData> notes = new List<ItemData>();
 	public List<ItemData> events = new List<ItemData>();
 	public List<ItemData> noteEvents = new List<ItemData>();
