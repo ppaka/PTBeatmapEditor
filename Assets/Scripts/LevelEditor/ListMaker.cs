@@ -86,6 +86,7 @@ public class ListMaker : MonoBehaviour
 			Notes data = new Notes {noteNum = 1, duration = 1, time = time, ease = "L", type = "normal"};
 			iData.index = 0;
 			iData.UpdateText(data);
+			notes.Add(iData);
 			
 			ldc.levelData.notes.Add(data);
 		}
@@ -142,66 +143,16 @@ public class ListMaker : MonoBehaviour
 		}
 	}
 
-	public void AddData(ItemData.ItemType type)
+	public void AddEventData()
 	{
-		int time = (int) songTime.audioSource.time * 1000;
-
-		if (type == ItemData.ItemType.Note)
-		{
-			ItemData iData = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
-			notes.Add(iData);
-			iData.itemType = ItemData.ItemType.Note;
-
-			if (ldc.levelData.notes.Count == 0)
-			{
-			}
-			else
-			{
-				int previousIndex = -1;
-
-				int indexingTime = time;
-
-				while (true)
-				{
-					previousIndex = ldc.levelData.notes.FindLastIndex(note => note.time == indexingTime);
-					if (previousIndex != -1) break;
-					if (indexingTime <= 0)
-					{
-						previousIndex = -1;
-						break;
-					}
-
-					indexingTime -= 1;
-				}
-
-				int index = previousIndex + 1;
-				iData.index = index;
-
-				for (int i = index + 1; i < notes.Count; i++)
-				{
-					var item = notes[i];
-					item.index += 1;
-				}
-
-				for (int i = index; i < ldc.levelData.notes.Count; i++)
-				{
-					var note = ldc.levelData.notes[i];
-					note.noteNum += 1;
-				}
-
-				Notes data = new Notes {noteNum = (uint) index, duration = 1, time = time, ease = "L", type = "normal"};
-
-				iData.text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.ease + "|" +
-				                  data.type;
-
-				ldc.levelData.notes.Add(data);
-				iData.transform.SetSiblingIndex(index);
-			}
-		}
+		
 	}
 
-	public void DeleteData(ItemData iData)
+	public void DeleteData()
 	{
+		if (selectedData == null) return;
+		
+		ItemData iData = selectedData;
 		int index = iData.index;
 
 		switch (iData.itemType)
@@ -212,14 +163,13 @@ public class ListMaker : MonoBehaviour
 
 				for (int i = index + 1; i < notes.Count; i++)
 				{
-					var item = notes[i];
-					item.index -= 1;
-				}
-
-				for (int i = index; i < ldc.levelData.notes.Count; i++)
-				{
-					var note = ldc.levelData.notes[i];
+					ItemData item = notes[i];
+					Notes note = ldc.levelData.notes[i];
+				
 					note.noteNum -= 1;
+					item.index -= 1;
+
+					item.UpdateText(note);
 				}
 
 				notes.RemoveAt(lIndex);
@@ -261,5 +211,8 @@ public class ListMaker : MonoBehaviour
 				break;
 			}
 		}
+		
+		Destroy(iData.gameObject);
+		selectedData = null;
 	}
 }
