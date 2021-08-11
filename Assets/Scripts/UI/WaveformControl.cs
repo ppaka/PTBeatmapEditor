@@ -11,7 +11,7 @@ public class WaveformControl : MonoBehaviour
 
 	void Start()
 	{
-		LoadEvents.audioLoadComplete += UpdateWaveform;
+		SystemEvents.audioLoadComplete += UpdateWaveform;
 	}
 
 	public void UpdateWaveform()

@@ -23,13 +23,13 @@ public class ListMaker : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		LoadEvents.levelLoadComplete += MakeLists;
+		SystemEvents.levelLoadComplete += MakeLists;
 		selectAction += SelectData;
 	}
 
 	void OnDisable()
 	{
-		LoadEvents.levelLoadComplete -= MakeLists;
+		SystemEvents.levelLoadComplete -= MakeLists;
 	}
 
 	void MakeLists()

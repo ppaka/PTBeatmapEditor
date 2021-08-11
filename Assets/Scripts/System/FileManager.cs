@@ -118,7 +118,7 @@ public class FileManager : MonoBehaviour
 			string textValue = reader.ReadToEnd();
 			reader.Close();
 			ldc.GetLevelData(textValue);
-			LoadEvents.levelLoadComplete();
+			SystemEvents.levelLoadComplete();
 			yield break;
 		}
 	}
@@ -152,7 +152,7 @@ public class FileManager : MonoBehaviour
 		string[] split = url.Split('/');
 		string clipName = split[split.Length - 1].Replace("%20", " ");
 
-		LoadEvents.audioLoadComplete();
+		SystemEvents.audioLoadComplete();
 
 		audioSource.clip.name = clipName;
 		ldc.GetClipName(clipName);

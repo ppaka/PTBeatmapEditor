@@ -5,7 +5,7 @@ using UnityEngine;
 public class SongTime : MonoBehaviour
 {
 	public AudioSource audioSource;
-	public TMP_Text text;
+	public TMP_InputField songTimeTextField;
 
 	public bool changed;
 	int _hour;
@@ -41,7 +41,7 @@ public class SongTime : MonoBehaviour
 			_min = (int) (_nowTime / 60 % 60);
 			_hour = (int) (_nowTime / 60 / 60 % 60);
 
-			text.text = $"{_hour:00}:{_min:00}:{_sec:00};{_mSec:00}";
+			songTimeTextField.text = $"{_hour:00}:{_min:00}:{_sec:00};{_mSec:00}";
 		}
 		catch
 		{

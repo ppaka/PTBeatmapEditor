@@ -7,12 +7,12 @@ public class AudioManager : MonoBehaviour
 
 	public void OnEnable()
 	{
-		LoadEvents.audioLoadComplete += ResetAudio;
+		SystemEvents.audioLoadComplete += ResetAudio;
 	}
 
 	public void OnDisable()
 	{
-		LoadEvents.audioLoadComplete -= ResetAudio;
+		SystemEvents.audioLoadComplete -= ResetAudio;
 	}
 
 	public float AnalyzeBpm()

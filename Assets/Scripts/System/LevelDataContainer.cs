@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +12,7 @@ public class LevelDataContainer : MonoBehaviour
 {
 	public static LevelDataContainer Instance;
 
-	public InputField title, artist, creater, clipName;
+	public TMP_InputField title, artist, creater, clipName, songVolume;
 	public Slider diffSlider;
 	public Text diffValueText;
 
@@ -21,6 +23,9 @@ public class LevelDataContainer : MonoBehaviour
 
 	public LevelData levelData;
 	public FileManager fileManager;
+	
+	public Dictionary<uint, Dictionary<string, List<NoteEvents>>> NoteEvents =
+		new Dictionary<uint, Dictionary<string, List<NoteEvents>>>();
 
 	void Awake()
 	{

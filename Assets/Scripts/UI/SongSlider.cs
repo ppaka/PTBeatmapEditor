@@ -27,12 +27,12 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
 	void OnEnable()
 	{
-		global::LoadEvents.audioLoadComplete += LoadEvents;
+		global::SystemEvents.audioLoadComplete += LoadEvents;
 	}
 
 	void OnDisable()
 	{
-		global::LoadEvents.audioLoadComplete -= LoadEvents;
+		global::SystemEvents.audioLoadComplete -= LoadEvents;
 	}
 
 	public void OnDrag(PointerEventData eventData)
