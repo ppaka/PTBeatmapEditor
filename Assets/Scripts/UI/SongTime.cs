@@ -23,6 +23,7 @@ public class SongTime : MonoBehaviour
 
 	void Update()
 	{
+		if (audioSource.clip == null) return;
 		if (changed) return;
 		UpdateTime(audioSource.time, false);
 	}
@@ -36,12 +37,12 @@ public class SongTime : MonoBehaviour
 			else
 				_nowTime = songTime;
 
-			_mSec = (int) ((_nowTime - (int) _nowTime) * 100);
+			_mSec = (int) ((_nowTime - (int) _nowTime) * 1000);
 			_sec = (int) (_nowTime % 60);
 			_min = (int) (_nowTime / 60 % 60);
 			_hour = (int) (_nowTime / 60 / 60 % 60);
 
-			songTimeTextField.text = $"{_hour:00}:{_min:00}:{_sec:00};{_mSec:00}";
+			songTimeTextField.text = $"{_hour:00}:{_min:00}:{_sec:00};{_mSec:000}";
 		}
 		catch
 		{

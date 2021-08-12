@@ -23,7 +23,7 @@ public class Note : MonoBehaviour
 	[HideInInspector] public Vector3 myPos, perfectPos;
 	public bool cleared;
 	public uint number;
-	public int separate = 1;
+	public float separate = 1;
 	Vector3 _clearAnimPos;
 	AnimationCurve _curve;
 	bool _isKeepGoing;
@@ -43,7 +43,7 @@ public class Note : MonoBehaviour
 		playingTime = songTime.audioSource.time - startTime - duration / separate * (_tries - 1);
 
 		// 미스내기
-		if (!cleared)
+		/*if (!cleared)
 		{
 			switch (noteType)
 			{
@@ -81,10 +81,10 @@ public class Note : MonoBehaviour
 					break;
 				}
 			}
-		}
+		}*/
 		if (noteType != NoteType.Chain) // 체인노트가 아니면
 		{
-			if (cleared) return;
+			//if (cleared) return;
 			if (duration / separate <= playingTime && _tries != separate && _tries != separate * 2)
 			{
 				_tries += 1;
@@ -102,12 +102,12 @@ public class Note : MonoBehaviour
 		}
 		else // 체인노트면
 		{
-			if (songTime.audioSource.time > noteEndTime && cleared)
+			/*if (songTime.audioSource.time > noteEndTime && cleared)
 			{
 				_spawned = false;
 				//timingSystem.LongNoteAction(this);
 				//HideNote();
-			}
+			}*/
 
 			if (duration / separate <= playingTime && _tries != separate && _tries != separate * 2)
 			{
@@ -157,7 +157,7 @@ public class Note : MonoBehaviour
 
 	public void SetData(SongTime songTime, Transform startTf, Transform movePerfectPos,
 		float perfectTime, float timeToStart, float moveDuration, Transform clearTweenEndTf, Transform spawnParent,
-		bool isLast, uint noteNumber, float? noteEndTime = null, string ease = "L", AnimationCurve curve = null)
+		bool isLast, float splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L", AnimationCurve curve = null)
 	{
 		for (int i = 0; i < images.Length; i++)
 			images[i].color = new Color(images[i].color.r, images[i].color.g, images[i].color.b, 1);
@@ -171,6 +171,7 @@ public class Note : MonoBehaviour
 		duration = moveDuration;
 		//_clearAnimPos = clearTweenEndTf.position;
 		isLastNote = isLast;
+		separate = splitValue;
 		this.noteEndTime = noteEndTime;
 		number = noteNumber;
 		_spawned = true;

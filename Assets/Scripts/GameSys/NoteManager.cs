@@ -56,17 +56,27 @@ public class NoteManager : MonoBehaviour
 
 		foreach (var data in _notes)
 		{
-			if (data.playingTime < 0)
+			if (data.noteType != NoteType.Chain)
 			{
-				data.thisCanvasGroup.alpha = 0;
-			}
-			else if (data.playingTime >= 0 && data.playingTime <= data.duration / data.separate)
-			{
-				data.thisCanvasGroup.alpha = 1;
+				if (data.playingTime >= 0 && songTime.audioSource.time <= data.perfectTime)
+				{
+					data.thisCanvasGroup.alpha = 1;
+				}
+                else
+                {
+                	data.thisCanvasGroup.alpha = 0;
+                }
 			}
 			else
 			{
-				data.thisCanvasGroup.alpha = 0;
+				if (data.playingTime >= 0 && songTime.audioSource.time <= data.noteEndTime)
+				{
+					data.thisCanvasGroup.alpha = 1;
+				}
+				else
+				{
+					data.thisCanvasGroup.alpha = 0;
+				}
 			}
 		}
 	}
@@ -108,7 +118,7 @@ public class NoteManager : MonoBehaviour
 					: null;
 				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
-					noteSpawnParent, isLastNote, num, null, data.ease, curve);
+					noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
 				if (NoteEvents.ContainsKey(num))
 					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);
 
@@ -129,7 +139,7 @@ public class NoteManager : MonoBehaviour
 					: null;
 				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
-					noteSpawnParent, isLastNote, num, null, data.ease, curve);
+					noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
 				if (NoteEvents.ContainsKey(num))
 					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);
 
@@ -150,7 +160,7 @@ public class NoteManager : MonoBehaviour
 					: null;
 				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.longNoteEndTweenRect,
-					noteSpawnParent, isLastNote, num, data.endTime * 0.001f + _delay, data.ease, curve);
+					noteSpawnParent, isLastNote, data.splitEase, num, data.endTime * 0.001f + _delay, data.ease, curve);
 				obj.SetLongNoteLength(data.time, (int) data.endTime, data.duration);
 				if (NoteEvents.ContainsKey(num))
 					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);

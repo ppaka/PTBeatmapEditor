@@ -86,6 +86,7 @@ public class Notes
 	public string type;
 	public string ease;
 	public string customCurveTag;
+	public float splitEase = 1;
 
 	public int? endTime;
 }

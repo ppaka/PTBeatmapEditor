@@ -27,14 +27,16 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 
 	void OnEnable()
 	{
-		global::SystemEvents.audioLoadComplete += LoadEvents;
+		SystemEvents.audioLoadComplete += LoadEvents;
 	}
 
 	void OnDisable()
 	{
-		global::SystemEvents.audioLoadComplete -= LoadEvents;
+		SystemEvents.audioLoadComplete -= LoadEvents;
 	}
 
+	public void SetBool(bool value) => doScrubbing = value;
+	
 	public void OnDrag(PointerEventData eventData)
 	{
 		if (!slider.interactable) return;

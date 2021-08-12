@@ -29,7 +29,7 @@ public class ToolBarCamControl : MonoBehaviour
 		if (_isOn == false)
 		{
 			mainCam.DOKill();
-			mainCam.DORect(new Rect(0, 0, 1, 0.94f), 0.2f).SetEase(Ease.OutQuint);
+			mainCam.DORect(new Rect(0, 0, 1, 0.9407408f), 0.2f).SetEase(Ease.OutQuint);
 			canvasGroup.DOKill();
 			canvasGroup.blocksRaycasts = false;
 			canvasGroup.interactable = false;
