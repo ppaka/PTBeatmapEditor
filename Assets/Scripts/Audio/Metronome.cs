@@ -40,7 +40,7 @@ public class Metronome : MonoBehaviour
 		rotateAngle = Vector3Int.zero;
 		rotateAngle.z = 90;
 
-		_offset = LevelDataContainer.Instance.levelData.settings.noteOffset * 0.001f;
+		_offset = LevelDataContainer.instance.levelData.settings.noteOffset * 0.001f;
 
 		if (musicBpm <= 0) musicBpm = manager.AnalyzeBpm();
 		if (stdBpm <= 0) stdBpm = 60.0;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ResourceType
+{
+	Image,
+	BackgroundImage
+}
+
 public class LevelDataContainer : MonoBehaviour
 {
-	public static LevelDataContainer Instance;
+	public static LevelDataContainer instance;
 
-	public TMP_InputField title, artist, creater, clipName, songVolume;
-	public Slider diffSlider;
+	public TMP_InputField title, artist, author, clipName, songVolume, songPreviewStart, songPreviewEnd,
+		noteOffset, eventOffset, songStartDelay, bgFilename, bgColor, bgDimMultiplier;
+	public Slider diffSlider, volumeSlider, bgDimSlider;
 	public Text diffValueText;
 
 	public Image bgImage, bgDim;
@@ -24,26 +32,42 @@ public class LevelDataContainer : MonoBehaviour
 	public LevelData levelData;
 	public FileManager fileManager;
 	
-	public Dictionary<uint, Dictionary<string, List<NoteEvents>>> NoteEvents =
+	public Dictionary<uint, Dictionary<string, List<NoteEvents>>> noteEvents =
 		new Dictionary<uint, Dictionary<string, List<NoteEvents>>>();
 
 	void Awake()
 	{
-		Instance = this;
+		instance = this;
 	}
 
 	public void GetLevelData(string file)
 	{
 		try
 		{
-			GC.Collect();
+			//GC.Collect();
 			levelData = new LevelData();
 			levelData = JsonConvert.DeserializeObject<LevelData>(file);
 			title.text = levelData.settings.title;
 			artist.text = levelData.settings.artist;
-			creater.text = levelData.settings.author;
-			diffValueText.text = (diffSlider.value = levelData.settings.difficulty).ToString();
+			author.text = levelData.settings.author;
+			
+			diffValueText.text = levelData.settings.difficulty.ToString();
+			diffSlider.value = levelData.settings.difficulty;
+			
 			clipName.text = levelData.settings.songFilename;
+			songVolume.text = levelData.settings.volume.ToString();
+			volumeSlider.value = levelData.settings.volume;
+
+			songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
+			songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
+
+			noteOffset.text = levelData.settings.noteOffset.ToString();
+			eventOffset.text = levelData.settings.eventOffset.ToString();
+			songStartDelay.text = levelData.settings.songStartDelay.ToString();
+
+			bgFilename.text = levelData.settings.bgFilename;
+			bgColor.text = levelData.settings.bgColor.ToString();
+			bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString(CultureInfo.InvariantCulture);
 
 			levelData.events = levelData.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
 			levelData.notes = levelData.notes.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
@@ -63,7 +87,22 @@ public class LevelDataContainer : MonoBehaviour
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < levelLocation.Length - 1; i++) sb.Append(levelLocation[i] + "\\");
 			resourcePath = sb.ToString();
-			SetBg();
+			
+			//BG Image
+			if (!levelData.settings.bgFilename.Equals(String.Empty))
+			{
+				try
+				{
+					Texture2D tex = new Texture2D(0, 0);
+					tex.LoadImage(File.ReadAllBytes(resourcePath + levelData.settings.bgFilename));
+					SetBg(tex);
+				}
+				catch (Exception e)
+				{
+					
+					Debug.Log("배경 이미지를 가져올 수 없음" + e);
+				}
+			}
 
 			fileManager.LoadSong(songPath);
 		}
@@ -73,7 +112,7 @@ public class LevelDataContainer : MonoBehaviour
 		}
 	}
 
-	public void SetBg()
+	public void SetBg(Texture2D texture2D)
 	{
 		bgImage.type = levelData.settings.bgType switch
 		{
@@ -82,9 +121,7 @@ public class LevelDataContainer : MonoBehaviour
 			"Tiled" => Image.Type.Tiled,
 			_ => bgImage.type
 		};
-		Texture2D tex = new Texture2D(0, 0);
-		tex.LoadImage(File.ReadAllBytes(resourcePath + levelData.settings.bgFilename));
-		bgImage.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+		bgImage.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
 		bgImage.sprite.texture.filterMode = FilterMode.Point;
 
 		ColorUtility.TryParseHtmlString("#" + levelData.settings.bgColor, out Color color);
@@ -97,7 +134,7 @@ public class LevelDataContainer : MonoBehaviour
 	{
 		levelData.settings.title = title.text;
 		levelData.settings.artist = artist.text;
-		levelData.settings.author = creater.text;
+		levelData.settings.author = author.text;
 		levelData.settings.difficulty = (uint) diffSlider.value;
 		diffValueText.text = ((int) diffSlider.value).ToString();
 	}
@@ -109,7 +146,7 @@ public class LevelDataContainer : MonoBehaviour
 		clipName.text = "";
 		title.text = "";
 		artist.text = "";
-		creater.text = "";
+		author.text = "";
 		diffSlider.value = 1;
 		diffValueText.text = ((int) diffSlider.value).ToString();
 	}

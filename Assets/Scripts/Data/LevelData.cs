@@ -157,6 +157,7 @@ public class Settings
 	public uint difficulty = 1;
 	public string songFilename = "";
 	public uint volume = 100;
+	public uint vfxVolume = 100;
 	public uint pitch = 100;
 	public uint songPreviewStart;
 	public uint songPreviewEnd;
@@ -164,8 +165,8 @@ public class Settings
 	public int noteOffset;
 	public int eventOffset;
 	public string bgFilename = "";
-	public string bgType = "";
-	public string bgColor = "";
+	public string bgType = "Simple";
+	public string bgColor = "FFFFFF";
 	public float bgPixelPerUnitMultiplier = 1;
 	public float bgDimMultiplier = 0.5f;
 	public int perfectAccuracyEffect = 1;

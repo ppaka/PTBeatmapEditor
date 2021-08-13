@@ -42,9 +42,9 @@ public class LevelEventManager : MonoBehaviour
 	public void Load()
 	{
 		CurveDictionary = new Dictionary<string, AnimationCurve>();
-		_eventsList = LevelDataContainer.Instance.levelData.events;
-		_curvesList = LevelDataContainer.Instance.levelData.curves;
-		var settings = LevelDataContainer.Instance.levelData.settings;
+		_eventsList = LevelDataContainer.instance.levelData.events;
+		_curvesList = LevelDataContainer.instance.levelData.curves;
+		var settings = LevelDataContainer.instance.levelData.settings;
 		_delay = settings.eventOffset * 0.001f;
 
 		foreach (var curve in _curvesList) CurveDictionary.Add(curve.tag, curve.data);

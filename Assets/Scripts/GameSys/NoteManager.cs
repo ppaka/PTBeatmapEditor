@@ -45,8 +45,8 @@ public class NoteManager : MonoBehaviour
 
 	void Load()
 	{
-		NoteEvents = LevelDataContainer.Instance.NoteEvents;
-		_delay = LevelDataContainer.Instance.levelData.settings.noteOffset * 0.001f;
+		NoteEvents = LevelDataContainer.instance.noteEvents;
+		_delay = LevelDataContainer.instance.levelData.settings.noteOffset * 0.001f;
 		Init();
 	}
 
@@ -90,7 +90,7 @@ public class NoteManager : MonoBehaviour
 
 		//LevelDataContainer.Instance.levelData.notes.Remove(data);
 
-		foreach (var data in LevelDataContainer.Instance.levelData.notes)
+		foreach (var data in LevelDataContainer.instance.levelData.notes)
 		{
 			MakeNote(data);
 		}

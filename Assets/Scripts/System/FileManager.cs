@@ -65,6 +65,21 @@ public class FileManager : MonoBehaviour
 			if (path.Length > 0) StartCoroutine(GetClip(new Uri(string.Join("", path)).AbsoluteUri));
 		}
 	}
+	
+	public void CallLoadBackgroundImage()
+	{
+		if (ldc.levelPath == "") return;
+
+		var extensions = new[]
+		{
+			new ExtensionFilter("이미지 파일", "png")
+		};
+
+		string[] path =
+			StandaloneFileBrowser.OpenFilePanel("배경 이미지 불러오기", Application.persistentDataPath, extensions, false);
+
+		if (path.Length > 0) StartCoroutine(GetResourceImage(path[0], ResourceType.BackgroundImage));
+	}
 
 	public void SaveLevel()
 	{
@@ -123,6 +138,22 @@ public class FileManager : MonoBehaviour
 		}
 	}
 
+	IEnumerator GetResourceImage(string url, ResourceType type)
+	{
+		if (type == ResourceType.BackgroundImage)
+		{
+			if (File.Exists(url))
+			{
+				Texture2D tex = new Texture2D(0, 0);
+				tex.LoadImage(File.ReadAllBytes(url));
+				
+				ldc.SetBg(tex);
+				yield break;
+			}
+		}
+		yield return null;
+	}
+
 	IEnumerator GetClip(string url)
 	{
 		string replaced = url.Replace("%20", " ").Replace("file:///", "");
@@ -144,7 +175,7 @@ public class FileManager : MonoBehaviour
 			//
 		}
 
-		using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.UNKNOWN);
+		using UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.OGGVORBIS);
 		yield return www.SendWebRequest();
 
 		audioSource.clip = DownloadHandlerAudioClip.GetContent(www);
