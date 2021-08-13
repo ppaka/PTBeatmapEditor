@@ -66,9 +66,10 @@ public class LevelDataContainer : MonoBehaviour
 			songStartDelay.text = levelData.settings.songStartDelay.ToString();
 
 			bgFilename.text = levelData.settings.bgFilename;
-			bgColor.text = levelData.settings.bgColor.ToString();
 			bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString(CultureInfo.InvariantCulture);
-
+			bgDimSlider.value = levelData.settings.bgDimMultiplier;
+			bgColor.text = levelData.settings.bgColor;
+			
 			levelData.events = levelData.events.OrderBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
 			levelData.notes = levelData.notes.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
 				.ThenBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
