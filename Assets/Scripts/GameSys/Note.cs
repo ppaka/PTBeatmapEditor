@@ -222,11 +222,15 @@ public class Note : MonoBehaviour
 
 	public void SetLongNoteLength(int startTime, int endTime, float duration)
 	{
-		float holdTime = (float) (endTime - startTime);
+		float holdTime = endTime - startTime;
 		RectTransform rt = images[1].GetComponent<RectTransform>();
+		RectTransform endRect = images[2].GetComponent<RectTransform>();
+		
 		Vector3 rtLocalScale = rt.localScale;
-		rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rtLocalScale.x * holdTime / duration);
-		rt.anchoredPosition = new Vector2(rtLocalScale.x * holdTime / duration / 2 + rt.anchoredPosition.x, 0);
+		Vector2 endRectSizeDelta = endRect.sizeDelta;
+		
+		rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rtLocalScale.x * holdTime / duration - endRectSizeDelta.x);
+		rt.anchoredPosition = new Vector2((rtLocalScale.x * holdTime / duration - endRectSizeDelta.x) / 2 + rt.anchoredPosition.x, 0);
 	}
 
 	public void ChangeDuration(float changeValue)
