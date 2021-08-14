@@ -20,7 +20,7 @@ public class ScalingCanvas : MonoBehaviour
 	void OnDisable()
 	{
 		SetScaleFactor(1);
-		SetReferencePixelsPerUnit(100);
+		// SetReferencePixelsPerUnit(100);
 	}
 
 	[Range(0, 1)] [SerializeField] protected float m_MatchWidthOrHeight = 0;
@@ -33,20 +33,20 @@ public class ScalingCanvas : MonoBehaviour
 		set { m_ScreenMatchMode = value; }
 	}
 
-	[SerializeField] protected float m_ReferencePixelsPerUnit = 100;
+	// [SerializeField] protected float m_ReferencePixelsPerUnit = 100;
 	[SerializeField] protected Vector2 m_ReferenceResolution = new Vector2(800, 600);
 	public Canvas m_Canvas;
 	[System.NonSerialized] private float m_PrevScaleFactor = 1;
-	[System.NonSerialized] private float m_PrevReferencePixelsPerUnit = 100;
+	// [System.NonSerialized] private float m_PrevReferencePixelsPerUnit = 100;
 
-	void SetReferencePixelsPerUnit(float referencePixelsPerUnit)
+	/*void SetReferencePixelsPerUnit(float referencePixelsPerUnit)
 	{
 		if (referencePixelsPerUnit == m_PrevReferencePixelsPerUnit)
 			return;
 
 		m_Canvas.referencePixelsPerUnit = referencePixelsPerUnit;
 		m_PrevReferencePixelsPerUnit = referencePixelsPerUnit;
-	}
+	}*/
 
 	void SetScaleFactor(float scaleFactor)
 	{
@@ -103,6 +103,6 @@ public class ScalingCanvas : MonoBehaviour
 		}
 
 		SetScaleFactor(scaleFactor);
-		SetReferencePixelsPerUnit(m_ReferencePixelsPerUnit);
+		//SetReferencePixelsPerUnit(m_ReferencePixelsPerUnit);
 	}
 }
