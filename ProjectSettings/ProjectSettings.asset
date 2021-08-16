@@ -146,6 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.TeamSeauton.PTBeatmapEditor
     Standalone: com.TeamSeauton.PTBeatmapEditor
   buildNumber:
     Standalone: 0
@@ -261,7 +262,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 89a9c61d1375a6c40a4d9b9f725052d7, type: 3}
+      m_Icon: {fileID: 2800000, guid: 28bb1d63201c53d45a0c55566e52bd68, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
