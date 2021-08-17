@@ -55,9 +55,7 @@ public class SquirrelUpdateManager : MonoBehaviour
                 await manager.ApplyReleases(info, p => progImage.fillAmount = p / 100f);
 
                 UnityMainThread.wkr.AddJob(() => progImage.fillAmount = 0);
-                UnityMainThread.wkr.AddJob(() => updateText.text = "클릭하고 재시작하여 업데이트를 완료해주세요!");
-
-                UnityMainThread.wkr.AddJob(() => button.onClick.AddListener(() => UpdateManager.RestartApp()));
+                UnityMainThread.wkr.AddJob(() => updateText.text = "재시작하여 업데이트를 완료해주세요!");
             }
         }
         catch (Exception e)
