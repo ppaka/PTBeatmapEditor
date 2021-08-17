@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Squirrel;
+using Squirrel.SimpleSplat;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class SquirrelUpdateManager : MonoBehaviour
@@ -20,6 +22,7 @@ public class SquirrelUpdateManager : MonoBehaviour
 
     readonly ConcurrentQueue<string> _stQueue = new ConcurrentQueue<string>();
     ConcurrentQueue<float> _flQueue = new ConcurrentQueue<float>();
+    bool isComplete;
 
     async void Start()
     {
@@ -39,14 +42,26 @@ public class SquirrelUpdateManager : MonoBehaviour
             _flQueue.TryDequeue(out float percent);
             progImage.fillAmount = percent;
         }
+
+        if (isComplete)
+        {
+            isComplete = false;
+            button.onClick.AddListener(() => { UpdateManager.RestartApp(); });
+        }
     }
 
     async Task CheckForUpdate()
     {
-        _stQueue.Enqueue("업데이트 확인 중");
+        Squirrel.SimpleSplat.DebugLogger logger = new DebugLogger
+        {
+            Level = LogLevel.Debug
+        };
+        logger.Write("Running Task", LogLevel.Debug);
 
         using (UpdateManager manager = await UpdateManager.GitHubUpdateManager(URL))
         {
+            _stQueue.Enqueue("업데이트 확인 중");
+            
             if (manager.IsInstalledApp == false)
             {
                 _stQueue.Enqueue("Squirrel 호환 앱이 아닙니다");
@@ -73,7 +88,7 @@ public class SquirrelUpdateManager : MonoBehaviour
 
             _flQueue.Enqueue(0);
             _stQueue.Enqueue("재시작하여 업데이트를 완료 해주세요!");
-            //button.onClick.AddListener(() => { UpdateManager.RestartApp(); });
+            isComplete = true;
         }
     }
 }
