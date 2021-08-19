@@ -14,10 +14,12 @@ public class SquirrelUpdateManager : MonoBehaviour
     private const string URL = @"https://github.com/PT-GAME/PTBeatmapEditor";
     // https://api.github.com/repos/PT-GAME/PTBeatmapEditor/releases/latest
 
+#if !UNITY_EDITOR
     async void Start()
     {
         await Task.Run(CheckForUpdate);
     }
+#endif
 
     async Task CheckForUpdate()
     {
