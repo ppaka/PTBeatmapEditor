@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +10,19 @@ public class ListMaker : MonoBehaviour
 {
 	public static ListMaker instance;
 
-	public GameObject itemPrefab, noteListParent, eventListParent;
+	public GameObject itemPrefab, noteListParent, eventListParent, eventDataListParent;
 	public LevelDataContainer ldc;
 	public SongTime songTime;
+	public NoteManager noteManager;
+
+	public Transform dataViewHide, dataViewShow, dataViewTf;
 
 	public Action<ItemData> selectAction;
 
 	public ItemData selectedData;
+
+	public GameObject noteNumberView, timeView;
+	public TMP_InputField noteNumberInput, timeInput;
 
 	public List<ItemData> notes = new List<ItemData>();
 	public List<ItemData> events = new List<ItemData>();
@@ -32,8 +40,20 @@ public class ListMaker : MonoBehaviour
 		SystemEvents.levelLoadComplete -= MakeLists;
 	}
 
+	void ClearItems()
+	{
+		foreach (var obj in noteListParent.GetComponentsInChildren<ItemData>())
+		{
+			Destroy(obj);
+		}
+	}
+
 	void MakeLists()
 	{
+		selectedData = null;
+		dataViewTf.DOMoveX(dataViewHide.position.x, 0.15f).SetEase(Ease.OutQuad).SetUpdate(UpdateType.Fixed, true);
+		ClearItems();
+		
 		notes = new List<ItemData>();
 		events = new List<ItemData>();
 		noteEvents = new List<ItemData>();
@@ -62,16 +82,43 @@ public class ListMaker : MonoBehaviour
 
 	void SelectData(ItemData iData)
 	{
+		if (selectedData == null)
+		{
+			dataViewTf.DOMoveX(dataViewShow.position.x, 0.15f).SetEase(Ease.OutQuad).SetUpdate(UpdateType.Fixed, true);
+		}
+		
 		selectedData = iData;
 		
 		if (iData.itemType == ItemData.ItemType.Note)
 		{
-			Debug.Log( iData.index+":" + ldc.levelData.notes[iData.index].time);
+			noteNumberInput.readOnly = true;
+			
+			noteNumberInput.text = ldc.levelData.notes[iData.index].noteNum.ToString();
+			timeInput.text = ldc.levelData.notes[iData.index].time.ToString();
+
+			noteNumberView.SetActive(true);
+			timeView.SetActive(true);
 		}
 		else if (iData.itemType == ItemData.ItemType.Event)
-			Debug.Log(ldc.levelData.events[iData.index].time);
+		{
+			noteNumberInput.readOnly = true;
+			
+			noteNumberInput.text = "";
+			timeInput.text = ldc.levelData.events[iData.index].time.ToString();
+			
+			noteNumberView.SetActive(false);
+			timeView.SetActive(true);
+		}
 		else if (iData.itemType == ItemData.ItemType.NoteEvent)
-			Debug.Log(ldc.levelData.noteEvents[iData.index].noteNum);
+		{
+			noteNumberInput.readOnly = false;
+			
+			noteNumberInput.text = ldc.levelData.noteEvents[iData.index].noteNum.ToString();
+			timeInput.text = "";
+
+			noteNumberView.SetActive(true);
+			timeView.SetActive(false);
+		}
 	}
 
 	public void AddNoteData()
@@ -89,6 +136,8 @@ public class ListMaker : MonoBehaviour
 			notes.Add(iData);
 			
 			ldc.levelData.notes.Add(data);
+			
+			SystemEvents.noteAdded?.Invoke(data);
 		}
 		else
 		{
@@ -99,7 +148,10 @@ public class ListMaker : MonoBehaviour
 			while (true)
 			{
 				previousIndex = ldc.levelData.notes.FindLastIndex(note => note.time == indexingTime);
-				if (previousIndex != -1) break;
+				if (previousIndex != -1)
+				{
+					break;
+				}
 				if (indexingTime <= 0)
 				{
 					previousIndex = -1;
@@ -132,7 +184,6 @@ public class ListMaker : MonoBehaviour
 			{
 				newData = new Notes {noteNum = ldc.levelData.notes[previousIndex].noteNum + 1, duration = 1, time = time, ease = "L", type = "normal"};
 			}
-
 			
 			iData.text.text = newData.noteNum + "|" + newData.time + "|" + newData.duration + "|" + newData.ease + "|" + newData.type;
 
@@ -140,6 +191,8 @@ public class ListMaker : MonoBehaviour
 			ldc.levelData.notes = ldc.levelData.notes.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
 				.ThenBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
 			iData.transform.SetSiblingIndex(index);
+			
+			SystemEvents.noteAdded?.Invoke(newData);
 		}
 	}
 
@@ -171,9 +224,12 @@ public class ListMaker : MonoBehaviour
 
 					item.UpdateText(note);
 				}
-
+				
 				notes.RemoveAt(lIndex);
+				
+				Notes selectedNote = ldc.levelData.notes[index];
 				ldc.levelData.notes.RemoveAt(index);
+				SystemEvents.noteRemoved?.Invoke(selectedNote);
 				break;
 			}
 			case ItemData.ItemType.Event:

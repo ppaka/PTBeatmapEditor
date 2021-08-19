@@ -30,17 +30,17 @@ public class NoteManager : MonoBehaviour
 	void OnEnable()
 	{
 		SystemEvents.levelLoadComplete += Load;
-		SystemEvents.noteAdded += MakeNote;
 		SystemEvents.noteRemoved += DeleteNote;
 		SystemEvents.noteRemoveAll += DeleteAll;
+		SystemEvents.noteAdded += AddNote;
 	}
 
 	void OnDisable()
 	{
 		SystemEvents.levelLoadComplete -= Load;
-		SystemEvents.noteAdded -= MakeNote;
 		SystemEvents.noteRemoved -= DeleteNote;
 		SystemEvents.noteRemoveAll -= DeleteAll;
+		SystemEvents.noteAdded -= AddNote;
 	}
 
 	void Load()
@@ -89,6 +89,10 @@ public class NoteManager : MonoBehaviour
 		//if (!(songTime.audioSource.time >= data.time * 0.001f - data.duration + _delay)) return;
 
 		//LevelDataContainer.Instance.levelData.notes.Remove(data);
+		
+		DeleteAll();
+
+		_notes = new List<Note>();
 
 		foreach (var data in LevelDataContainer.instance.levelData.notes)
 		{
@@ -119,8 +123,8 @@ public class NoteManager : MonoBehaviour
 				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
 					noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
-				if (NoteEvents.ContainsKey(num))
-					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);
+				/*if (NoteEvents.ContainsKey(num))
+					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
 
 				//timingSystem.notes.Add(obj);
 				_notes.Add(obj);
@@ -140,8 +144,8 @@ public class NoteManager : MonoBehaviour
 				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
 					noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
-				if (NoteEvents.ContainsKey(num))
-					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);
+				/*if (NoteEvents.ContainsKey(num))
+					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
 
 				//timingSystem.notes.Add(obj);
 				_notes.Add(obj);
@@ -162,8 +166,8 @@ public class NoteManager : MonoBehaviour
 					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.longNoteEndTweenRect,
 					noteSpawnParent, isLastNote, data.splitEase, num, data.endTime * 0.001f + _delay, data.ease, curve);
 				obj.SetLongNoteLength(data.time, (int) data.endTime, data.duration);
-				if (NoteEvents.ContainsKey(num))
-					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);
+				/*if (NoteEvents.ContainsKey(num))
+					obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
 
 				//timingSystem.notes.Add(obj);
 				_notes.Add(obj);
@@ -172,18 +176,30 @@ public class NoteManager : MonoBehaviour
 		}
 	}
 
+	void AddNote(Notes data)
+	{
+		MakeNote(data);
+	}
+
 	void DeleteNote(Notes data)
 	{
 		int index = _notes.FindIndex(note => note.number == data.noteNum);
-		Destroy(_notes[index]);
+		Destroy(_notes[index].gameObject);
+
+		for (int i = index + 1; i < _notes.Count; i++)
+		{
+			Note note = _notes[i];
+			note.number = note.number - 1;
+		}
+		
 		_notes.RemoveAt(index);
 	}
 
 	void DeleteAll()
 	{
-		foreach (var data in _notes)
+		foreach (Note data in _notes)
 		{
-			Destroy(data);
+			Destroy(data.gameObject);
 		}
 
 		_notes = null;

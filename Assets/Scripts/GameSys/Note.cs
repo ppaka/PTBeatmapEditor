@@ -30,7 +30,7 @@ public class Note : MonoBehaviour
 	[HideInInspector] public float playingTime;
 	public CanvasGroup thisCanvasGroup;
 
-	bool _spawned;
+	// bool _spawned;
 	int _tries = 1;
 	bool _usingCustomEase;
 
@@ -174,7 +174,7 @@ public class Note : MonoBehaviour
 		separate = splitValue;
 		this.noteEndTime = noteEndTime;
 		number = noteNumber;
-		_spawned = true;
+		// _spawned = true;
 		if (ease != "custom")
 		{
 			this.ease = EffectScript.GetEase(ease);
