@@ -18,7 +18,7 @@ public class ItemData : MonoBehaviour
 
 	public void UpdateText(Notes data)
 	{
-		if (data.type == "Chain")
+		if (data.type == NoteType.Normal)
 		{
 			if (data.ease == "custom")
 				text.text = data.noteNum + "|" + data.time + "|" + data.duration + "|" + data.customCurveTag + "|" +

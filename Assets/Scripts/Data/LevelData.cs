@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 [Serializable]
@@ -77,13 +79,21 @@ public class Events
 	public string tweenId;
 }
 
+[Serializable] [JsonConverter(typeof(StringEnumConverter))]
+public enum NoteType
+{
+	Normal = 0,
+	Flick = 1,
+	Chain = 2
+}
+
 [Serializable]
 public class Notes
 {
 	public uint noteNum;
 	public int time;
 	public float duration;
-	public string type;
+	public NoteType type;
 	public string ease;
 	public string customCurveTag;
 	public float splitEase = 1;

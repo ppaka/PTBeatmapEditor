@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum NoteType
-{
-	Normal,
-	Flick,
-	Chain
-}
-
 public class NoteManager : MonoBehaviour
 {
 	public RectTransform tfNoteAppear, tfNotePerfect;
@@ -109,7 +102,7 @@ public class NoteManager : MonoBehaviour
 
 		switch (data.type)
 		{
-			case "normal":
+			case NoteType.Normal:
 			{
 				//obj = ObjectPooler.SpawnFromPool<Note>("Normal Note", tfNoteAppear.position);
 				obj = Instantiate(normalNote, tfNoteAppear.position, Quaternion.identity);
@@ -130,7 +123,7 @@ public class NoteManager : MonoBehaviour
 				_notes.Add(obj);
 				break;
 			}
-			case "flick":
+			case NoteType.Flick:
 			{
 				//obj = ObjectPooler.SpawnFromPool<Note>("Flick Note", tfNoteAppear.position);
 				obj = Instantiate(flickNote, tfNoteAppear.position, Quaternion.identity);
@@ -151,7 +144,7 @@ public class NoteManager : MonoBehaviour
 				_notes.Add(obj);
 				break;
 			}
-			case "chain":
+			case NoteType.Chain:
 			{
 				//obj = ObjectPooler.SpawnFromPool<Note>("Chain Note", tfNoteAppear.position);
 				obj = Instantiate(chainNote, tfNoteAppear.position, Quaternion.identity);
