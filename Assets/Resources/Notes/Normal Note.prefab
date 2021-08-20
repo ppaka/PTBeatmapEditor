@@ -137,7 +137,9 @@ MonoBehaviour:
   noteType: 0
   images:
   - {fileID: 7412873855880994520}
-  sprites: []
+  sprites:
+  - {fileID: -8130939169238197271, guid: e60de2d71517402458b819cd397d7c99, type: 3}
+  - {fileID: 1526643400815737820, guid: e60de2d71517402458b819cd397d7c99, type: 3}
   isLastNote: 0
   songTime: {fileID: 0}
   perfectEvt: []

@@ -12,7 +12,6 @@ public class ListMaker : MonoBehaviour
     public GameObject itemPrefab, noteListParent, eventListParent, eventDataListParent;
     public LevelDataContainer ldc;
     public SongTime songTime;
-    public NoteManager noteManager;
 
     public Transform dataViewHide, dataViewShow, dataViewTf;
 
@@ -20,8 +19,8 @@ public class ListMaker : MonoBehaviour
 
     public ItemData selectedData;
 
-    public GameObject noteNumberView, timeView, durationView, noteTypeView;
-    public TMP_InputField noteNumberInput, timeInput, durationInput;
+    public GameObject noteNumberView, timeView, durationView, noteEndTimeView;
+    public TMP_InputField noteNumberInput, timeInput, durationInput, noteEndTimeInput;
     public TMP_Dropdown noteTypeDropdown;
 
     public List<ItemData> notes = new List<ItemData>();
@@ -80,6 +79,65 @@ public class ListMaker : MonoBehaviour
         }
     }
 
+    public void EditTime(string value)
+    {
+        if (selectedData == null) return;
+        if (selectedData.itemType == ItemData.ItemType.Note)
+        {
+            EditData(value, ItemData.ItemType.Note, UniversalEditingDataType.Time);
+        }
+    }
+    
+    public void EditDuration(string value)
+    {
+        if (selectedData == null) return;
+        if (selectedData.itemType == ItemData.ItemType.Note)
+        {
+            EditData(value, ItemData.ItemType.Note, UniversalEditingDataType.Duration);
+        }
+    }
+    
+    public void EditNoteEndTime(string value)
+    {
+        if (selectedData == null) return;
+        if (selectedData.itemType == ItemData.ItemType.Note)
+        {
+            EditData(value, ItemData.ItemType.Note, UniversalEditingDataType.EndTime);
+        }
+    }
+
+    enum UniversalEditingDataType
+    {
+        Time,
+        Duration,
+        EndTime,
+        Ease
+    }
+
+    void EditData(string value, ItemData.ItemType type, UniversalEditingDataType editingDataType)
+    {
+        if (type == ItemData.ItemType.Note)
+        {
+            switch (editingDataType)
+            {
+                case UniversalEditingDataType.Time:
+                    ldc.levelData.notes[selectedData.index].time = Convert.ToInt32(value);
+                    SystemEvents.noteEdited?.Invoke(ldc.levelData.notes[selectedData.index]);
+                    break;
+                case UniversalEditingDataType.Duration:
+                    ldc.levelData.notes[selectedData.index].duration = Convert.ToSingle(value);
+                    SystemEvents.noteEdited?.Invoke(ldc.levelData.notes[selectedData.index]);
+                    break;
+                case UniversalEditingDataType.EndTime:
+                    ldc.levelData.notes[selectedData.index].endTime = Convert.ToInt32(value);
+                    SystemEvents.noteEdited?.Invoke(ldc.levelData.notes[selectedData.index]);
+                    break;
+            }
+            
+            selectedData.UpdateText(ldc.levelData.notes[selectedData.index]);
+        }
+    }
+
     void SelectData(ItemData iData)
     {
         if (selectedData == null)
@@ -98,12 +156,18 @@ public class ListMaker : MonoBehaviour
             noteNumberInput.text = note.noteNum.ToString();
             timeInput.text = note.time.ToString();
             durationInput.text = note.duration.ToString();
-            noteTypeDropdown.value = (int) note.type;
+            noteEndTimeInput.text = "";
 
             noteNumberView.SetActive(true);
             timeView.SetActive(true);
             durationView.SetActive(true);
-            noteTypeView.SetActive(true);
+            noteEndTimeView.SetActive(false);
+            
+            if (note.type == NoteType.Chain)
+            {
+                noteEndTimeInput.text = note.endTime.ToString();
+                noteEndTimeView.SetActive(true);
+            }
         }
         else if (iData.itemType == ItemData.ItemType.Event)
         {
@@ -114,12 +178,12 @@ public class ListMaker : MonoBehaviour
             noteNumberInput.text = "";
             timeInput.text = evt.time.ToString();
             durationInput.text = evt.duration.ToString();
-            noteTypeDropdown.value = 0;
+            noteEndTimeInput.text = "";
 
             noteNumberView.SetActive(false);
             timeView.SetActive(true);
             durationView.SetActive(true);
-            noteTypeView.SetActive(false);
+            noteEndTimeView.SetActive(false);
         }
         else if (iData.itemType == ItemData.ItemType.NoteEvent)
         {
@@ -130,28 +194,40 @@ public class ListMaker : MonoBehaviour
             noteNumberInput.text = evt.noteNum.ToString();
             timeInput.text = "";
             durationInput.text = evt.duration.ToString();
-            noteTypeDropdown.value = 0;
+            noteEndTimeInput.text = "";
 
             noteNumberView.SetActive(true);
             timeView.SetActive(false);
             durationView.SetActive(true);
-            noteTypeView.SetActive(false);
+            noteEndTimeView.SetActive(false);
         }
     }
 
     public void AddNoteData()
     {
-        int time = (int)songTime.audioSource.time * 1000 - ldc.levelData.settings.noteOffset;
+        int time = Mathf.RoundToInt(songTime.audioSource.time * 1000) - ldc.levelData.settings.noteOffset;
 
         ItemData iData = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
         iData.itemType = ItemData.ItemType.Note;
 
+        NoteType type = NoteType.Normal;
+        type = noteTypeDropdown.value switch
+        {
+            (int)NoteType.Normal => NoteType.Normal,
+            (int)NoteType.Flick => NoteType.Flick,
+            (int)NoteType.Chain => NoteType.Chain,
+            _ => type
+        };
+
         if (ldc.levelData.notes.Count == 0)
         {
-            Notes data = new Notes { noteNum = 1, duration = 1, time = time, ease = "L", type = NoteType.Normal };
+            Notes data = new Notes { noteNum = 1, duration = 1, time = time, ease = "L", type = type };
             iData.index = 0;
             iData.UpdateText(data);
             notes.Add(iData);
+
+            if (type == NoteType.Chain)
+                data.endTime = time + 1;
 
             ldc.levelData.notes.Add(data);
 
@@ -166,12 +242,13 @@ public class ListMaker : MonoBehaviour
             while (true)
             {
                 previousIndex = ldc.levelData.notes.FindLastIndex(note => note.time == indexingTime);
+                
                 if (previousIndex != -1)
                 {
                     break;
                 }
 
-                if (indexingTime <= 0)
+                if (indexingTime < -1 * ldc.levelData.settings.noteOffset)
                 {
                     previousIndex = -1;
                     break;
@@ -185,32 +262,33 @@ public class ListMaker : MonoBehaviour
 
             for (int i = index; i < notes.Count; i++)
             {
-                ItemData item = notes[i];
-                Notes note = ldc.levelData.notes[i];
-
-                note.noteNum += 1;
-                item.index += 1;
-
-                item.UpdateText(note);
+                notes[i].index += 1;
+                ldc.levelData.notes[i].noteNum += 1;
             }
 
             notes.Add(iData);
             notes = notes.OrderBy(x => x.index.ToString(), new StringAsNumericComparer()).ToList();
 
-            Notes newData = new Notes { noteNum = 1, duration = 1, time = time, ease = "L", type = NoteType.Normal };
+            Notes newData = new Notes { noteNum = 1, duration = 1, time = time, ease = "L", type = type };
 
             if (previousIndex != -1)
             {
-                newData.noteNum = ldc.levelData.notes[previousIndex].noteNum;
+                newData.noteNum = ldc.levelData.notes[previousIndex].noteNum + 1;
             }
-
-            iData.text.text = newData.noteNum + "|" + newData.time + "|" + newData.duration + "|" + newData.ease + "|" +
-                              newData.type;
+            
+            if (type == NoteType.Chain)
+                newData.endTime = time + 1;
+            
+            iData.transform.SetSiblingIndex(index);
 
             ldc.levelData.notes.Add(newData);
             ldc.levelData.notes = ldc.levelData.notes.OrderBy(x => x.noteNum.ToString(), new StringAsNumericComparer())
                 .ThenBy(x => x.time.ToString(), new StringAsNumericComparer()).ToList();
-            iData.transform.SetSiblingIndex(index);
+
+            foreach (var itemData in notes)
+            {
+                itemData.UpdateText(ldc.levelData.notes[itemData.index]);
+            }
 
             SystemEvents.noteAdded?.Invoke(newData);
         }

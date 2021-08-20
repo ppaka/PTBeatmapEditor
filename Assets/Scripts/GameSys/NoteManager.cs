@@ -26,6 +26,7 @@ public class NoteManager : MonoBehaviour
 		SystemEvents.noteRemoved += DeleteNote;
 		SystemEvents.noteRemoveAll += DeleteAll;
 		SystemEvents.noteAdded += AddNote;
+		SystemEvents.noteEdited += EditNote;
 	}
 
 	void OnDisable()
@@ -34,6 +35,7 @@ public class NoteManager : MonoBehaviour
 		SystemEvents.noteRemoved -= DeleteNote;
 		SystemEvents.noteRemoveAll -= DeleteAll;
 		SystemEvents.noteAdded -= AddNote;
+		SystemEvents.noteEdited -= EditNote;
 	}
 
 	void Load()
@@ -171,7 +173,53 @@ public class NoteManager : MonoBehaviour
 
 	void AddNote(Notes data)
 	{
+		foreach (var note in _notes)
+		{
+			if (note.number >= data.noteNum)
+				note.number += 1;
+		}
 		MakeNote(data);
+	}
+
+	void EditNote(Notes data)
+	{
+		int index = _notes.FindIndex(note => note.number == data.noteNum);
+		Note obj = _notes[index];
+		
+		switch (obj.noteType)
+		{
+			case NoteType.Normal:
+			{
+				AnimationCurve curve = data.ease == "custom"
+					? levelEventManager.CurveDictionary[data.customCurveTag]
+					: null;
+				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
+					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
+					noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, null, data.ease, curve);
+				break;
+			}
+			case NoteType.Flick:
+			{
+				AnimationCurve curve = data.ease == "custom"
+					? levelEventManager.CurveDictionary[data.customCurveTag]
+					: null;
+				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
+					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.noteEndTweenRect,
+					noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, null, data.ease, curve);
+				break;
+			}
+			case NoteType.Chain:
+			{
+				AnimationCurve curve = data.ease == "custom"
+					? levelEventManager.CurveDictionary[data.customCurveTag]
+					: null;
+				obj.SetData(songTime, tfNoteAppear, tfNotePerfect, data.time * 0.001f + _delay,
+					data.time * 0.001f - data.duration + _delay, data.duration, effectScript.longNoteEndTweenRect,
+					noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, data.endTime * 0.001f + _delay, data.ease, curve);
+				obj.SetLongNoteLength(data.time, (int) data.endTime, data.duration);
+				break;
+			}
+		}
 	}
 
 	void DeleteNote(Notes data)

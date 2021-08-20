@@ -31,7 +31,7 @@ public class Note : MonoBehaviour
 	public CanvasGroup thisCanvasGroup;
 
 	// bool _spawned;
-	int _tries = 1;
+	public int tries = 1;
 	bool _usingCustomEase;
 
 	Ease ease;
@@ -40,7 +40,7 @@ public class Note : MonoBehaviour
 	{
 		//if (!_spawned) return;
 
-		playingTime = songTime.audioSource.time - startTime - duration / separate * (_tries - 1);
+		playingTime = songTime.audioSource.time - startTime - duration / separate * (tries - 1);
 
 		// 미스내기
 		/*if (!cleared)
@@ -85,9 +85,9 @@ public class Note : MonoBehaviour
 		if (noteType != NoteType.Chain) // 체인노트가 아니면
 		{
 			//if (cleared) return;
-			if (duration / separate <= playingTime && _tries != separate && _tries != separate * 2)
+			if (duration / separate <= playingTime && tries != separate && tries != separate * 2)
 			{
-				_tries += 1;
+				tries += 1;
 				myPos = transform.localPosition;
 			}
 
@@ -109,16 +109,16 @@ public class Note : MonoBehaviour
 				//HideNote();
 			}*/
 
-			if (duration / separate <= playingTime && _tries != separate && _tries != separate * 2)
+			if (duration / separate <= playingTime && tries != separate && tries != separate * 2)
 			{
-				_tries += 1;
+				tries += 1;
 				myPos = transform.localPosition;
 			}
 			else if (playingTime >= duration / separate && playingTime <= duration / separate * 2 && !_isKeepGoing)
 			{
 				if (ease != Ease.Linear)
 				{
-					_tries += 1;
+					tries += 1;
 					myPos = perfectPos;
 				}
 
@@ -144,7 +144,7 @@ public class Note : MonoBehaviour
 		missEvt = null;
 
 		cleared = false;
-		_tries = 1;
+		tries = 1;
 		_isKeepGoing = false;
 
 		modelImage.localPosition = new Vector3(0, 0, 0);
@@ -220,6 +220,8 @@ public class Note : MonoBehaviour
 		missEvt = miss;
 	}
 
+	float addedPosX;
+
 	public void SetLongNoteLength(int startTime, int endTime, float duration)
 	{
 		float holdTime = endTime - startTime;
@@ -230,7 +232,9 @@ public class Note : MonoBehaviour
 		Vector2 endRectSizeDelta = endRect.sizeDelta;
 		
 		rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rtLocalScale.x * holdTime / duration - endRectSizeDelta.x);
-		rt.anchoredPosition = new Vector2((rtLocalScale.x * holdTime / duration - endRectSizeDelta.x) / 2 + rt.anchoredPosition.x, 0);
+		rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - addedPosX, 0);
+		addedPosX = (rtLocalScale.x * holdTime / duration - endRectSizeDelta.x) / 2;
+		rt.anchoredPosition = new Vector2(addedPosX + rt.anchoredPosition.x, 0);
 	}
 
 	public void ChangeDuration(float changeValue)
