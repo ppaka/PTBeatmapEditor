@@ -12,6 +12,32 @@ public class SongTime : MonoBehaviour
 
 	public bool changed;
 
+	void OnEnable()
+	{
+		SystemEvents.audioLoadComplete += UpdateFirstTime;
+	}
+
+	void OnDisable()
+	{
+		SystemEvents.audioLoadComplete -= UpdateFirstTime;
+	}
+
+	void UpdateFirstTime()
+	{
+		DateTime time;
+
+		if (0 < ldc.levelData.settings.noteOffset * 0.001f)
+		{
+			time = new DateTime((long) (((decimal)(ldc.levelData.settings.noteOffset * 0.001f) - (decimal) 0) * TimeSpan.TicksPerSecond));
+			songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
+		}
+		else if (0 >= ldc.levelData.settings.noteOffset * 0.001f)
+		{
+			time = new DateTime((long) (((decimal) 0 - (decimal) (ldc.levelData.settings.noteOffset * 0.001f)) * TimeSpan.TicksPerSecond));
+			songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
+		}
+	}
+
 	void Update()
 	{
 		if (changed || !audioSource.isPlaying) return;
@@ -43,12 +69,12 @@ public class SongTime : MonoBehaviour
 
 			if (songTime < ldc.levelData.settings.noteOffset * 0.001f)
 			{
-				time = new DateTime((long)((ldc.levelData.settings.noteOffset * 0.001f - songTime) * TimeSpan.TicksPerSecond));
+				time = new DateTime((long) (((decimal)(ldc.levelData.settings.noteOffset * 0.001f) - (decimal) songTime) * TimeSpan.TicksPerSecond));
 				songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
 			}
-			else
+			else if (songTime >= ldc.levelData.settings.noteOffset * 0.001f)
 			{
-				time = new DateTime((long)((songTime - ldc.levelData.settings.noteOffset * 0.001f) * TimeSpan.TicksPerSecond));
+				time = new DateTime((long) (((decimal) songTime - (decimal) (ldc.levelData.settings.noteOffset * 0.001f)) * TimeSpan.TicksPerSecond));
 				songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
 			}
 		}
