@@ -1,11 +1,12 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
 public class SongTime : MonoBehaviour
 {
 	public LevelDataContainer ldc;
-	
+	public SongSlider slider;
 	public AudioSource audioSource;
 	public TMP_InputField songTimeTextField;
 
@@ -13,9 +14,22 @@ public class SongTime : MonoBehaviour
 
 	void Update()
 	{
-		if (audioSource.clip == null) return;
-		if (changed) return;
+		if (changed || !audioSource.isPlaying) return;
 		UpdateTime(audioSource.time, false);
+	}
+
+	public void MoveTime(string value)
+	{
+		if (int.TryParse(value, NumberStyles.Integer, null, out int time))
+		{
+			time += ldc.levelData.settings.noteOffset;
+			UpdateTime(time * 0.001f, true);
+			slider.slider.value = audioSource.time / audioSource.clip.length;
+		}
+		else
+		{
+			UpdateTime(audioSource.time, false);
+		}
 	}
 
 	public void UpdateTime(float songTime, bool changeAudioSourceTime = true)

@@ -4,6 +4,7 @@ public class AudioManager : MonoBehaviour
 {
 	public AudioSource audioSource;
 	public SongSlider songSlider;
+	public SongTime songTime;
 
 	public void OnEnable()
 	{
@@ -31,5 +32,7 @@ public class AudioManager : MonoBehaviour
 		audioSource.Pause();
 		audioSource.time = 0;
 		songSlider.slider.value = 0;
+		
+		songTime.songTimeTextField.readOnly = false;
 	}
 }
