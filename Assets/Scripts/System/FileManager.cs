@@ -21,7 +21,7 @@ public class FileManager : MonoBehaviour
 	public void LoadLevel()
 	{
 		string[] path =
-			StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", Application.persistentDataPath, extensions, false);
+			StandaloneFileBrowser.OpenFilePanel("레벨 불러오기", null, extensions, false);
 
 		if (path.Length > 0)
 		{
@@ -42,7 +42,7 @@ public class FileManager : MonoBehaviour
 		};
 
 		string[] path =
-			StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
+			StandaloneFileBrowser.OpenFilePanel("음악 불러오기", null, extensions, false);
 
 		if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
 	}
@@ -56,7 +56,7 @@ public class FileManager : MonoBehaviour
 				new ExtensionFilter("음악 파일", "ogg")
 			};
 
-			path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", Application.persistentDataPath, extensions, false);
+			path = StandaloneFileBrowser.OpenFilePanel("음악 불러오기", null, extensions, false);
 
 			if (path.Length > 0) StartCoroutine(GetClip(new Uri(path[0]).AbsoluteUri));
 		}
@@ -76,7 +76,7 @@ public class FileManager : MonoBehaviour
 		};
 
 		string[] path =
-			StandaloneFileBrowser.OpenFilePanel("배경 이미지 불러오기", Application.persistentDataPath, extensions, false);
+			StandaloneFileBrowser.OpenFilePanel("배경 이미지 불러오기", null, extensions, false);
 
 		if (path.Length > 0) StartCoroutine(GetResourceImage(path[0], ResourceType.BackgroundImage));
 	}
@@ -109,7 +109,7 @@ public class FileManager : MonoBehaviour
 		    ldc.levelData.settings.author.Equals(""))
 			return;
 
-		string path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기", Application.persistentDataPath + "/",
+		string path = StandaloneFileBrowser.SaveFilePanel("다른 이름으로 레벨 저장하기", null,
 			"level", extensions);
 
 		if (path.Equals(string.Empty)) return;
