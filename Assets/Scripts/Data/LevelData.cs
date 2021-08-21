@@ -184,6 +184,7 @@ public class Settings
 	public int missAccuracyEffect = 1;
 	public float accuracyEffectDuration = 1;
 	public uint noteCount;
+	public float characterOpacity = 1;
 }
 
 [Serializable]
