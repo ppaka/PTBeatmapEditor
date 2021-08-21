@@ -39,12 +39,16 @@ public class ListMaker : MonoBehaviour
         SystemEvents.levelLoadComplete -= MakeLists;
     }
 
-    void ClearItems()
+    public void ClearItems()
     {
+        dataViewTf.DOMoveX(dataViewHide.position.x, 0.15f).SetEase(Ease.OutQuad).SetUpdate(UpdateType.Fixed, true);
+
         foreach (var obj in noteListParent.GetComponentsInChildren<ItemData>())
         {
-            Destroy(obj);
+            Destroy(obj.gameObject);
         }
+
+        notes = new List<ItemData>();
     }
 
     void MakeLists()
@@ -259,11 +263,16 @@ public class ListMaker : MonoBehaviour
 
             int index = previousIndex + 1;
             iData.index = index;
+            
+            print("노트 밀기");
 
-            for (int i = index; i < notes.Count; i++)
+            if (index < notes.Count && index < ldc.levelData.notes.Count)
             {
-                notes[i].index += 1;
-                ldc.levelData.notes[i].noteNum += 1;
+                for (int i = index; i < notes.Count; i++)
+                {
+                    notes[i].index += 1;
+                    ldc.levelData.notes[i].noteNum += 1;
+                }
             }
 
             notes.Add(iData);
@@ -271,6 +280,8 @@ public class ListMaker : MonoBehaviour
 
             Notes newData = new Notes { noteNum = 1, duration = 1, time = time, ease = "L", type = type };
 
+            print("노트 데이터 생성");
+            
             if (previousIndex != -1)
             {
                 newData.noteNum = ldc.levelData.notes[previousIndex].noteNum + 1;
@@ -311,15 +322,18 @@ public class ListMaker : MonoBehaviour
             {
                 int lIndex = notes.FindIndex(data => data == iData);
 
-                for (int i = index + 1; i < notes.Count; i++)
+                if (notes.Count != 1 && ldc.levelData.notes.Count != 1)
                 {
-                    ItemData item = notes[i];
-                    Notes note = ldc.levelData.notes[i];
+                    for (int i = index + 1; i < notes.Count; i++)
+                    {
+                        ItemData item = notes[i];
+                        Notes note = ldc.levelData.notes[i];
 
-                    note.noteNum -= 1;
-                    item.index -= 1;
+                        note.noteNum -= 1;
+                        item.index -= 1;
 
-                    item.UpdateText(note);
+                        item.UpdateText(note);
+                    }
                 }
 
                 notes.RemoveAt(lIndex);
@@ -367,5 +381,6 @@ public class ListMaker : MonoBehaviour
 
         Destroy(iData.gameObject);
         selectedData = null;
+        dataViewTf.DOMoveX(dataViewHide.position.x, 0.15f).SetEase(Ease.OutQuad).SetUpdate(UpdateType.Fixed, true);
     }
 }

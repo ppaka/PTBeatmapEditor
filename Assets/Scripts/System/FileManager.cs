@@ -98,9 +98,13 @@ public class FileManager : MonoBehaviour
 			NullValueHandling = NullValueHandling.Ignore,
 			Formatting = Formatting.Indented
 		};
-
-		File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
-		ldc.levelPath = path;
+		
+		if (!path.Equals(string.Empty))
+		{
+			File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
+			ldc.levelPath = path;
+			ldc.SetResourcePath();
+		}
 	}
 
 	public void SaveLevelAs()
@@ -122,6 +126,7 @@ public class FileManager : MonoBehaviour
 
 		File.WriteAllText(path, JsonConvert.SerializeObject(ldc.levelData, settings));
 		ldc.levelPath = path;
+		ldc.SetResourcePath();
 	}
 
 	IEnumerator GetLevelData(string url)
@@ -144,6 +149,17 @@ public class FileManager : MonoBehaviour
 		{
 			if (File.Exists(url))
 			{
+				var st = url.Split('\\');
+				
+				try
+				{
+					File.Copy(url, ldc.resourcePath + st[st.Length], false);
+				}
+				catch
+				{
+					// ignored
+				}
+
 				Texture2D tex = new Texture2D(0, 0);
 				tex.LoadImage(File.ReadAllBytes(url));
 				

@@ -47,7 +47,7 @@ public class NoteManager : MonoBehaviour
 
 	void Update()
 	{
-		if (_notes.Count == 0) return;
+		if (_notes == null || _notes.Count == 0) return;
 
 		foreach (var data in _notes)
 		{
@@ -173,6 +173,8 @@ public class NoteManager : MonoBehaviour
 
 	void AddNote(Notes data)
 	{
+		_notes ??= new List<Note>();
+
 		foreach (var note in _notes)
 		{
 			if (note.number >= data.noteNum)
@@ -238,6 +240,8 @@ public class NoteManager : MonoBehaviour
 
 	void DeleteAll()
 	{
+		if (_notes == null) return;
+		
 		foreach (Note data in _notes)
 		{
 			Destroy(data.gameObject);

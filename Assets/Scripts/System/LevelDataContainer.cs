@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,9 +27,10 @@ public class LevelDataContainer : MonoBehaviour
 
 	public string levelPath, resourcePath;
 	public string[] songPath;
-
+	
 	public LevelData levelData;
 	public FileManager fileManager;
+	public ListMaker listMaker;
 	
 	public Dictionary<uint, Dictionary<string, List<NoteEvents>>> noteEvents =
 		new Dictionary<uint, Dictionary<string, List<NoteEvents>>>();
@@ -41,7 +40,15 @@ public class LevelDataContainer : MonoBehaviour
 		instance = this;
 	}
 
-	bool loadedCompletely;
+	bool loadedCompletely = true;
+
+	public void SetResourcePath()
+	{
+		string[] levelLocation = levelPath.Split('\\');
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < levelLocation.Length - 1; i++) sb.Append(levelLocation[i] + "\\");
+		resourcePath = sb.ToString();
+	}
 	
 	public void GetLevelData(string file)
 	{
@@ -88,10 +95,7 @@ public class LevelDataContainer : MonoBehaviour
 			path[path.Length - 1] = levelData.settings.songFilename;
 			songPath = path;
 
-			string[] levelLocation = levelPath.Split('\\');
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < levelLocation.Length - 1; i++) sb.Append(levelLocation[i] + "\\");
-			resourcePath = sb.ToString();
+			SetResourcePath();
 			
 			//BG Image
 			if (!levelData.settings.bgFilename.Equals(String.Empty))
@@ -110,6 +114,7 @@ public class LevelDataContainer : MonoBehaviour
 			}
 
 			fileManager.LoadSong(songPath);
+			SystemEvents.noteRemoveAll?.Invoke();
 
 			loadedCompletely = true;
 		}
@@ -151,29 +156,83 @@ public class LevelDataContainer : MonoBehaviour
 		levelData.settings.volume = (uint)volumeSlider.value;
 		songVolume.text = ((uint)volumeSlider.value).ToString();
 
-		levelData.settings.songPreviewStart = Convert.ToUInt32(songPreviewStart.text);
-		levelData.settings.songPreviewEnd = Convert.ToUInt32(songPreviewEnd.text);
+		if (songPreviewStart.text != String.Empty)
+			levelData.settings.songPreviewStart = Convert.ToUInt32(songPreviewStart.text);
+		if (songPreviewEnd.text != String.Empty)
+			levelData.settings.songPreviewEnd = Convert.ToUInt32(songPreviewEnd.text);
 
-		levelData.settings.noteOffset = Convert.ToInt32(noteOffset.text);
-		levelData.settings.eventOffset = Convert.ToInt32(eventOffset.text);
-		levelData.settings.songStartDelay = Convert.ToInt32(songStartDelay.text);
+		if (noteOffset.text != String.Empty)
+			levelData.settings.noteOffset = Convert.ToInt32(noteOffset.text);
+		if (eventOffset.text != String.Empty)
+			levelData.settings.eventOffset = Convert.ToInt32(eventOffset.text);
+		if (songStartDelay.text != String.Empty)
+			levelData.settings.songStartDelay = Convert.ToInt32(songStartDelay.text);
 
 		levelData.settings.bgFilename = bgFilename.text;
 		levelData.settings.bgDimMultiplier = bgDimSlider.value;
 		bgDimMultiplier.text = bgDimSlider.value.ToString();
-		levelData.settings.bgColor = bgColor.text;
+
+		if (!songStartDelay.text.Equals(string.Empty))
+		{
+			if (songStartDelay.text.Length == 8)
+			{
+				levelData.settings.bgColor = bgColor.text;
+			}
+			else if (songStartDelay.text.Length == 6)
+			{
+				levelData.settings.bgColor = bgColor.text;
+			}
+			else
+			{
+				levelData.settings.bgColor = bgColor.text = "FFFFFF";
+			}
+		}
 	}
 
 	public void ResetLevelData()
 	{
-		levelPath = "";
-		levelData = new LevelData();
-		clipName.text = "";
-		title.text = "";
-		artist.text = "";
-		author.text = "";
-		diffSlider.value = 1;
-		diffValueText.text = ((int) diffSlider.value).ToString();
+		loadedCompletely = false;
+		levelData = new LevelData
+		{
+			settings = new Settings(),
+			objects = new List<Objects>(),
+			curves = new List<Curves>(),
+			timings = new List<Timings>(),
+			events = new List<Events>(),
+			noteEvents = new List<NoteEvents>(),
+			notes = new List<Notes>()
+		};
+		
+		levelPath = string.Empty;
+		resourcePath = string.Empty;
+		
+		title.text = levelData.settings.title = "";
+		artist.text = levelData.settings.artist = "";
+		author.text = levelData.settings.author = "";
+		
+		levelData.settings.difficulty = (uint)(diffSlider.value = 1);
+		diffValueText.text = levelData.settings.difficulty.ToString();
+
+		clipName.text = levelData.settings.songFilename;
+		songVolume.text = levelData.settings.volume.ToString();
+		volumeSlider.value = levelData.settings.volume;
+
+		songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
+		songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
+
+		noteOffset.text = levelData.settings.noteOffset.ToString();
+		eventOffset.text = levelData.settings.eventOffset.ToString();
+		songStartDelay.text = levelData.settings.songStartDelay.ToString();
+
+		bgFilename.text = levelData.settings.bgFilename;
+		bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString();
+		bgDimSlider.value = levelData.settings.bgDimMultiplier;
+		bgColor.text = levelData.settings.bgColor;
+
+		listMaker.ClearItems();
+		SystemEvents.noteRemoveAll?.Invoke();
+
+		loadedCompletely = true;
 	}
 
 	public void GetClipName(string nameStr)
