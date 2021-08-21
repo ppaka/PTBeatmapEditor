@@ -41,11 +41,14 @@ public class LevelDataContainer : MonoBehaviour
 		instance = this;
 	}
 
+	bool loadedCompletely;
+	
 	public void GetLevelData(string file)
 	{
 		try
 		{
 			//GC.Collect();
+			loadedCompletely = false;
 			levelData = new LevelData();
 			levelData = JsonConvert.DeserializeObject<LevelData>(file);
 			title.text = levelData.settings.title;
@@ -67,7 +70,7 @@ public class LevelDataContainer : MonoBehaviour
 			songStartDelay.text = levelData.settings.songStartDelay.ToString();
 
 			bgFilename.text = levelData.settings.bgFilename;
-			bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString(CultureInfo.InvariantCulture);
+			bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString();
 			bgDimSlider.value = levelData.settings.bgDimMultiplier;
 			bgColor.text = levelData.settings.bgColor;
 			
@@ -107,6 +110,8 @@ public class LevelDataContainer : MonoBehaviour
 			}
 
 			fileManager.LoadSong(songPath);
+
+			loadedCompletely = true;
 		}
 		catch (Exception e)
 		{
@@ -134,11 +139,29 @@ public class LevelDataContainer : MonoBehaviour
 
 	public void SetLevelData()
 	{
+		if (!loadedCompletely) return;
+
 		levelData.settings.title = title.text;
 		levelData.settings.artist = artist.text;
 		levelData.settings.author = author.text;
 		levelData.settings.difficulty = (uint) diffSlider.value;
 		diffValueText.text = ((int) diffSlider.value).ToString();
+
+		levelData.settings.songFilename = clipName.text;
+		levelData.settings.volume = (uint)volumeSlider.value;
+		songVolume.text = ((uint)volumeSlider.value).ToString();
+
+		levelData.settings.songPreviewStart = Convert.ToUInt32(songPreviewStart.text);
+		levelData.settings.songPreviewEnd = Convert.ToUInt32(songPreviewEnd.text);
+
+		levelData.settings.noteOffset = Convert.ToInt32(noteOffset.text);
+		levelData.settings.eventOffset = Convert.ToInt32(eventOffset.text);
+		levelData.settings.songStartDelay = Convert.ToInt32(songStartDelay.text);
+
+		levelData.settings.bgFilename = bgFilename.text;
+		levelData.settings.bgDimMultiplier = bgDimSlider.value;
+		bgDimMultiplier.text = bgDimSlider.value.ToString();
+		levelData.settings.bgColor = bgColor.text;
 	}
 
 	public void ResetLevelData()
