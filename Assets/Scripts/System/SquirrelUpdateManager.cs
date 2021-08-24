@@ -23,19 +23,11 @@ public class SquirrelUpdateManager : MonoBehaviour
 
     async Task CheckForUpdate()
     {
-        UnityMainThread.wkr.AddJob(() => { updateText.text = "업데이트 확인 중"; });
-
         try
         {
             using (UpdateManager manager = await UpdateManager.GitHubUpdateManager(URL))
             {
                 UnityMainThread.wkr.AddJob(() => updateText.text = "업데이트 확인 중");
-
-                if (manager.IsInstalledApp == false)
-                {
-                    UnityMainThread.wkr.AddJob(() => updateText.text = "Squirrel 호환 앱이 아닙니다");
-                    return;
-                }
 
                 UpdateInfo info = await manager.CheckForUpdate();
 
