@@ -54,7 +54,8 @@ public class SquirrelUpdateManager : MonoBehaviour
                 UnityMainThread.wkr.AddJob(() => progImage.fillAmount = 0);
                 UnityMainThread.wkr.AddJob(() => updateText.text = "업데이트 설치중...");
 
-                await manager.ApplyReleases(info, p => progImage.fillAmount = p / 100f);
+                await manager.ApplyReleases(info,
+                    p => { UnityMainThread.wkr.AddJob(() => progImage.fillAmount = p / 100f); });
 
                 UnityMainThread.wkr.AddJob(() => progImage.fillAmount = 0);
                 UnityMainThread.wkr.AddJob(() => updateText.text = "재시작하여 업데이트를 완료해주세요!");
