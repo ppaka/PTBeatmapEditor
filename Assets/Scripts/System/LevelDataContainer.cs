@@ -18,8 +18,10 @@ public class LevelDataContainer : MonoBehaviour
 {
 	public static LevelDataContainer instance;
 
+	public LevelTimings levelTimings;
+
 	public TMP_InputField title, artist, author, clipName, songVolume, songPreviewStart, songPreviewEnd,
-		noteOffset, eventOffset, songStartDelay, bgFilename, bgColor, bgDimMultiplier;
+		songStartDelay, bgFilename, bgColor, bgDimMultiplier;
 	public Slider diffSlider, volumeSlider, bgDimSlider;
 	public Text diffValueText;
 
@@ -72,8 +74,6 @@ public class LevelDataContainer : MonoBehaviour
 			songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
 			songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
 
-			noteOffset.text = levelData.settings.noteOffset.ToString();
-			eventOffset.text = levelData.settings.eventOffset.ToString();
 			songStartDelay.text = levelData.settings.songStartDelay.ToString();
 
 			bgFilename.text = levelData.settings.bgFilename;
@@ -161,10 +161,6 @@ public class LevelDataContainer : MonoBehaviour
 		if (songPreviewEnd.text != String.Empty)
 			levelData.settings.songPreviewEnd = Convert.ToUInt32(songPreviewEnd.text);
 
-		if (noteOffset.text != String.Empty)
-			levelData.settings.noteOffset = Convert.ToInt32(noteOffset.text);
-		if (eventOffset.text != String.Empty)
-			levelData.settings.eventOffset = Convert.ToInt32(eventOffset.text);
 		if (songStartDelay.text != String.Empty)
 			levelData.settings.songStartDelay = Convert.ToInt32(songStartDelay.text);
 
@@ -220,8 +216,6 @@ public class LevelDataContainer : MonoBehaviour
 		songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
 		songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
 
-		noteOffset.text = levelData.settings.noteOffset.ToString();
-		eventOffset.text = levelData.settings.eventOffset.ToString();
 		songStartDelay.text = levelData.settings.songStartDelay.ToString();
 
 		bgFilename.text = levelData.settings.bgFilename;

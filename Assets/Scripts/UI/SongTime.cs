@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -28,17 +26,17 @@ public class SongTime : MonoBehaviour
     {
         DateTime time;
         
-        bool isPositive = 0 >= (decimal)(ldc.levelData.settings.noteOffset * 0.001f);
+        bool isPositive = 0 >= (decimal)(LevelTimings.startOffset * 0.001f);
 
         if (!isPositive)
         {
-            time = new DateTime((long)(((decimal)(ldc.levelData.settings.noteOffset * 0.001f) - 0)
+            time = new DateTime((long)(((decimal)(LevelTimings.startOffset * 0.001f) - 0)
                                        * TimeSpan.TicksPerSecond));
             songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
         }
         else
         {
-            time = new DateTime((long)((0 - (decimal)(ldc.levelData.settings.noteOffset * 0.001f)) *
+            time = new DateTime((long)((0 - (decimal)(LevelTimings.startOffset * 0.001f)) *
                                        TimeSpan.TicksPerSecond));
             songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
         }
@@ -56,13 +54,13 @@ public class SongTime : MonoBehaviour
 
         if (int.TryParse(value, NumberStyles.Integer, null, out int time))
         {
-            time += ldc.levelData.settings.noteOffset;
+            time += LevelTimings.startOffset;
             UpdateTime(time * 0.001f);
             slider.slider.value = audioSource.time / audioSource.clip.length;
         }
         else if (SongTimeConverter.ToInt(value, out time))
         {
-            time += ldc.levelData.settings.noteOffset;
+            time += LevelTimings.startOffset;
             UpdateTime(time * 0.001f);
             slider.slider.value = audioSource.time / audioSource.clip.length;
         }
@@ -79,17 +77,17 @@ public class SongTime : MonoBehaviour
 
         DateTime time;
 
-        bool isMinus = 0 > (decimal)songTime - (decimal)(ldc.levelData.settings.noteOffset * 0.001f);
+        bool isMinus = 0 > (decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f);
 
         if (isMinus)
         {
-            time = new DateTime((long)(((decimal)(ldc.levelData.settings.noteOffset * 0.001f) - (decimal)songTime)
+            time = new DateTime((long)(((decimal)(LevelTimings.startOffset * 0.001f) - (decimal)songTime)
                                        * TimeSpan.TicksPerSecond));
             songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
         }
         else
         {
-            time = new DateTime((long)(((decimal)songTime - (decimal)(ldc.levelData.settings.noteOffset * 0.001f)) *
+            time = new DateTime((long)(((decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f)) *
                                        TimeSpan.TicksPerSecond));
             songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
         }

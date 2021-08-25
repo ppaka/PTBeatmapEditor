@@ -41,7 +41,7 @@ public class NoteManager : MonoBehaviour
 	void Load()
 	{
 		NoteEvents = LevelDataContainer.instance.noteEvents;
-		_delay = LevelDataContainer.instance.levelData.settings.noteOffset * 0.001f;
+		_delay = LevelTimings.startOffset * 0.001f;
 		Init();
 	}
 

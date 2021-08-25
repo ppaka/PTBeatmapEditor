@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -21,8 +22,9 @@ public class ListMaker : MonoBehaviour
 
     public GameObject noteNumberView, timeView, durationView, noteEndTimeView;
     public TMP_InputField noteNumberInput, timeInput, durationInput, noteEndTimeInput;
-    public TMP_Dropdown noteTypeDropdown;
+    public TMP_Dropdown noteTypeDropdown, easeDropdown;
 
+    public List<string> eases = new List<string>();
     public List<ItemData> notes = new List<ItemData>();
     public List<ItemData> events = new List<ItemData>();
     public List<ItemData> noteEvents = new List<ItemData>();
@@ -32,6 +34,18 @@ public class ListMaker : MonoBehaviour
         instance = this;
         SystemEvents.levelLoadComplete += MakeLists;
         selectAction += SelectData;
+    }
+
+    void Start()
+    {
+        foreach (var ease in Enum.GetNames(typeof(Ease)))
+        {
+            if (ease == Enum.GetName(typeof(Ease), Ease.Unset)) continue;
+            if (ease == Enum.GetName(typeof(Ease), Ease.INTERNAL_Zero)) continue;
+            if (ease == Enum.GetName(typeof(Ease), Ease.INTERNAL_Custom)) continue;
+            eases.Add(ease);
+        }
+        easeDropdown.AddOptions(eases);
     }
 
     void OnDisable()
@@ -209,7 +223,7 @@ public class ListMaker : MonoBehaviour
 
     public void AddNoteData()
     {
-        int time = Mathf.RoundToInt(songTime.audioSource.time * 1000) - ldc.levelData.settings.noteOffset;
+        int time = Mathf.RoundToInt(songTime.audioSource.time * 1000) - LevelTimings.startOffset;
 
         ItemData iData = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
         iData.itemType = ItemData.ItemType.Note;
@@ -252,7 +266,7 @@ public class ListMaker : MonoBehaviour
                     break;
                 }
 
-                if (indexingTime < -1 * ldc.levelData.settings.noteOffset)
+                if (indexingTime < -1 * LevelTimings.startOffset)
                 {
                     previousIndex = -1;
                     break;

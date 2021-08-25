@@ -172,8 +172,6 @@ public class Settings
 	public uint songPreviewStart;
 	public uint songPreviewEnd;
 	public int songStartDelay;
-	public int noteOffset;
-	public int eventOffset;
 	public string bgFilename = "";
 	public string bgType = "Simple";
 	public string bgColor = "FFFFFF";

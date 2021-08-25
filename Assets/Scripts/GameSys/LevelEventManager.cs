@@ -45,7 +45,7 @@ public class LevelEventManager : MonoBehaviour
 		_eventsList = LevelDataContainer.instance.levelData.events;
 		_curvesList = LevelDataContainer.instance.levelData.curves;
 		var settings = LevelDataContainer.instance.levelData.settings;
-		_delay = settings.eventOffset * 0.001f;
+		_delay = LevelTimings.startOffset * 0.001f;
 
 		foreach (var curve in _curvesList) CurveDictionary.Add(curve.tag, curve.data);
 
