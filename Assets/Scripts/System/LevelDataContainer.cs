@@ -74,8 +74,6 @@ public class LevelDataContainer : MonoBehaviour
 			songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
 			songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
 
-			songStartDelay.text = levelData.settings.songStartDelay.ToString();
-
 			bgFilename.text = levelData.settings.bgFilename;
 			bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString();
 			bgDimSlider.value = levelData.settings.bgDimMultiplier;
@@ -161,9 +159,6 @@ public class LevelDataContainer : MonoBehaviour
 		if (songPreviewEnd.text != String.Empty)
 			levelData.settings.songPreviewEnd = Convert.ToUInt32(songPreviewEnd.text);
 
-		if (songStartDelay.text != String.Empty)
-			levelData.settings.songStartDelay = Convert.ToInt32(songStartDelay.text);
-
 		levelData.settings.bgFilename = bgFilename.text;
 		levelData.settings.bgDimMultiplier = bgDimSlider.value;
 		bgDimMultiplier.text = bgDimSlider.value.ToString();
@@ -215,8 +210,6 @@ public class LevelDataContainer : MonoBehaviour
 
 		songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
 		songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
-
-		songStartDelay.text = levelData.settings.songStartDelay.ToString();
 
 		bgFilename.text = levelData.settings.bgFilename;
 		bgDimMultiplier.text = levelData.settings.bgDimMultiplier.ToString();

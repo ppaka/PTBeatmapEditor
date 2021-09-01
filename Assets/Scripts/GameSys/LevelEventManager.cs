@@ -45,7 +45,6 @@ public class LevelEventManager : MonoBehaviour
 		_eventsList = LevelDataContainer.instance.levelData.events;
 		_curvesList = LevelDataContainer.instance.levelData.curves;
 		var settings = LevelDataContainer.instance.levelData.settings;
-		_delay = LevelTimings.startOffset * 0.001f;
 
 		foreach (var curve in _curvesList) CurveDictionary.Add(curve.tag, curve.data);
 
@@ -161,7 +160,7 @@ public class LevelEventManager : MonoBehaviour
 
 	public void NoteEvents(IEnumerable<NoteEvents> events)
 	{
-		foreach (var data in events)
+		/*foreach (var data in events)
 			switch (data.type)
 			{
 				case "killTween":
@@ -257,6 +256,6 @@ public class LevelEventManager : MonoBehaviour
 						(float) data.strength, (int) data.vibrato, (bool) data.fadeout, data.tweenId);
 					break;
 				}
-			}
+			}*/
 	}
 }
