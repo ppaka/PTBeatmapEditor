@@ -10,7 +10,7 @@ public class Note : MonoBehaviour
 	public Image[] images;
 	public Sprite[] sprites;
 	[HideInInspector] public bool isLastNote;
-
+	public string hitSoundTag;
 	public SongTime songTime;
 
 	[HideInInspector] public List<NoteEvents> perfectEvt, goodEvt, missEvt;
@@ -154,21 +154,30 @@ public class Note : MonoBehaviour
 	{
 		//ObjectPooler.ReturnToPool(gameObject);
 	}
+	
+	public GameBar gameBar;
 
-	public void SetData(SongTime songTime, Transform startTf, Transform movePerfectPos,
+	/*public void SetData(GamePlaySystem system, TimingSystem timingSystem, GameBar bar, Transform startTf, Transform movePerfectPos,
 		float perfectTime, float timeToStart, float moveDuration, Transform clearTweenEndTf, Transform spawnParent,
-		bool isLast, float splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L", AnimationCurve curve = null)
+		bool isLast, float splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L",
+		AnimationCurve curve = null)*/
+	public void SetData(SongTime songTime, GameBar bar, Transform startTf, Transform movePerfectPos,
+		float perfectTime, float timeToStart, float moveDuration, Transform clearTweenEndTf, Transform spawnParent,
+		bool isLast, float splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L",
+		AnimationCurve curve = null)
 	{
 		for (int i = 0; i < images.Length; i++)
 			images[i].color = new Color(images[i].color.r, images[i].color.g, images[i].color.b, 1);
 
 		this.songTime = songTime;
+		gameBar = bar;
 		startTransform = startTf;
 		perfectPos = movePerfectPos.localPosition;
 		transform.localPosition = myPos = startTransform.localPosition;
 		this.perfectTime = perfectTime;
 		startTime = timeToStart;
 		duration = moveDuration;
+		_clearAnimPos = gameBar.longNoteEndTweenRect.position;
 		//_clearAnimPos = clearTweenEndTf.position;
 		isLastNote = isLast;
 		separate = splitValue;
