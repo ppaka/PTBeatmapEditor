@@ -25,21 +25,11 @@ public class SongTime : MonoBehaviour
     void UpdateFirstTime()
     {
         DateTime time;
-        
-        bool isPositive = 0 >= (decimal)(LevelTimings.startOffset * 0.001f);
 
-        if (!isPositive)
-        {
-            time = new DateTime((long)(((decimal)(LevelTimings.startOffset * 0.001f) - 0)
-                                       * TimeSpan.TicksPerSecond));
-            songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
-        }
-        else
-        {
-            time = new DateTime((long)((0 - (decimal)(LevelTimings.startOffset * 0.001f)) *
-                                       TimeSpan.TicksPerSecond));
-            songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
-        }
+
+        /*time = new DateTime((long)((0 - (decimal)(LevelTimings.startOffset * 0.001f)) * TimeSpan.TicksPerSecond));*/
+        time = new DateTime((long)(0 * TimeSpan.TicksPerSecond));
+        songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
     }
 
     void Update()
@@ -76,20 +66,9 @@ public class SongTime : MonoBehaviour
             audioSource.time = songTime;
 
         DateTime time;
-
-        bool isMinus = 0 > (decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f);
-
-        if (isMinus)
-        {
-            time = new DateTime((long)(((decimal)(LevelTimings.startOffset * 0.001f) - (decimal)songTime)
-                                       * TimeSpan.TicksPerSecond));
-            songTimeTextField.text = $"-{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
-        }
-        else
-        {
-            time = new DateTime((long)(((decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f)) *
-                                       TimeSpan.TicksPerSecond));
-            songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
-        }
+        /*time = new DateTime((long)(((decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f)) *
+                                   TimeSpan.TicksPerSecond));*/
+        time = new DateTime((long)((decimal)songTime * TimeSpan.TicksPerSecond));
+        songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
     }
 }

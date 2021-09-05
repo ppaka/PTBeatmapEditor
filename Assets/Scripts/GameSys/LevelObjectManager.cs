@@ -24,7 +24,9 @@ public class LevelObjectManager : MonoBehaviour
 
 	public void Load()
 	{
-		Obj.Add("gameBar", objects[0]);
-		Obj.Add("bgImage", objects[1]);
+		if (!Obj.ContainsKey("gameBar"))
+			Obj.Add("gameBar", objects[0]);
+		if (!Obj.ContainsKey("bgImage"))
+			Obj.Add("bgImage", objects[1]);
 	}
 }

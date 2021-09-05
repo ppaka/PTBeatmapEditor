@@ -26,6 +26,12 @@ public class Files : MonoBehaviour
 		_menuBar.HideToolMenus();
 	}
 
+	public void ImportLevel()
+	{
+		_fileManager.ImportOsuBeatmap();
+		_menuBar.HideToolMenus();
+	}
+
 	public void SaveLevel()
 	{
 		_fileManager.SaveLevel();

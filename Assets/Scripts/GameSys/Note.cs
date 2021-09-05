@@ -163,7 +163,7 @@ public class Note : MonoBehaviour
 		AnimationCurve curve = null)*/
 	public void SetData(SongTime songTime, GameBar bar, Transform startTf, Transform movePerfectPos,
 		float perfectTime, float timeToStart, float moveDuration, Transform clearTweenEndTf, Transform spawnParent,
-		bool isLast, float splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L",
+		bool isLast, float? splitValue, uint noteNumber, float? noteEndTime = null, string ease = "L",
 		AnimationCurve curve = null)
 	{
 		for (int i = 0; i < images.Length; i++)
@@ -177,10 +177,15 @@ public class Note : MonoBehaviour
 		this.perfectTime = perfectTime;
 		startTime = timeToStart;
 		duration = moveDuration;
-		_clearAnimPos = gameBar.longNoteEndTweenRect.position;
+		//_clearAnimPos = gameBar.longNoteEndTweenRect.position;
 		//_clearAnimPos = clearTweenEndTf.position;
 		isLastNote = isLast;
-		separate = splitValue;
+		if (splitValue == null)
+			separate = 1;
+		else
+		{
+			separate = (float) splitValue;
+		}
 		this.noteEndTime = noteEndTime;
 		number = noteNumber;
 		// _spawned = true;

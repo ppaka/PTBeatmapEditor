@@ -42,7 +42,15 @@ public class Metronome : MonoBehaviour
 
 		_offset = LevelTimings.startOffset * 0.001f;
 
-		if (musicBpm <= 0) musicBpm = manager.AnalyzeBpm();
+		//if (musicBpm <= 0) musicBpm = manager.AnalyzeBpm();
+		try
+		{
+			musicBpm = LevelDataContainer.instance.levelData.timings[0].bpm;
+		}
+		catch
+		{
+			musicBpm = 120;
+		}
 		if (stdBpm <= 0) stdBpm = 60.0;
 		if (musicBeat <= 0) musicBeat = 4;
 		if (stdBeat <= 0) stdBeat = 4;

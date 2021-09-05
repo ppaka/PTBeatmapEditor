@@ -9,6 +9,7 @@ public class NoteManager : MonoBehaviour
     [Header("Scripts", order = 3)] public SongTime songTime;
     public EffectScript effectScript;
     public LevelEventManager levelEventManager;
+    public GameBar gameBar;
 
     public Note normalNote, flickNote, chainNote;
 
@@ -110,9 +111,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
                     data.time * 0.001f - data.duration, data.duration, effectScript.noteEndTweenRect,
-                    noteSpawnParent, isLastNote, (float)data.splitEase, num, null, data.ease, curve);
+                    noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
                 /*if (NoteEvents.ContainsKey(num))
                     obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
 
@@ -131,9 +132,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
                     data.time * 0.001f - data.duration, data.duration, effectScript.noteEndTweenRect,
-                    noteSpawnParent, isLastNote, (float)data.splitEase, num, null, data.ease, curve);
+                    noteSpawnParent, isLastNote, data.splitEase, num, null, data.ease, curve);
                 /*if (NoteEvents.ContainsKey(num))
                     obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
 
@@ -152,9 +153,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
-                    data.time * 0.001f - data.duration, data.duration, null,
-                    noteSpawnParent, isLastNote, (float)data.splitEase, num, data.endTime * 0.001f, data.ease, curve);
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                    data.time * 0.001f - data.duration, data.duration, gameBar.longNoteEndTweenRect,
+                    noteSpawnParent, isLastNote, data.splitEase, num, (int)data.endTime * 0.001f, data.ease, curve);
                 obj.SetLongNoteLength(data.time, (int)data.endTime, data.duration);
                 /*if (NoteEvents.ContainsKey(num))
                     obj.SetNoteEvents(NoteEvents[num]["perfect"], NoteEvents[num]["good"], NoteEvents[num]["miss"]);*/
@@ -191,9 +192,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
                     data.time * 0.001f - data.duration, data.duration, effectScript.noteEndTweenRect,
-                    noteSpawnParent, obj.isLastNote, (float)data.splitEase, obj.number, null, data.ease, curve);
+                    noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, null, data.ease, curve);
                 break;
             }
             case NoteType.Flick:
@@ -201,9 +202,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
                     data.time * 0.001f - data.duration, data.duration, effectScript.noteEndTweenRect,
-                    noteSpawnParent, obj.isLastNote, (float)data.splitEase, obj.number, null, data.ease, curve);
+                    noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, null, data.ease, curve);
                 break;
             }
             case NoteType.Chain:
@@ -211,9 +212,9 @@ public class NoteManager : MonoBehaviour
                 AnimationCurve curve = data.ease == "custom"
                     ? levelEventManager.CurveDictionary[data.customCurveTag]
                     : null;
-                obj.SetData(songTime, null, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
+                obj.SetData(songTime, gameBar, tfNoteAppear, tfNotePerfect, data.time * 0.001f,
                     data.time * 0.001f - data.duration, data.duration, null,
-                    noteSpawnParent, obj.isLastNote, (float)data.splitEase, obj.number, data.endTime * 0.001f,
+                    noteSpawnParent, obj.isLastNote, data.splitEase, obj.number, data.endTime * 0.001f,
                     data.ease, curve);
                 obj.SetLongNoteLength(data.time, (int)data.endTime, data.duration);
                 break;

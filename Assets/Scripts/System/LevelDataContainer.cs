@@ -29,7 +29,8 @@ public class LevelDataContainer : MonoBehaviour
 
 	public string levelPath, resourcePath;
 	public string[] songPath;
-	
+
+	public AudioSource songSource;
 	public LevelData levelData;
 	public FileManager fileManager;
 	public ListMaker listMaker;
@@ -70,6 +71,7 @@ public class LevelDataContainer : MonoBehaviour
 			clipName.text = levelData.settings.songFilename;
 			songVolume.text = levelData.settings.volume.ToString();
 			volumeSlider.value = levelData.settings.volume;
+			songSource.volume = Mathf.Round(levelData.settings.volume) / 100f;
 
 			songPreviewStart.text = levelData.settings.songPreviewStart.ToString();
 			songPreviewEnd.text = levelData.settings.songPreviewEnd.ToString();
@@ -153,6 +155,7 @@ public class LevelDataContainer : MonoBehaviour
 		levelData.settings.songFilename = clipName.text;
 		levelData.settings.volume = (uint)volumeSlider.value;
 		songVolume.text = ((uint)volumeSlider.value).ToString();
+		songSource.volume = Mathf.Round(levelData.settings.volume) / 100f;
 
 		if (songPreviewStart.text != String.Empty)
 			levelData.settings.songPreviewStart = Convert.ToUInt32(songPreviewStart.text);

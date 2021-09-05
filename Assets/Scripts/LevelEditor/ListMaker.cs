@@ -65,7 +65,7 @@ public class ListMaker : MonoBehaviour
         notes = new List<ItemData>();
     }
 
-    void MakeLists()
+    public void MakeLists()
     {
         selectedData = null;
         dataViewTf.DOMoveX(dataViewHide.position.x, 0.15f).SetEase(Ease.OutQuad).SetUpdate(UpdateType.Fixed, true);

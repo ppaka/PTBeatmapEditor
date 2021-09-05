@@ -11,7 +11,7 @@ public class SquirrelUpdateManager : MonoBehaviour
     private const string URL = @"https://github.com/PT-GAME/PTBeatmapEditor";
 // https://api.github.com/repos/PT-GAME/PTBeatmapEditor/releases/latest
     public Sprite downloadIcon, errorIcon;
-    public AlertObject alertObject;
+    AlertObject alertObject;
 
 #if !UNITY_EDITOR
     async void Start()
@@ -34,7 +34,7 @@ public class SquirrelUpdateManager : MonoBehaviour
                         description = "업데이트 확인 중",
                         behaviour = ClickBehaviour.None,
                         icon = downloadIcon,
-                        color = new Color(0.6f, 0.3f, 0.3f, 1)
+                        color = new Color(0.8f, 0.3f, 0.3f, 1)
                     };
                     alertObject = AlertManager.instance.ShowAlert(alert);
                 });

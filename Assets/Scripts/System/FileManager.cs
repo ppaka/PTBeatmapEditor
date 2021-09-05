@@ -32,6 +32,19 @@ public class FileManager : MonoBehaviour
 		}
 	}
 
+	public void ImportOsuBeatmap()
+	{
+		string[] path =
+			StandaloneFileBrowser.OpenFilePanel("osu! 비트맵 불러오기", null, "osu", false);
+
+		if (path.Length > 0)
+		{
+			ldc.levelPath = path[0];
+			OsuBeatmap.instance.Import(path[0]);
+			//StartCoroutine(GetLevelData(path[0]));
+		}
+	}
+
 	public void CallLoadSong()
 	{
 		if (ldc.levelPath == "") return;

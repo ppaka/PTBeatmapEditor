@@ -22,21 +22,6 @@ public class AlertManager : MonoBehaviour
     public GameObject contents;
     public AlertObject alertObject;
 
-    public Sprite testIco;
-
-    void Start()
-    {
-        Alert alert = new Alert
-        {
-            title = "업데이터",
-            description = "업데이트 확인 중",
-            behaviour = ClickBehaviour.None,
-            icon = testIco,
-            color = new Color(0.8f, 0.3f, 0.3f, 1)
-        };
-        alertObject = ShowAlert(alert);
-    }
-
     bool _isOpen;
     
     void Update()
