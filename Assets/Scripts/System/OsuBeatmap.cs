@@ -48,7 +48,7 @@ public class OsuBeatmap : MonoBehaviour
         {
             NoteType type;
             
-            if (beatmap.HitObjects[i].Position.X == 85)
+            if (beatmap.HitObjects[i].Position.X == 85 || beatmap.HitObjects[i].Position.X == 0)
             {
                 type = NoteType.Normal;
                 
@@ -72,7 +72,7 @@ public class OsuBeatmap : MonoBehaviour
                 };
                 LevelDataContainer.instance.levelData.notes.Add(note);
             }
-            else if (beatmap.HitObjects[i].Position.X == 426)
+            else if (beatmap.HitObjects[i].Position.X == 426 || beatmap.HitObjects[i].Position.X == 342)
             {
                 type = NoteType.Flick;
                 
