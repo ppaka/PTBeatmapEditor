@@ -35,7 +35,7 @@ public class FileManager : MonoBehaviour
 	public void ImportOsuBeatmap()
 	{
 		string[] path =
-			StandaloneFileBrowser.OpenFilePanel("osu! 비트맵 불러오기", null, "osu", false);
+			StandaloneFileBrowser.OpenFilePanel("osu! 비트맵 불러오기", null, new[]{new ExtensionFilter("비트맵 파일", "osz")}, false);
 
 		if (path.Length > 0)
 		{

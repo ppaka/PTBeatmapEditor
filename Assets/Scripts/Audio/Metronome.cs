@@ -23,8 +23,7 @@ public class Metronome : MonoBehaviour
 
 		// Debug.Log(audioSource.timeSamples);
 		// ((float) audioSource.timeSamples / (float) audioSource.clip.frequency).Log();
-		if (audioSource.timeSamples >= nextSample)
-			StartCoroutine(TicSfx());
+		if (audioSource.timeSamples >= nextSample) StartCoroutine(TicSfx());
 	}
 
 	public void StartMet()
@@ -45,7 +44,7 @@ public class Metronome : MonoBehaviour
 		//if (musicBpm <= 0) musicBpm = manager.AnalyzeBpm();
 		try
 		{
-			musicBpm = LevelDataContainer.instance.levelData.timings[0].bpm;
+			musicBpm = LevelDataContainer.Instance.levelData.timings[0].bpm;
 		}
 		catch
 		{

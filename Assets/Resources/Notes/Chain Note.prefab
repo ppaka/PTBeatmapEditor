@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -65,7 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8722924714100469040, guid: fbad4fabc8337be409bf2fac7186ca4d, type: 3}
+  m_Sprite: {fileID: 8722924714100469040, guid: fbad4fabc8337be409bf2fac7186ca4d,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -140,7 +141,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8039372748551541876, guid: fbad4fabc8337be409bf2fac7186ca4d, type: 3}
+  m_Sprite: {fileID: 8039372748551541876, guid: fbad4fabc8337be409bf2fac7186ca4d,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -160,8 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5731347560348961840}
   - component: {fileID: 3955810090218961291}
-  - component: {fileID: 2749419372218041116}
-  - component: {fileID: 340674041447687647}
+  - component: {fileID: 1534983207426104411}
   m_Layer: 5
   m_Name: Chain Note
   m_TagString: Long Note
@@ -197,7 +198,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5344214501855365300}
   m_CullTransparentMesh: 1
---- !u!114 &2749419372218041116
+--- !u!114 &1534983207426104411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,22 +207,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 5344214501855365300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6137a4c77e6f4e3781d20c7de1e9d596, type: 3}
+  m_Script: {fileID: 11500000, guid: 840467a7845f47442a30a16fe7fa224e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 0
+  noteType: 2
   images:
   - {fileID: 9012966535146819054}
   - {fileID: 475298197152703071}
   - {fileID: 8998069482131779236}
   sprites: []
   isLastNote: 0
-  songTime: {fileID: 0}
+  gamePlaySystem: {fileID: 0}
+  timingSystem: {fileID: 0}
   perfectEvt: []
   goodEvt: []
   missEvt: []
-  thisImage: {fileID: 0}
+  thisImage: {fileID: 475298197152703071}
   modelImage: {fileID: 2799348288757243073}
+  colliderParent: {fileID: 0}
+  headCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  endCollider: {fileID: 0}
+  headNativePos: {x: -49.645977, y: 0, z: 0}
+  bodyNativePos: {x: 49.707924, y: -0.22000122, z: 0}
+  endNativePos: {x: 27.738728, y: 0, z: 0}
+  ease: 1
   startTime: 0
   perfectTime: 0
   startTransform: {fileID: 0}
@@ -230,21 +240,6 @@ MonoBehaviour:
   perfectPos: {x: 0, y: 0, z: 0}
   cleared: 0
   number: 0
-  separate: 1
-  playingTime: 0
-  thisCanvasGroup: {fileID: 340674041447687647}
---- !u!225 &340674041447687647
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5344214501855365300}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &7704430053025212330
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -348,7 +343,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6257677035871968672, guid: fbad4fabc8337be409bf2fac7186ca4d, type: 3}
+  m_Sprite: {fileID: 6257677035871968672, guid: fbad4fabc8337be409bf2fac7186ca4d,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -37,7 +37,7 @@ public class NoteManager : MonoBehaviour
 
     void Load()
     {
-        NoteEvents = LevelDataContainer.instance.noteEvents;
+        NoteEvents = LevelDataContainer.Instance.noteEvents;
         Init();
     }
 
@@ -85,7 +85,7 @@ public class NoteManager : MonoBehaviour
 
         _notes = new List<Note>();
 
-        foreach (var data in LevelDataContainer.instance.levelData.notes)
+        foreach (var data in LevelDataContainer.Instance.levelData.notes)
         {
             MakeNote(data);
         }

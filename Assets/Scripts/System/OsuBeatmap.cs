@@ -18,8 +18,8 @@ public class OsuBeatmap : MonoBehaviour
     {
         Beatmap beatmap = BeatmapDecoder.Decode(path);
 
-        LevelDataContainer.instance.levelData.timings = new List<Timings>();
-        LevelDataContainer.instance.levelData.notes = new List<Notes>();
+        LevelDataContainer.Instance.levelData.timings = new List<Timings>();
+        LevelDataContainer.Instance.levelData.notes = new List<Notes>();
 
         foreach (var point in beatmap.TimingPoints)
         {
@@ -40,7 +40,7 @@ public class OsuBeatmap : MonoBehaviour
                 }
                 
                 Timings timings = new Timings { beat = signature, bpm = bpm, time = point.Offset};
-                LevelDataContainer.instance.levelData.timings.Add(timings);
+                LevelDataContainer.Instance.levelData.timings.Add(timings);
             }
         }
 
@@ -58,7 +58,7 @@ public class OsuBeatmap : MonoBehaviour
                     hitSoundTag = "h1",
                     endTime = null, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
                 };
-                LevelDataContainer.instance.levelData.notes.Add(note);
+                LevelDataContainer.Instance.levelData.notes.Add(note);
             }
             else if (beatmap.HitObjects[i].Position.X == 256)
             {
@@ -70,7 +70,7 @@ public class OsuBeatmap : MonoBehaviour
                     hitSoundTag = "h1",
                     endTime = beatmap.HitObjects[i].EndTime, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
                 };
-                LevelDataContainer.instance.levelData.notes.Add(note);
+                LevelDataContainer.Instance.levelData.notes.Add(note);
             }
             else if (beatmap.HitObjects[i].Position.X == 426 || beatmap.HitObjects[i].Position.X == 342)
             {
@@ -82,7 +82,7 @@ public class OsuBeatmap : MonoBehaviour
                     hitSoundTag = "h1",
                     endTime = null, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
                 };
-                LevelDataContainer.instance.levelData.notes.Add(note);
+                LevelDataContainer.Instance.levelData.notes.Add(note);
             }
 
         }

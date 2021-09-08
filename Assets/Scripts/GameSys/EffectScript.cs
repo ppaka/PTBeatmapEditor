@@ -39,7 +39,7 @@ public class EffectScript : MonoBehaviour
 
     private void Awake()
     {
-        //GetVolumeData();
+        GetVolumeData();
     }
 
     private void GetVolumeData()

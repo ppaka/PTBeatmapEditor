@@ -6,9 +6,9 @@ public class LevelTimings : MonoBehaviour
     {
         get
         {
-            if (LevelDataContainer.instance.levelData.timings != null && LevelDataContainer.instance.levelData.timings.Count != 0)
+            if (LevelDataContainer.Instance.levelData.timings != null && LevelDataContainer.Instance.levelData.timings.Count != 0)
             {
-                return (int) LevelDataContainer.instance.levelData.timings[0].time;
+                return (int) LevelDataContainer.Instance.levelData.timings[0].time;
             }
 
             return 0;

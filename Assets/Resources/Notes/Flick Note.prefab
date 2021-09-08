@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777168333211678243}
   - component: {fileID: 3777168333211678269}
-  - component: {fileID: 7420931989122929614}
-  - component: {fileID: 6573760614702945664}
+  - component: {fileID: 138573018468360380}
   m_Layer: 5
   m_Name: Flick Note
   m_TagString: Note
@@ -47,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3777168333211678240}
   m_CullTransparentMesh: 1
---- !u!114 &7420931989122929614
+--- !u!114 &138573018468360380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,22 +55,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 3777168333211678240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6137a4c77e6f4e3781d20c7de1e9d596, type: 3}
+  m_Script: {fileID: 11500000, guid: 840467a7845f47442a30a16fe7fa224e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteType: 0
+  noteType: 1
   images:
   - {fileID: 6352328730526878957}
   sprites:
-  - {fileID: 1526643400815737820, guid: e60de2d71517402458b819cd397d7c99, type: 3}
   - {fileID: -8130939169238197271, guid: e60de2d71517402458b819cd397d7c99, type: 3}
+  - {fileID: 1526643400815737820, guid: e60de2d71517402458b819cd397d7c99, type: 3}
   isLastNote: 0
-  songTime: {fileID: 0}
+  gamePlaySystem: {fileID: 0}
+  timingSystem: {fileID: 0}
   perfectEvt: []
   goodEvt: []
   missEvt: []
   thisImage: {fileID: 6352328730526878957}
   modelImage: {fileID: 6411385868978299338}
+  colliderParent: {fileID: 0}
+  headCollider: {fileID: 0}
+  bodyCollider: {fileID: 0}
+  endCollider: {fileID: 0}
+  headNativePos: {x: 0, y: 0, z: 0}
+  bodyNativePos: {x: 0, y: 0, z: 0}
+  endNativePos: {x: 0, y: 0, z: 0}
+  ease: 1
   startTime: 0
   perfectTime: 0
   startTransform: {fileID: 0}
@@ -80,21 +88,6 @@ MonoBehaviour:
   perfectPos: {x: 0, y: 0, z: 0}
   cleared: 0
   number: 0
-  separate: 1
-  playingTime: 0
-  thisCanvasGroup: {fileID: 6573760614702945664}
---- !u!225 &6573760614702945664
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3777168333211678240}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &7828916866010818823
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -160,7 +153,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8130939169238197271, guid: e60de2d71517402458b819cd397d7c99, type: 3}
+  m_Sprite: {fileID: -8130939169238197271, guid: e60de2d71517402458b819cd397d7c99,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

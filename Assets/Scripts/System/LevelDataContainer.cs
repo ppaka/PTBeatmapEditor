@@ -16,7 +16,7 @@ public enum ResourceType
 
 public class LevelDataContainer : MonoBehaviour
 {
-	public static LevelDataContainer instance;
+	public static LevelDataContainer Instance;
 
 	public LevelTimings levelTimings;
 
@@ -40,7 +40,7 @@ public class LevelDataContainer : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;
+		Instance = this;
 	}
 
 	bool loadedCompletely = true;
