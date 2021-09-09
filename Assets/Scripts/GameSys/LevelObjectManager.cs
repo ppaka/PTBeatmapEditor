@@ -20,9 +20,7 @@ public class LevelObjectManager : MonoBehaviour
 
 	public void Load()
 	{
-		if (!Obj.ContainsKey("gameBar"))
-			Obj.Add("gameBar", objects[0]);
 		if (!Obj.ContainsKey("bgImage"))
-			Obj.Add("bgImage", objects[1]);
+			Obj.Add("bgImage", objects[0]);
 	}
 }
