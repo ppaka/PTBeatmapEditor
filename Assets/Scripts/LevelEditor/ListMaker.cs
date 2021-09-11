@@ -223,7 +223,7 @@ public class ListMaker : MonoBehaviour
 
     public void AddNoteData()
     {
-        int time = Mathf.RoundToInt(songTime.audioSource.time * 1000) - LevelTimings.startOffset;
+        int time = Mathf.RoundToInt(AudioManager.Instance.audioFile.Position * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond * 1000) - LevelTimings.startOffset;
 
         ItemData iData = Instantiate(itemPrefab, noteListParent.transform).GetComponent<ItemData>();
         iData.itemType = ItemData.ItemType.Note;

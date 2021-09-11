@@ -1,27 +1,28 @@
+using NAudio.Wave;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-	public AudioSource audioSource;
 	public Slider slider;
 	public SongTime songTime;
 	public bool doScrubbing;
 
-	public Metronome metronome;
-	AudioClip _clip;
 	bool _dragging;
 
 	void Update()
 	{
-		switch (_dragging)
+		if (AudioManager.Instance.outputDevice != null)
 		{
-			case false when audioSource.isPlaying:
-				slider.value = audioSource.time / audioSource.clip.length;
-				break;
-			case false when !audioSource.isPlaying && audioSource.time != 0:
-				break;
+			switch (_dragging)
+			{
+				case false when AudioManager.Instance.outputDevice.PlaybackState == PlaybackState.Playing:
+					slider.value = AudioManager.Instance.audioFile.Position;
+					break;
+				case false when AudioManager.Instance.outputDevice.PlaybackState != PlaybackState.Playing && AudioManager.Instance.audioFile.Position != 0:
+					break;
+			}
 		}
 	}
 
@@ -42,10 +43,10 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 		if (!slider.interactable) return;
 		songTime.changed = true;
 		_dragging = true;
-		float value = Mathf.Clamp(slider.value * _clip.length, 0, _clip.length);
-		songTime.UpdateTime(value, doScrubbing);
+		float value = Mathf.Clamp(slider.value, 0, AudioManager.Instance.audioFile.Length);
+		songTime.UpdateTime((long)value, doScrubbing);
 
-		if (doScrubbing) metronome.isSongPositionMove = true;
+		/*if (doScrubbing) metronome.isSongPositionMove = true;*/
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
@@ -57,19 +58,18 @@ public class SongSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
 	public void OnPointerUp(PointerEventData eventData)
 	{
 		if (!slider.interactable) return;
-		float value = Mathf.Clamp(slider.value * _clip.length, 0f, _clip.length);
-		songTime.UpdateTime(value);
+		float value = Mathf.Clamp(slider.value * AudioManager.Instance.audioFile.Length, 0f, AudioManager.Instance.audioFile.Length);
+		songTime.UpdateTime((long)value);
 
 		songTime.changed = false;
 		_dragging = false;
 
-		metronome.isSongPositionMove = true;
-		metronome.StartMet();
+		/*metronome.isSongPositionMove = true;
+		metronome.StartMet();*/
 	}
 
 	void LoadEvents()
 	{
 		slider.interactable = true;
-		_clip = audioSource.clip;
 	}
 }

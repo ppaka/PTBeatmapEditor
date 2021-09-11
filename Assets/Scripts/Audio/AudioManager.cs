@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,9 +9,12 @@ using NAudioBPM;
 using NAudioMetronome;
 using SFB;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
+	public static AudioManager Instance;
+	
 	public SongSlider songSlider;
 	public SongTime songTime;
 	
@@ -21,6 +25,7 @@ public class AudioManager : MonoBehaviour
 
 	public void OnEnable()
 	{
+		Instance = this;
 		SystemEvents.audioLoadComplete += ResetAudio;
 	}
 
@@ -36,7 +41,7 @@ public class AudioManager : MonoBehaviour
 
 	void OnApplicationQuit()
 	{
-		_thread?.Abort();
+		if (_thread != null) _thread.Abort();
 		outputDevice.Stop();
 		metronomeEngine.Stop();
 	}
@@ -55,10 +60,11 @@ public class AudioManager : MonoBehaviour
 		string[] path =
 			StandaloneFileBrowser.OpenFilePanel("음악 파일 불러오기", null, new[]{new ExtensionFilter("음악 파일", "mp3")}, false);
 		audioFile = new AudioFileReader(new Url(path[0]).Value);
-		
+
 		BPMDetector bpmDetector = new BPMDetector(new Url(path[0]).Value, 0, 0);
 		if (bpmDetector.Groups.Length > 0) bpm = bpmDetector.Groups[0].Tempo;
-		if (bpmDetector.Groups.Length > 0)
+
+		/*if (bpmDetector.Groups.Length > 0)
 		{
 			print(string.Format("Most probable BPM is {0} ({1} samples)", bpmDetector.Groups[0].Tempo, bpmDetector.Groups[0].Count));
 			if (bpmDetector.Groups.Length > 1)
@@ -69,7 +75,7 @@ public class AudioManager : MonoBehaviour
 					print(string.Format("{0} BPM ({1} samples)", bpmDetector.Groups[i].Tempo, bpmDetector.Groups[i].Count));
 				}
 			}
-		}
+		}*/
 		
 		_thread?.Abort();
 
@@ -82,9 +88,26 @@ public class AudioManager : MonoBehaviour
 		outputDevice.Init(audioFile);
 		outputDevice.Volume = 0.07f;
 		metronomeEngine = new AudioEngine();
-		
+
 		outputDevice.Play();
-		metronomeEngine.Play((int) bpm, 4, 1.48f);
+		metronomeEngine.Play((int)bpm, 4, 1.48f);
+		outputDevice.PlaybackStopped += (sender, args) =>
+		{
+			if (audioFile.Position == audioFile.Length)
+				metronomeEngine.Stop();
+		};
+
+		UnityMainThread.wkr.AddJob(() =>
+		{
+			songSlider.slider.maxValue = audioFile.Length;
+			songSlider.slider.minValue = 0;
+			songSlider.slider.value = audioFile.Position;
+		});
+}
+
+	public void ChangePositionTest(float value)
+	{
+		audioFile.Position = (long)(audioFile.Length * value);
 	}
 
 	public void AudioStop()

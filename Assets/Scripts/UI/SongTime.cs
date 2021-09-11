@@ -1,5 +1,7 @@
 using System;
 using System.Globalization;
+using NAudio.Utils;
+using NAudio.Wave;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +9,6 @@ public class SongTime : MonoBehaviour
 {
     public LevelDataContainer ldc;
     public SongSlider slider;
-    public AudioSource audioSource;
     public TMP_InputField songTimeTextField;
 
     public bool changed;
@@ -34,8 +35,9 @@ public class SongTime : MonoBehaviour
 
     void Update()
     {
-        if (changed || !audioSource.isPlaying) return;
-        UpdateTime(audioSource.time, false);
+        if (AudioManager.Instance.outputDevice== null) return;
+        if (changed || AudioManager.Instance.outputDevice.PlaybackState != PlaybackState.Playing) return;
+        UpdateTime((float) AudioManager.Instance.outputDevice.GetPosition(), false);
     }
 
     public void MoveTime(string value)
@@ -44,31 +46,29 @@ public class SongTime : MonoBehaviour
 
         if (int.TryParse(value, NumberStyles.Integer, null, out int time))
         {
-            time += LevelTimings.startOffset;
-            UpdateTime(time * 0.001f);
-            slider.slider.value = audioSource.time / audioSource.clip.length;
+            UpdateTime(time * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond);
+            slider.slider.value = AudioManager.Instance.audioFile.Position;
         }
         else if (SongTimeConverter.ToInt(value, out time))
         {
-            time += LevelTimings.startOffset;
-            UpdateTime(time * 0.001f);
-            slider.slider.value = audioSource.time / audioSource.clip.length;
+            UpdateTime(time * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond);
+            slider.slider.value = AudioManager.Instance.audioFile.Position;
         }
         else
         {
-            UpdateTime(audioSource.time, false);
+            UpdateTime(AudioManager.Instance.audioFile.Position, false);
         }
     }
 
     public void UpdateTime(float songTime, bool changeAudioSourceTime = true)
     {
-        if (changeAudioSourceTime)
-            audioSource.time = songTime;
+        if (changeAudioSourceTime) AudioManager.Instance.audioFile.Position = (long) songTime;
 
+        var audioTime = songTime / (float) AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond;
         DateTime time;
         /*time = new DateTime((long)(((decimal)songTime - (decimal)(LevelTimings.startOffset * 0.001f)) *
                                    TimeSpan.TicksPerSecond));*/
-        time = new DateTime((long)((decimal)songTime * TimeSpan.TicksPerSecond));
+        time = new DateTime((long)((decimal)audioTime * TimeSpan.TicksPerSecond));
         songTimeTextField.text = $"{time.Hour:00}:{time.Minute:00}:{time.Second:00};{time.Millisecond:000}";
     }
 }

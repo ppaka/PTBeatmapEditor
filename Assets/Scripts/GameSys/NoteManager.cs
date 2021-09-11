@@ -49,7 +49,7 @@ public class NoteManager : MonoBehaviour
         {
             if (data.noteType != NoteType.Chain)
             {
-                if (data.playingTime >= 0 && songTime.audioSource.time <= data.perfectTime)
+                if (data.playingTime >= 0 && AudioManager.Instance.audioFile.Position * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond <= data.perfectTime)
                 {
                     data.thisCanvasGroup.alpha = 1;
                 }
@@ -60,7 +60,7 @@ public class NoteManager : MonoBehaviour
             }
             else
             {
-                if (data.playingTime >= 0 && songTime.audioSource.time <= data.noteEndTime)
+                if (data.playingTime >= 0 && AudioManager.Instance.audioFile.Position * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond <= data.noteEndTime)
                 {
                     data.thisCanvasGroup.alpha = 1;
                 }

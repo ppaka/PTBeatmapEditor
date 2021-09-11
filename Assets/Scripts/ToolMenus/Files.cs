@@ -47,6 +47,9 @@ public class Files : MonoBehaviour
 	public void Quit()
 	{
 		Application.Quit();
+#if !UNITY_EDITOR
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+#endif
 		_menuBar.HideToolMenus();
 	}
 }

@@ -40,7 +40,7 @@ public class Note : MonoBehaviour
 	{
 		//if (!_spawned) return;
 
-		playingTime = songTime.audioSource.time - startTime - duration / separate * (tries - 1);
+		playingTime = AudioManager.Instance.audioFile.Position * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond - startTime - duration / separate * (tries - 1);
 
 		// 미스내기
 		/*if (!cleared)

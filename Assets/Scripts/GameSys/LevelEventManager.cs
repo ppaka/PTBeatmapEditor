@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using NAudio.Wave;
 using UnityEngine;
 
 // ReSharper disable SuggestVarOrType_SimpleTypes
@@ -32,9 +33,10 @@ public class LevelEventManager : MonoBehaviour
 
     void Update()
     {
-        if (songTime.audioSource.isPlaying)
+        if (AudioManager.Instance.outputDevice== null) return;
+        if (AudioManager.Instance.outputDevice.PlaybackState == PlaybackState.Playing)
         {
-            eventSequence.GotoWithCallbacks(songTime.audioSource.time, false);
+            eventSequence.GotoWithCallbacks(AudioManager.Instance.audioFile.Position * AudioManager.Instance.audioFile.WaveFormat.AverageBytesPerSecond, false);
         }
     }
 
