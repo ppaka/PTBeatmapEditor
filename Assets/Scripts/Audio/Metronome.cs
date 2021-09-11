@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using NAudio.Wave;
 using UnityEngine;
 
 public class Metronome : MonoBehaviour
 {
-	[Header("Objects")] [SerializeField] AudioSource audioSource;
+	[Header("Objects")]
 	[SerializeField] AudioManager manager;
 	[SerializeField] AudioSource ticSource;
 
@@ -19,18 +20,20 @@ public class Metronome : MonoBehaviour
 
 	void Update()
 	{
-		if (isSongPositionMove || isMute || audioSource.clip == null || !audioSource.isPlaying) return;
+		if (isSongPositionMove || isMute || manager.audioFile == null || manager.outputDevice.PlaybackState != PlaybackState.Playing) return;
 
-		// Debug.Log(audioSource.timeSamples);
-		// ((float) audioSource.timeSamples / (float) audioSource.clip.frequency).Log();
-		if (audioSource.timeSamples >= nextSample) StartCoroutine(TicSfx());
+		if (manager.audioFile.Position >= nextSample)
+		{
+			print(manager.audioFile.Position);
+			StartCoroutine(TicSfx());
+		}
 	}
 
 	public void StartMet()
 	{
 		isMute = true;
 
-		if (audioSource.clip == null)
+		if (manager.audioFile == null)
 		{
 			Debug.Log("클립이 비어있습니다.");
 			return;
@@ -50,29 +53,25 @@ public class Metronome : MonoBehaviour
 		{
 			musicBpm = 120;
 		}
+
+		musicBpm = 170;
 		if (stdBpm <= 0) stdBpm = 60.0;
 		if (musicBeat <= 0) musicBeat = 4;
 		if (stdBeat <= 0) stdBeat = 4;
 
 		if (oneBeatTime != stdBpm / musicBpm * (musicBeat / stdBeat)) isSongPositionMove = true;
 
-		offsetForSample = _offset * audioSource.clip.frequency;
+		offsetForSample = _offset * manager.audioFile.WaveFormat.AverageBytesPerSecond;
 		oneBeatTime = stdBpm / musicBpm * (musicBeat / stdBeat);
 
-		//audioSource.clip.frequency.Log();
-		//audioSource.clip.samples.Log();
-
-		beatPerSample = oneBeatTime * audioSource.clip.frequency;
+		beatPerSample = oneBeatTime;
 		nextSample = offsetForSample;
 
+		print("샘플 당 비트 " + beatPerSample);
+		
 		MovePosition();
 
 		isMute = false;
-
-		//Debug.Log(nextSample);
-		//Debug.Log(oneBeatTime * audioSource.clip.frequency);
-
-		// (audioSource.clip.samples / audioSource.clip.frequency).Log();
 	}
 
 	public void MovePosition()
@@ -80,26 +79,27 @@ public class Metronome : MonoBehaviour
 		if (!isSongPositionMove)
 			isSongPositionMove = true;
 
-		// double newSample = oneBeatTime * audioSource.clip.frequency + offsetForSample;
-
 		double newSample = offsetForSample;
 
-		while (newSample <= audioSource.timeSamples)
+		while (newSample <= manager.audioFile.Position)
 		{
-			if (newSample > audioSource.timeSamples) break;
+			if (newSample > manager.audioFile.Position) break;
 			newSample += beatPerSample;
 		}
 
 		isSongPositionMove = false;
 
 		nextSample = newSample;
+		
+		Debug.Log("새로운 샘플 : " + newSample);
 	}
 
 	IEnumerator TicSfx()
 	{
 		ticSource.Play();
-		beatPerSample = oneBeatTime * audioSource.clip.frequency;
+		beatPerSample = oneBeatTime * manager.audioFile.WaveFormat.AverageBytesPerSecond;
 		nextSample += beatPerSample;
+		Debug.Log(nextSample + " : " + beatPerSample);
 		// gameObject.transform.Rotate(rotateAngle);
 		yield return null;
 	}

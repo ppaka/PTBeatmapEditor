@@ -6110,7 +6110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &317254716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6123,7 +6123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7282ae5e515a42769fe20b3198e1f19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 837886784}
   manager: {fileID: 1642085555}
   ticSource: {fileID: 317254717}
   musicBpm: 120
@@ -10763,11 +10762,11 @@ Avatar:
         m_X: []
     m_RootMotionSkeletonIndexArray: 
   m_TOS:
-    969108382: btns/btn2/button_img/blast
+    2480392549: btns/btn4/button_img
+    3880722666: btns/btn3/button_img
     743433351: btns/btn9/button_img/shadow
     2135679144: btns/btn7/Point Light 2D
     4176201163: btns/btn5/Point Light 2D
-    845921432: btns/btn6/button_img/blast
     4037337335: btns/btn3/Knob_img
     793840351: btns/btn3
     1482046025: btns/btn2
@@ -10787,11 +10786,11 @@ Avatar:
     2260238251: btns/btn2/button_img/shadow
     636418306: btns/btn1/button_img/shadow
     3829996437: btns/btn7/button_img
-    3884347454: btns/btn9/Knob_img
-    2095737989: btns/btn2/button_img
-    85081534: btns/btn2/Point Light 2D
-    675073734: btns/btn7
     2973081468: btns/btn4
+    85081534: btns/btn2/Point Light 2D
+    2095737989: btns/btn2/button_img
+    3884347454: btns/btn9/Knob_img
+    675073734: btns/btn7
     459568312: btns/btn4/button_img/shadow
     1364918259: btns/btn3/button_img/shadow
     141722890: btns/btn5/button_img
@@ -10817,8 +10816,8 @@ Avatar:
     3095647063: btns/btn8
     192200309: btns/btn1/button_img
     3599883647: btns/btn3/button_img/blast
-    3880722666: btns/btn3/button_img
-    2480392549: btns/btn4/button_img
+    969108382: btns/btn2/button_img/blast
+    845921432: btns/btn6/button_img/blast
   m_HumanDescription:
     serializedVersion: 3
     m_Human: []
@@ -26335,18 +26334,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 317254716}
-        m_TargetAssemblyTypeName: Metronome, Assembly-CSharp
-        m_MethodName: StartMet
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1366748227}
         m_TargetAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
         m_MethodName: set_readOnly
@@ -28438,9 +28425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66972a602ec20fc4085100c2766793d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 837886784}
   songSlider: {fileID: 1837671371}
   songTime: {fileID: 1642085554}
+  bpm: 0
 --- !u!114 &1642085556
 MonoBehaviour:
   m_ObjectHideFlags: 0

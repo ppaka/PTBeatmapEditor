@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NAudio.Wave;
 using UnityEngine;
 
 public class UniBpmAnalyzer
@@ -40,7 +41,7 @@ public class UniBpmAnalyzer
 		clip.GetData(allSamples, 0);
 
 		// Create volume array from all sample data
-		float[] volumeArr = CreateVolumeArray(allSamples, frequency, channels, splitFrameSize);
+		float[] volumeArr = CreateVolumeArray(allSamples, splitFrameSize);
 
 		// Search bpm from volume array
 		int bpm = SearchBpm(volumeArr, frequency, splitFrameSize);
@@ -77,18 +78,58 @@ public class UniBpmAnalyzer
 		clip.GetData(allSamples, 0);
 
 		// Create volume array from all sample data
-		float[] volumeArr = CreateVolumeArray(allSamples, frequency, channels, splitFrameSize);
+		float[] volumeArr = CreateVolumeArray(allSamples, splitFrameSize);
 
+		Debug.Log(clip.samples);
+		Debug.Log(channels);
+		Debug.Log(allSamples.Length);
+		
 		// Search bpm from volume array
 		int bpm = SearchBpm(volumeArr, frequency, splitFrameSize);
 
 		return bpm;
 	}
+    
+    /// <summary>
+    ///     Analyze BPM from an audio for NAudio
+    /// </summary>
+    /// <param name="clip">target audio clip</param>
+    /// <returns>bpm</returns>
+    public static int AnalyzeBpmWithoutLoggingNAudio(AudioFileReader clip)
+    {
+	    for (int i = 0; i < bpmMatchDatas.Length; i++) bpmMatchDatas[i].match = 0f;
+	    if (clip == null) return -1;
+
+	    int frequency = clip.WaveFormat.AverageBytesPerSecond * 8 / 1000;
+
+	    int channels = clip.WaveFormat.Channels;
+
+	    int splitFrameSize = Mathf.FloorToInt(frequency / (float) BASE_FREQUENCY * (channels / (float) BASE_CHANNELS) *
+	                                          BASE_SPLIT_SAMPLE_SIZE);
+
+	    Debug.Log(clip.WaveFormat.SampleRate);
+	    clip.Length.Log();
+	    // Get all sample data from audioclip
+	    Debug.Log(channels);
+	    float[] allSamples = new float[clip.WaveFormat.SampleRate * channels];
+	    Debug.Log(allSamples.Length);
+	    clip.Read(allSamples, 0, allSamples.Length);
+
+	    var wholeFile = new List<float>((int) (clip.Length / 4));
+	    
+	    // Create volume array from all sample data
+	    float[] volumeArr = CreateVolumeArray(allSamples, splitFrameSize);
+
+	    // Search bpm from volume array
+	    int bpm = SearchBpm(volumeArr, frequency, splitFrameSize);
+
+	    return bpm;
+    }
 
     /// <summary>
     ///     Create volume array from all sample data
     /// </summary>
-    static float[] CreateVolumeArray(float[] allSamples, int frequency, int channels, int splitFrameSize)
+    static float[] CreateVolumeArray(float[] allSamples, int splitFrameSize)
 	{
 		// Initialize volume array
 		float[] volumeArr = new float[Mathf.CeilToInt(allSamples.Length / (float) splitFrameSize)];
