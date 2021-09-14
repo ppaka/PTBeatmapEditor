@@ -18,6 +18,8 @@ public class OsuBeatmap : MonoBehaviour
     {
         Beatmap beatmap = BeatmapDecoder.Decode(path);
 
+        var offset = LevelDataContainer.Instance.levelData.timings[0];
+
         LevelDataContainer.Instance.levelData.timings = new List<Timings>();
         LevelDataContainer.Instance.levelData.notes = new List<Notes>();
 
@@ -44,6 +46,13 @@ public class OsuBeatmap : MonoBehaviour
             }
         }
 
+        var timingDifferent = LevelDataContainer.Instance.levelData.timings[0].time - offset.time;
+        foreach (var evt in LevelDataContainer.Instance.levelData.events)
+        {
+            evt.time += timingDifferent;
+        }
+        
+        
         for (int i = 0; i < beatmap.HitObjects.Count; i++)
         {
             NoteType type;
