@@ -46,13 +46,18 @@ public class OsuBeatmap : MonoBehaviour
             }
         }
 
-        var timingDifferent = LevelDataContainer.Instance.levelData.timings[0].time - offset.time;
+        /*var timingDifferent = LevelDataContainer.Instance.levelData.timings[0].time - offset.time;
         foreach (var evt in LevelDataContainer.Instance.levelData.events)
         {
             evt.time += timingDifferent;
+        }*/
+
+        var noteCountDifferent = LevelDataContainer.Instance.levelData.notes.Count - beatmap.HitObjects.Count;
+        foreach (var evt in LevelDataContainer.Instance.levelData.noteEvents)
+        {
+            evt.noteNum = (uint)(evt.noteNum - noteCountDifferent);
         }
-        
-        
+
         for (int i = 0; i < beatmap.HitObjects.Count; i++)
         {
             NoteType type;

@@ -22,5 +22,10 @@ public class LevelObjectManager : MonoBehaviour
 	{
 		if (!Obj.ContainsKey("bgImage"))
 			Obj.Add("bgImage", objects[0]);
+		Objects gameBar = null;
+		if ((gameBar = LevelDataContainer.Instance.levelData.objects.Find(o => o.type == "gameBar")) != null)
+		{
+			
+		}
 	}
 }

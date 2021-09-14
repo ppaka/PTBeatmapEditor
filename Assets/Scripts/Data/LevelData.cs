@@ -69,6 +69,12 @@ public class Events
     public int? vibrato;
     public bool? fadeout;
 
+    public float? jumpPower;
+    public int? jumps;
+
+    public string animType;
+    public float[] parsedTime;
+
     public string target;
     public string color;
     public float? duration;
@@ -83,7 +89,28 @@ public enum NoteType
 {
     Normal = 0,
     Flick = 1,
-    Chain = 2
+    Chain = 2,
+    Hold = 3
+}
+
+[Serializable]
+[JsonConverter(typeof(StringEnumConverter))]
+public enum EventTypes
+{
+    killTween,
+    postProcessing,
+    accuracyEffect,
+    setParticle,
+    setParticleColor,
+    clearParticle,
+    setColor,
+    setScreenColor,
+    move2d,
+    jump2d,
+    rotate,
+    scale2d,
+    shake2d,
+    playCharAnim
 }
 
 [Serializable]
@@ -180,7 +207,6 @@ public class Settings
     public int goodAccuracyEffect = 1;
     public int missAccuracyEffect = 1;
     public float accuracyEffectDuration = 1;
-    public float characterOpacity = 1;
 }
 
 [Serializable]
@@ -198,11 +224,20 @@ public class Objects
     public float[] scale;
     public float[] rotation;
     public int? depth;
-    public bool? behindButtons;
+    public ShowOnCanvas? behindButtons;
     public bool? visible;
 
     public string imageType;
     public float? pixelPerUnitMultiplier;
+}
+
+[Serializable]
+[JsonConverter(typeof(StringEnumConverter))]
+public enum ShowOnCanvas
+{
+    Normal,
+    GameBar,
+    Button
 }
 
 [Serializable]
