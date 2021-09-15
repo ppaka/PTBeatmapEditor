@@ -14,6 +14,71 @@ public class OsuBeatmap : MonoBehaviour
         instance = this;
     }
 
+    public void PushTimings()
+    {
+        /*foreach (var t in LevelDataContainer.Instance.levelData.timings)
+        {
+            t.time += 8;
+        }
+        
+        foreach (var t in LevelDataContainer.Instance.levelData.events)
+        {
+            t.time += 8;
+        }
+        
+        foreach (var t in LevelDataContainer.Instance.levelData.notes)
+        {
+            t.time += 8;
+            if (t.type == NoteType.Chain || t.type == NoteType.Hold)
+            {
+                t.endTime += 8;
+            }
+        }*/
+
+
+        for (var i = 0; i < LevelDataContainer.Instance.levelData.events.Count; i++)
+        {
+            var t = LevelDataContainer.Instance.levelData.events[i];
+            
+            if (t.type == "move2d")
+            {
+                if (t.target == "game1")
+                {
+                    if (t.position[1] == 453.5f)
+                    {
+                        var n = new Events()
+                        {
+                            time = t.time,
+                            type = "move2d",
+                            transformMode = "local",
+                            position = new[] { -251.0f, 617.0f },
+                            target = "charObj",
+                            duration = 1.0f,
+                            ease = "oQ",
+                            tweenId = ""
+                        };
+                        LevelDataContainer.Instance.levelData.events.Add(n);
+                    }
+                    else if (t.position[1] == 253.5f)
+                    {
+                        var n = new Events()
+                        {
+                            time = t.time,
+                            type = "move2d",
+                            transformMode = "local",
+                            position = new[] { -251.0f, 417.0f },
+                            target = "charObj",
+                            duration = 1.0f,
+                            ease = "oQ",
+                            tweenId = ""
+                        };
+                        LevelDataContainer.Instance.levelData.events.Add(n);
+                    }
+                }
+            }
+        }
+    }
+
     public void Import(string path)
     {
         Beatmap beatmap = BeatmapDecoder.Decode(path);
@@ -52,17 +117,11 @@ public class OsuBeatmap : MonoBehaviour
             evt.time += timingDifferent;
         }*/
 
-        var noteCountDifferent = LevelDataContainer.Instance.levelData.notes.Count - beatmap.HitObjects.Count;
-        foreach (var evt in LevelDataContainer.Instance.levelData.noteEvents)
-        {
-            evt.noteNum = (uint)(evt.noteNum - noteCountDifferent);
-        }
-
         for (int i = 0; i < beatmap.HitObjects.Count; i++)
         {
             NoteType type;
             
-            if (beatmap.HitObjects[i].Position.X == 85 || beatmap.HitObjects[i].Position.X == 0)
+            if (beatmap.HitObjects[i].Position.X == 0)
             {
                 type = NoteType.Normal;
                 
@@ -74,7 +133,7 @@ public class OsuBeatmap : MonoBehaviour
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
-            else if (beatmap.HitObjects[i].Position.X == 256)
+            else if (beatmap.HitObjects[i].Position.X == 192)
             {
                 type = NoteType.Chain;
                 
@@ -86,7 +145,7 @@ public class OsuBeatmap : MonoBehaviour
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
-            else if (beatmap.HitObjects[i].Position.X == 426 || beatmap.HitObjects[i].Position.X == 342)
+            else if (beatmap.HitObjects[i].Position.X == 320)
             {
                 type = NoteType.Flick;
                 
@@ -98,7 +157,23 @@ public class OsuBeatmap : MonoBehaviour
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
-
+            else if (beatmap.HitObjects[i].Position.X == 448)
+            {
+                var charAnim = new Events
+                {
+                    time = beatmap.HitObjects[i].StartTime,
+                    animType = "blinking1",
+                    type = "playCharAnim",
+                    parsedTime = new[]
+                    {
+                        0.0f, 0.2f, 0.4f, 0.6f
+                    },
+                    target = "charObj",
+                    tweenId = ""
+                };
+                
+                LevelDataContainer.Instance.levelData.events.Add(charAnim);
+            }
         }
         
         ListMaker.instance.MakeLists();
