@@ -75,6 +75,8 @@ public class Events
     public string animType;
     public float[] parsedTime;
 
+    public float? fade;
+
     public string target;
     public string color;
     public float? duration;

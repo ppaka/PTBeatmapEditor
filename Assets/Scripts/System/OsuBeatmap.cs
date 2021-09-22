@@ -85,10 +85,10 @@ public class OsuBeatmap : MonoBehaviour
 
         var offset = LevelDataContainer.Instance.levelData.timings[0];
 
-        LevelDataContainer.Instance.levelData.timings = new List<Timings>();
-        LevelDataContainer.Instance.levelData.notes = new List<Notes>();
+        //LevelDataContainer.Instance.levelData.timings = new List<Timings>();
+        //LevelDataContainer.Instance.levelData.notes = new List<Notes>();
 
-        foreach (var point in beatmap.TimingPoints)
+        /*foreach (var point in beatmap.TimingPoints)
         {
             if (point.BeatLength != -100)
             {
@@ -109,7 +109,7 @@ public class OsuBeatmap : MonoBehaviour
                 Timings timings = new Timings { beat = signature, bpm = bpm, time = point.Offset};
                 LevelDataContainer.Instance.levelData.timings.Add(timings);
             }
-        }
+        }*/
 
         /*var timingDifferent = LevelDataContainer.Instance.levelData.timings[0].time - offset.time;
         foreach (var evt in LevelDataContainer.Instance.levelData.events)
@@ -117,9 +117,13 @@ public class OsuBeatmap : MonoBehaviour
             evt.time += timingDifferent;
         }*/
 
+        int animCount = 0;
+
+        int evntCount = 0;
+
         for (int i = 0; i < beatmap.HitObjects.Count; i++)
         {
-            NoteType type;
+            /*NoteType type;
             
             if (beatmap.HitObjects[i].Position.X == 0)
             {
@@ -129,7 +133,7 @@ public class OsuBeatmap : MonoBehaviour
                 {
                     customCurveTag = null, duration = 2, ease = "L", time = beatmap.HitObjects[i].StartTime,
                     hitSoundTag = "h1",
-                    endTime = null, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
+                    endTime = null, type = type, noteNum = (uint)(i + 1 - animCount), splitEase = 1, gameBarTag = new []{"game1"}
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
@@ -141,7 +145,7 @@ public class OsuBeatmap : MonoBehaviour
                 {
                     customCurveTag = null, duration = 2, ease = "L", time = beatmap.HitObjects[i].StartTime,
                     hitSoundTag = "h1",
-                    endTime = beatmap.HitObjects[i].EndTime, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
+                    endTime = beatmap.HitObjects[i].EndTime, type = type, noteNum = (uint)(i + 1 - animCount), splitEase = 1, gameBarTag = new []{"game1"}
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
@@ -153,26 +157,79 @@ public class OsuBeatmap : MonoBehaviour
                 {
                     customCurveTag = null, duration = 2, ease = "L", time = beatmap.HitObjects[i].StartTime,
                     hitSoundTag = "h1",
-                    endTime = null, type = type, noteNum = (uint)(i + 1), splitEase = 1, gameBarTag = new []{"game1"}
+                    endTime = null, type = type, noteNum = (uint)(i + 1 - animCount), splitEase = 1, gameBarTag = new []{"game1"}
                 };
                 LevelDataContainer.Instance.levelData.notes.Add(note);
             }
-            else if (beatmap.HitObjects[i].Position.X == 448)
+            else*/ if (beatmap.HitObjects[i].Position.X == 448)
             {
-                var charAnim = new Events
+                animCount++;
+                /*evntCount++;
+                if (evntCount % 2 == 0)
                 {
-                    time = beatmap.HitObjects[i].StartTime,
-                    animType = "blinking1",
-                    type = "playCharAnim",
-                    parsedTime = new[]
+                    var vector = new Vector2(1f, 1f);
+
+                    var evt = new Events
                     {
-                        0.0f, 0.2f, 0.4f, 0.6f
-                    },
-                    target = "charObj",
-                    tweenId = ""
-                };
-                
-                LevelDataContainer.Instance.levelData.events.Add(charAnim);
+                        time = beatmap.HitObjects[i].StartTime,
+                        type = "scale2d",
+                        scale = new []{vector.x, vector.y},
+                        duration = 0.2f,
+                        ease = "L",
+                        target = "_BgImg",
+                        tweenId = ""
+                    };
+                    LevelDataContainer.Instance.levelData.events.Add(evt);
+                }
+                else
+                {
+                    var vector = new Vector2(1.05f, 1.05f);
+
+                    var evt = new Events
+                    {
+                        time = beatmap.HitObjects[i].StartTime,
+                        type = "scale2d",
+                        scale = new []{vector.x, vector.y},
+                        duration = 0.2f,
+                        ease = "L",
+                        target = "_BgImg",
+                        tweenId = ""
+                    };
+                    LevelDataContainer.Instance.levelData.events.Add(evt);
+                }*/
+
+                if (animCount % 4 == 0)
+                {
+                    var charAnim = new Events
+                    {
+                        time = beatmap.HitObjects[i].StartTime,
+                        animType = "blinking2",
+                        type = "playCharAnim",
+                        parsedTime = new[]
+                        {
+                            0.0f, 0.2f, 0.4f, 0.6f
+                        },
+                        target = "charObj",
+                        tweenId = ""
+                    };
+                    LevelDataContainer.Instance.levelData.events.Add(charAnim);
+                }
+                else
+                {
+                    var charAnim = new Events
+                    {
+                        time = beatmap.HitObjects[i].StartTime,
+                        animType = "blinking1",
+                        type = "playCharAnim",
+                        parsedTime = new[]
+                        {
+                            0.0f, 0.2f, 0.4f, 0.6f
+                        },
+                        target = "charObj",
+                        tweenId = ""
+                    };
+                    LevelDataContainer.Instance.levelData.events.Add(charAnim);
+                }
             }
         }
         
